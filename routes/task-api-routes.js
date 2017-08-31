@@ -2,8 +2,11 @@
 var db = require("../models");
 
 module.exports = function(app) {
+<<<<<<< HEAD
 
 //GET ALL TASKS || GET ALL TASKS FROM SPECIFIC USER
+=======
+>>>>>>> signup.html
   app.get("/api/tasks", function(req, res) {
     var query = {};
     if (req.query.User_id) {
