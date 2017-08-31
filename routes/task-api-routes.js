@@ -9,6 +9,8 @@ module.exports = function(app) {
       query.UserId = req.query.User_id;
     }
 
+    console.log("++++",query,"++++");
+
     db.Task.findAll({
       where: query,
       include: [db.User]
