@@ -4,17 +4,14 @@ var db = require("../models");
 module.exports = function(app) {
 
   app.get("/api/lists", function(req, res) {
-    var query = {};
+/*    var query = {};
     if (req.query.User_id) {
       query.UserId = req.query.User_id;
     }
 
-    console.log("++++",query,"++++");
+    console.log("++++",query,"++++");*/
 
-    db.List.findAll({
-      where: query,
-      include: [db.User]
-    }).then(function(dbList) {
+    db.List.findAll({}).then(function(dbList) {
       res.json(dbList);
     });
   });
