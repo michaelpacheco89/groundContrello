@@ -35,8 +35,10 @@ module.exports = function(app) {
     }).then(function(data){
       if(data==null)
         res.json({username:true});
-      res.json({password: compareSync(req.body.password,data.password);
-    });
+      res.json({
+        password: compareSync(req.body.password,data.password),
+        id: data.id
+      });
   });
 
   // to create new user
