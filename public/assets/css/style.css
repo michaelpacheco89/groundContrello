@@ -1,0 +1,23 @@
+body{
+	box-sizing: border-box;
+	color:white;
+	background:#0079BF;
+}
+
+h1{
+	font-family: 'Roboto', sans-serif;
+}
+
+button {
+	color:white;
+}
+.container{
+	width:100%;
+	height:100%;
+
+}
+
+.jumbotron{
+	background-color:#026AA7;
+}
+
