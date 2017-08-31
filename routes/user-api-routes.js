@@ -10,10 +10,14 @@ module.exports = function(app) {
   });
 
   app.get("/api/users/:id", function(req, res) {
+    var query = {};
+    if(req.query.name){
+      query = req.query;
+    } else {
+      query.id = req.params.id;
+    }
     db.User.findOne({
-      where: {
-        id: req.params.id
-      },
+      where: query,
       include: [db.Task]
     }).then(function(dbUser) {
       res.json(dbUser);
