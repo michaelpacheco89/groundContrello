@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Task.associate = function(models) {
-    Task.belongsTo(models.User, {
+    Task.belongsTo(models.List, {
       foreignKey: {
         allowNull: false
       }
