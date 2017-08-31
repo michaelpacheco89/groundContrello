@@ -3,18 +3,21 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-//GET ALL TASKS || GET ALL TASKS FROM SPECIFIC USER
+//GET ALL TASKS || GET ALL TASKS FROM SPECIFIC LIST
   app.get("/api/tasks", function(req, res) {
     var query = {};
-    if (req.query.User_id) {
-      query.UserId = req.query.User_id;
+    if (req.query.List_id) {
+      query.ListId = req.query.List_id;
     }
 
-    console.log("++++",query,"++++");
+    //console.log("++++",query,"++++");
 
     db.Task.findAll({
       where: query,
-      include: [db.User]
+      include: {
+        model: db.List,
+        include: [db.User]
+      }
     }).then(function(dbTask) {
       res.json(dbTask);
     });
@@ -26,7 +29,10 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.User]
+      include: {
+        model: db.List,
+        include: [db.User]
+      }
     }).then(function(dbTask) {
       res.json(dbTask);
     });
