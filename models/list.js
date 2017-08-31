@@ -1,33 +1,33 @@
 module.exports = function(sequelize, DataTypes) {
-    var Task = sequelize.define("Task", {
+    var List = sequelize.define("List", {/*
         title: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [1]
             }
-        },
+        },*/
         body: {
             type: DataTypes.TEXT,
             allowNull: false,
             len: [1]
         }
     });
-//link TASK to USER (TASK BELONGS TO USER)
-    Task.associate = function(models) {
-        Task.belongsTo(models.User, {
+//link List to USER (List BELONGS TO USER)
+    List.associate = function(models) {
+        List.belongsTo(models.Task, {
             foreignKey: {
                 allowNull: false
             }
         });
     };
 
-//link TASK to LIST (TASK HAS MANY LISTs)
-    Task.associate = function(models) {
-        Task.hasMany(models.List, {
+/*//link List to LIST (List HAS MANY LISTs)
+    List.associate = function(models) {
+        List.hasMany(models.List, {
             onDelete: "cascade"
         });
-    };
+    };*/
 
-    return Task;
+    return List;
 };
