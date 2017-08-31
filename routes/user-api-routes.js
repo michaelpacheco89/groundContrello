@@ -1,6 +1,8 @@
 var db = require("../models");
+var bcrypt = require("bcryptjs");
 
 module.exports = function(app) {
+  // to find all users
   app.get("/api/users", function(req, res) {
     db.User.findAll({
       include: [db.Task]
@@ -9,6 +11,7 @@ module.exports = function(app) {
     });
   });
 
+  // to find a user by id, or to check if username exists for signup
   app.get("/api/users/:id", function(req, res) {
     var query = {};
     if(req.query.name){
@@ -24,12 +27,29 @@ module.exports = function(app) {
     });
   });
 
+  // to validate password on user login
+  app.post("/api/users/login", function(req, res) {
+    var query = req.query;
+    db.User.findOne({
+      where: query
+    }).then(function(data){
+      if(data==null)
+        res.json({username:true});
+      res.json({password: compareSync(req.body.password,data.password);
+    });
+  });
+
+  // to create new user
   app.post("/api/users", function(req, res) {
-    db.User.create(req.body).then(function(dbUser) {
+    db.User.create({
+      name: req.body.name,
+      password: hashSync(req.body.password)
+    }).then(function(dbUser) {
       res.json(dbUser);
     });
   });
 
+  // to delete user by id
   app.delete("/api/users/:id", function(req, res) {
     db.User.destroy({
       where: {
