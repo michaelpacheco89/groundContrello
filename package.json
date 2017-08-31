@@ -1,0 +1,25 @@
+{
+  "name": "ground_contrello",
+  "version": "1.0.0",
+  "description": "groundContrello to Team Major Tom",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelpacheco89/groundContrello.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mysql2": "^1.3.6",
+    "sequelize": "^4.3.1"
+  },
+  "bugs": {
+    "url": "https://github.com/michaelpacheco89/groundContrello/issues"
+  },
+  "homepage": "https://github.com/michaelpacheco89/groundContrello#readme"
+}
