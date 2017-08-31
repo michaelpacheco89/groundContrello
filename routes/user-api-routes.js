@@ -2,14 +2,14 @@ var db = require("../models");
 var bcrypt = require("bcryptjs");
 
 module.exports = function(app) {
-  // to find all users
-  app.get("/api/users", function(req, res) {
-    db.User.findAll({
-      include: [db.Task]
-    }).then(function(dbUser) {
-      res.json(dbUser);
-    });
-  });
+  // // to find all users
+  // app.get("/api/users", function(req, res) {
+  //   db.User.findAll({
+  //     include: [db.Task]
+  //   }).then(function(dbUser) {
+  //     res.json(dbUser);
+  //   });
+  // });
 
   // to find a user by id, or to check if username exists for signup
   app.get("/api/users/:id", function(req, res) {
