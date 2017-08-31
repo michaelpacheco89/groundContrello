@@ -3,6 +3,7 @@ var db = require("../models");
 
 module.exports = function(app) {
 
+//GET ALL TASKS || GET ALL TASKS FROM SPECIFIC USER
   app.get("/api/tasks", function(req, res) {
     var query = {};
     if (req.query.User_id) {
@@ -19,7 +20,7 @@ module.exports = function(app) {
     });
   });
 
-
+//GET SPECIFIC TASK BY TASK ID
   app.get("/api/tasks/:id", function(req, res) {
     db.Task.findOne({
       where: {
@@ -31,14 +32,14 @@ module.exports = function(app) {
     });
   });
 
-  // POST route for saving a new post
+  // POST ROUTE FOR CREATING NEW TASK
   app.post("/api/tasks", function(req, res) {
     db.Task.create(req.body).then(function(dbTask) {
       res.json(dbTask);
     });
   });
 
-  // DELETE route for deleting tasks
+  // DELETE A TASK BY ID
   app.delete("/api/tasks/:id", function(req, res) {
     db.Task.destroy({
       where: {

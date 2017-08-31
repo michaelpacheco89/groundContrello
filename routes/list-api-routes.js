@@ -3,13 +3,12 @@ var db = require("../models");
 
 module.exports = function(app) {
 
+//GET ALL LISTS || GET ALL LISTS FROM SPECIFIC USER
   app.get("/api/lists", function(req, res) {
     var query = {};
     if (req.query.User_id) {
       query.UserId = req.query.User_id;
     }
-
-    console.log("++++",query,"++++");
 
     db.List.findAll({
       where: query,
@@ -19,6 +18,7 @@ module.exports = function(app) {
     });
   });
 
+//GET SPECIFIC LIST BY LIST ID
 
   app.get("/api/lists/:id", function(req, res) {
     db.List.findOne({
