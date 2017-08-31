@@ -1,4 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
+
+//CREATE TASK ONLY IF A BODY IS PROVIDED
     var Task = sequelize.define("Task", {
         body: {
             type: DataTypes.TEXT,
@@ -6,21 +8,15 @@ module.exports = function(sequelize, DataTypes) {
             len: [1]
         }
     });
-/*//link TASK to USER (TASK BELONGS TO USER)
+
+//link TASK to USER (TASK BELONGS TO USER)
     Task.associate = function(models) {
         Task.belongsTo(models.List, {
             foreignKey: {
                 allowNull: false
             }
         });
-    };*/
-
-// //link TASK to LIST (TASK HAS MANY LISTs)
-//     Task.associate = function(models) {
-//         Task.hasMany(models.Subtask, {
-//             onDelete: "cascade"
-//         });
-//     };
+    };
 
     return Task;
 };

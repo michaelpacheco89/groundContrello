@@ -1,14 +1,36 @@
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
-    name: DataTypes.STRING
-  });
-
-  User.associate = function(models) {
-    User.hasMany(models.List, {
-      onDelete: "cascade"
+  //CREATE USER ONLY IF NAME IS NOT EMAIL && ALL FIELDS FILLED
+    var User = sequelize.define("User", {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isAlphanumeric: true
+            }
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isEmail: true
+            }
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [8, 18]
+            }
+        }
     });
-  };
 
-  return User;
-  
+//LINK USER TO LIST (USER HAS MANY LISTs)
+    User.associate = function(models) {
+        User.hasMany(models.List, {
+            onDelete: "cascade"
+        });
+    };
+
+    return User;
+
 };
