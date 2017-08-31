@@ -21,7 +21,7 @@ module.exports = function(app) {
     }
     db.User.findOne({
       where: query,
-      include: [db.Task]
+      include: [db.List]
     }).then(function(dbUser) {
       res.json(dbUser);
     });
