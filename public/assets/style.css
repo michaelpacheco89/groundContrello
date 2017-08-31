@@ -1,5 +1,4 @@
 body{
-	width: 100%;
 	box-sizing: border-box;
 	color:white;
 	background:#0079BF;
@@ -12,20 +11,16 @@ h1{
 button {
 	color:white;
 }
+.container{
+	width:100%;
+	height:100%;
 
-nav .container{
-	margin:0;
-	padding:15px;
 }
 
 .jumbotron{
 	background-color:#026AA7;
-	width: 100%;
 }
 
-#logIn{
-	background-color:#026AA7;
-}
-#signUp{
-	background-color:#549F3D;
+#sighUp{
+	color:#529B3B;
 }
