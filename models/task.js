@@ -6,14 +6,14 @@ module.exports = function(sequelize, DataTypes) {
             len: [1]
         }
     });
-//link TASK to USER (TASK BELONGS TO USER)
+/*//link TASK to USER (TASK BELONGS TO USER)
     Task.associate = function(models) {
         Task.belongsTo(models.List, {
             foreignKey: {
                 allowNull: false
             }
         });
-    };
+    };*/
 
 // //link TASK to LIST (TASK HAS MANY LISTs)
 //     Task.associate = function(models) {

@@ -17,12 +17,12 @@ module.exports = function(sequelize, DataTypes) {
         });
     };
 
-//link List to LIST (List HAS MANY LISTs)
-    List.associate = function(models) {
-        List.hasMany(models.Task, {
-            onDelete: "cascade"
-        });
-    };
+// //link List to LIST (List HAS MANY LISTs)
+//     List.associate = function(models) {
+//         List.hasMany(models.Task, {
+//             onDelete: "cascade"
+//         });
+//     };
 
     return List;
 };
