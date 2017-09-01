@@ -19,7 +19,7 @@ $(document).ready(function() {
       return;
     }
     // if username contains non-alphanumeric characters, don't submit
-    if(/[^a-zA-Z0-9]/.test(password.val().trim())) {
+    if(!(/[^a-zA-Z0-9]/.test(password.val().trim()))) {
       alert('Username must consist of only alphanumeric characters');
       return;
     }
@@ -32,7 +32,8 @@ $(document).ready(function() {
       // Constructing a new user object to post to the database
       var newUser = {
         name: username.val().trim(),
-        password: password.val().trim(),
+        email: email.val().trim(),
+        password: password.val().trim()
       };
 
       submitUser(newUser);
