@@ -3,7 +3,11 @@ var db = require("../models");
 
 module.exports = function(app) {
 
+
 //GET ALL TASKS || GET ALL TASKS FROM SPECIFIC LIST
+
+//GET ALL TASKS || GET ALL TASKS FROM SPECIFIC USER
+
   app.get("/api/tasks", function(req, res) {
     var query = {};
     if (req.query.List_id) {
