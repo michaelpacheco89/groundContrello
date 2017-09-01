@@ -19,7 +19,7 @@ $(document).ready(function() {
       return;
     }
     // if username contains non-alphanumeric characters, don't submit
-    if(/[^a-zA-Z0-9]/.test(password.val().trim())) {
+    if(!(/[^a-zA-Z0-9]/.test(password.val().trim()))) {
       alert('Username must consist of only alphanumeric characters');
       return;
     }
