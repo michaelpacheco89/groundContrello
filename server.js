@@ -20,7 +20,8 @@ app.use(express.static("public"));
 
 // Routes
 // =============================================================
-//require("./routes/html-routes.js")(app);
+require("./routes/html-routes.js")(app);
+require("./routes/task-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/list-api-routes.js")(app);
 
