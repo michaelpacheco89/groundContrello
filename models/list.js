@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    
+
     var List = sequelize.define("List", {
         title: {
             type: DataTypes.STRING,
@@ -15,11 +15,11 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: {
                 allowNull: false
             }
-        
+        })
+
         List.hasMany(models.Task, {
             onDelete: "cascade"
         });
     };
-
     return List;
 };
