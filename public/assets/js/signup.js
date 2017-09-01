@@ -24,20 +24,20 @@ $(document).ready(function() {
       return;
     }
     // if username contains non-alphanumeric characters, don't submit
-    if(!(/[^a-zA-Z0-9]/.test(password.val().trim()))) {
+    if(/[^a-zA-Z0-9]/.test(username.val().trim())) {
       alert('Username must consist of only alphanumeric characters');
       return;
     }
     // check if username is taken
-    $.get("/api/users/u?name="+username.val().trim(),function(data) {
-      if(data != null) {
+    $.get("/api/users/u?name="+username.val().trim(),function(user) {
+      if(user != null) {
         alert("Username is taken.");
         return;
       }
 
       // check if email is taken
-      $.get("/api/users/e?email="+email.val().trim(), function(data) {
-        if(data != null) {
+      $.get("/api/users/e?email="+email.val().trim(), function(emailcheck) {
+        if(emailcheck != null) {
           alert("Email is already in use");
           return;
         }

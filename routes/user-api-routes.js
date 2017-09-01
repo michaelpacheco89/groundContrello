@@ -6,7 +6,7 @@ module.exports = function(app) {
     // to find a user by id, or to check if username exists for signup
     app.get("/api/users/:id", function(req, res) {
         var query = {};
-        if (req.query.name) {
+        if (req.query.name || req.query.email) {
             query = req.query;
         } else {
             query.id = req.params.id;
