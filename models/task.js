@@ -16,6 +16,11 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: false
             }
         });
+        Task.hasMany(models.subTask, {
+            foreignKey:{
+              allowNull: false
+            }
+        });
     };
 
     return Task;

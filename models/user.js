@@ -26,6 +26,9 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.List, {
             onDelete: "cascade"
         });
+        User.belongsToMany(models.Board, {
+          through: "UserTeam"
+        });
     };
 
     return User;
