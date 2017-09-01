@@ -1,1 +1,1 @@
-CREATE DATABASE groundContrello;
+CREATE DATABASE groundContrelloDB;
