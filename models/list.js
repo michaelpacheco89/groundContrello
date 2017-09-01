@@ -11,11 +11,11 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     List.associate = function(models) {
-        List.belongsTo(models.User, {
+        List.belongsTo(models.Board, {
             foreignKey: {
                 allowNull: false
             }
-        })
+        });
 
         List.hasMany(models.Task, {
             onDelete: "cascade"
