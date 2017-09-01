@@ -13,7 +13,10 @@ module.exports = function(app) {
 
         db.Task.findAll({
             where: query,
-            include: [db.User]
+            include: {
+                model: db.List,
+                include: [db.User]
+            }
         }).then(function(dbTask) {
             res.json(dbTask);
         });
@@ -25,7 +28,10 @@ module.exports = function(app) {
             where: {
                 id: req.params.id
             },
-            include: [db.User]
+            include: {
+                model: db.List,
+                include: [db.User]
+            }
         }).then(function(dbTask) {
             res.json(dbTask);
         });

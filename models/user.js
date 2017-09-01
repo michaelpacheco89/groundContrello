@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  //CREATE USER ONLY IF NAME IS NOT EMAIL && ALL FIELDS FILLED
+    //CREATE USER ONLY IF NAME IS NOT EMAIL && ALL FIELDS FILLED
     var User = sequelize.define("User", {
         name: {
             type: DataTypes.STRING,
@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-//LINK USER TO LIST (USER HAS MANY LISTs)
+    //LINK USER TO LIST (USER HAS MANY LISTs)
     User.associate = function(models) {
         User.hasMany(models.List, {
             onDelete: "cascade"
