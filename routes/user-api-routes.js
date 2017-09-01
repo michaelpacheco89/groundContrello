@@ -8,8 +8,11 @@ module.exports = function(app) {
         //db.List.include([db.Task])
         db.User.findAll({
             include: {
+                model: db.Board,
+              include: {
                 model: db.List,
-                include: [db.Task]
+                include:[db.Task]
+              }
             }
         }).then(function(dbUser) {
             res.json(dbUser);
@@ -27,8 +30,11 @@ module.exports = function(app) {
         db.User.findOne({
             where: query,
             include: {
+                model: db.Board,
+              include: {
                 model: db.List,
-                include: [db.Task]
+                include:[db.Task]
+              }
             }
         }).then(function(dbUser) {
             res.json(dbUser);
@@ -62,7 +68,6 @@ module.exports = function(app) {
             res.json(dbUser);
         });
     });
-
     // to delete user by id
     app.delete("/api/users/:id", function(req, res) {
         db.User.destroy({
