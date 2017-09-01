@@ -29,7 +29,7 @@ module.exports = function(app) {
                 res.json({ username: true });
             } else {
                 res.json({
-                    password: compareSync(req.body.password, data.password),
+                    password: bcrypt.compareSync(req.body.password, data.password),
                     id: data.id
                 });
             }
@@ -40,7 +40,7 @@ module.exports = function(app) {
     app.post("/api/users", function(req, res) {
         db.User.create({
             name: req.body.name,
-            password: hashSync(req.body.password)
+            password: bcrypt.hashSync(req.body.password)
         }).then(function(dbUser) {
             res.json(dbUser);
         });
