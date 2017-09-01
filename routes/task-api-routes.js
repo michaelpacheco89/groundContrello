@@ -15,7 +15,7 @@ module.exports = function(app) {
             where: query,
             include: {
                 model: db.List,
-                include: [db.User]
+                include: [db.Board]
             }
         }).then(function(dbTask) {
             res.json(dbTask);
@@ -30,14 +30,14 @@ module.exports = function(app) {
             },
             include: {
                 model: db.List,
-                include: [db.User]
+                include: [db.Board]
             }
         }).then(function(dbTask) {
             res.json(dbTask);
         });
     });
 
-    // POST ROUTE FOR CREATING NEW TASK
+    // POST ROUTE FOR CREATING NEW TASKs
     app.post("/api/tasks", function(req, res) {
         db.Task.create(req.body).then(function(dbTask) {
             res.json(dbTask);

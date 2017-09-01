@@ -6,7 +6,7 @@ module.exports = function(app) {
 // find all the user's boards
   app.get("/api/boards", function(req, res) {
       db.Board.findAll({
-      include: [[db.User],[db.Team]],
+      include:[db.User, db.List],
       where: req.query
     }).then(function(dbBoards) {
       res.json(dbBoards);
@@ -19,7 +19,7 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.User]
+      include: [db.User, db.List]
     }).then(function(dbBoards) {
       res.json(dbBoards);
     });

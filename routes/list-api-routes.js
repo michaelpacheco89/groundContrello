@@ -11,7 +11,7 @@ module.exports = function(app) {
 
         db.List.findAll({
             where: query,
-            include: [db.User,db.Task]
+            include: [db.Board,db.Task]
         }).then(function(dbList) {
             res.json(dbList);
         });
@@ -24,7 +24,7 @@ module.exports = function(app) {
             where: {
                 id: req.params.id
             },
-            include: [db.User,db.Task]
+            include: [db.Board,db.Task]
         }).then(function(dbList) {
             res.json(dbList);
         });
