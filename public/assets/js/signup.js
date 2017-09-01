@@ -18,6 +18,11 @@ $(document).ready(function() {
       alert("Passwords do not match.");
       return;
     }
+    // if password is less than 8 characters or more than 255 characters, don't submit
+    if(password.val().trim().length < 8 || password.val().trim().length > 255) {
+      alert("Password needs to be greater than 7 characters and less than 256 characters");
+      return;
+    }
     // if username contains non-alphanumeric characters, don't submit
     if(!(/[^a-zA-Z0-9]/.test(password.val().trim()))) {
       alert('Username must consist of only alphanumeric characters');
