@@ -34,14 +34,22 @@ $(document).ready(function() {
         alert("Username is taken.");
         return;
       }
-      // Constructing a new user object to post to the database
-      var newUser = {
-        name: username.val().trim(),
-        email: email.val().trim(),
-        password: password.val().trim()
-      };
 
-      submitUser(newUser);
+      // check if email is taken
+      $.get("/api/users/e?email="+email.val().trim(), function(data) {
+        if(data != null) {
+          alert("Email is already in use");
+          return;
+        }
+        // Constructing a new user object to post to the database
+        var newUser = {
+          name: username.val().trim(),
+          email: email.val().trim(),
+          password: password.val().trim()
+        };
+
+        submitUser(newUser);
+      });
     });
   });
 
