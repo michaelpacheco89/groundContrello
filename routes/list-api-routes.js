@@ -33,7 +33,9 @@ module.exports = function(app) {
 
   // POST route for saving a new post
   app.post("/api/lists", function(req, res) {
-    db.List.create(req.body).then(function(dbList) {
+    db.List.create({
+      title:req.body.name
+    }).then(function(dbList) {
       res.json(dbList);
     });
   });

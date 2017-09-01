@@ -10,6 +10,9 @@ h1{
 	font-family: 'Roboto', sans-serif;
 }
 
+h4{
+	color:black;
+}
 button {
 	border-radius: 3px;
 	box-shadow: 0 2px 1px #888888;
@@ -20,12 +23,20 @@ a{
 	text-decoration: none;
 }
 nav .container{
-	margin:0;
+	margin:auto;
 	padding:15px;
+}
+
+nav ul{
+	overflow: auto;
 }
 
 p{
 	color:black;
+}
+
+form {
+	margin:20px;
 }
 
 .jumbotron{
@@ -47,39 +58,28 @@ p{
 }
 
 .boards-page{
-	user-select: none;
-    white-space: nowrap;   
-    /*overflow-x: auto;
-    overflow-y: hidden;*/
-    
-
-}
-
-#list-wrap{
-	user-select: none;
     white-space: nowrap;
-    margin-bottom: 10px;
-    /*overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 10px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;*/
+    display:inline-flex;   
 }
 
 .card-wrap{
-	white-space: pre-wrap;
-	display: inline-flex;
+    background-color:#E2E4E6;
+    border: 2px solid grey;
+    border-radius: 3px;
+}
+#lists{
+    width:30%;
+	background-color:#E2E4E6;      
+    height:auto;
+    white-space: pre-wrap;
+    display: inline-flex;
 }
 
-/*.boards-page a{
-	width:30%;
-	text-decoration: none;
-	color:inherit;
-	color:black;
+/*detail{
+	white-space: pre-wrap;
+	
 }
+*/
 
 /* Dropdown Button */
 .dropbtn {

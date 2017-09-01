@@ -5,24 +5,31 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Gound Controller | homepage</title>
+    <!-- bootstrap 4.0 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <!-- fontawesome -->
     <script src="https://use.fontawesome.com/41a66b8b63.js"></script>
+    <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Jasny bootstrap extension -->
+    <link rel="stylesheet" href="../assets/css/jasny-bootstrap.min.css">
+    <!-- css -->
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- jquery UI -->
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
 </head>
 
 <body>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="dropdown">
-              <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-              <div id="myDropdown" class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-              </div>
+                <button onclick="myFunction()" class="dropbtn">Board</button>
+                <div id="myDropdown" class="dropdown-content">
+                </div>
             </div>
             <a href="#">
                 <input type="text">
@@ -47,38 +54,42 @@
             </a>
         </div>
     </nav>
-    <div class="main-container">
-        <p><i class="fa fa-user" aria-hidden="true"></i> &nbsp Personal Boards</p>
-        <div class="boards-page">
-            <div class="list-wrap">
-                <div class="card-wrap">
+    <nav id="subnav" class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <a><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Personal Boards</a>
+            <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
+                <h4 class="text-center">Menu</h4>
+                <hr>
+                <ul class="nav navmenu-nav">
                     
-                </div>           
+                </ul>
+            </nav>
+            <div class="navbar navbar-default navbar-fixed-top">
+                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+                    ...Show Menu
+                </button>
             </div>
+        </div>
+    </nav>
+    <div class="main-container">
+        <div class="boards-page">
+            <div id="lists">
+ 
+            </div>
+            <div id="defaultList">
+                <form id="addList">
+                    <input type="text" id="title" name="name" placeholder="Add a list">
+                    <br>
+                    <button type="submit" id="newlist">Save</button>
+                    <span class="cancel"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </form>
             </div>
         </div>
     </div>
+    </div>
 </body>
-<script>
-    /* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
+<!-- Jasny Bootstrap Js -->
+<script src="../assets/js/jasny-bootstrap.min.js"></script>
+<script src="../assets/js/board.js"></script>
 
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
 </html>
