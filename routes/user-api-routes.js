@@ -40,6 +40,7 @@ module.exports = function(app) {
     app.post("/api/users", function(req, res) {
         db.User.create({
             name: req.body.name,
+            email: req.body.email,
             password: bcrypt.hashSync(req.body.password)
         }).then(function(dbUser) {
             res.json(dbUser);
