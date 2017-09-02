@@ -30,12 +30,20 @@ module.exports = function(app) {
         });
     });
 
+
     // POST route for saving a new post
     app.post("/api/lists", function(req, res) {
         db.List.create(req.body).then(function(dbList) {
             res.json(dbList);
         });
-    });
+// conflicts parts When Nan merge
+  //   // POST route for saving a new post
+  // app.post("/api/lists", function(req, res) {
+  //   db.List.create({
+  //     title:req.body.name
+  //   }).then(function(dbList) {
+  //     res.json(dbList);
+
 
     // DELETE route for deleting lists
     app.delete("/api/lists/:id", function(req, res) {
