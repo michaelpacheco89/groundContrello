@@ -21,16 +21,20 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
+    const UserTeam = sequelize.define('UserTeam', {
+        teamName: DataTypes.STRING
+    })
+
     //LINK USER TO LIST (USER HAS MANY LISTs)
     User.associate = function(models) {
         User.hasMany(models.Board, {
             onDelete: "cascade",
-            foreignKey:{
-                name:"OwnerId"
-              }
+            foreignKey: {
+                name: "OwnerId"
+            }
         });
         User.belongsToMany(models.Board, {
-          through: "UserTeam"
+            through: UserTeam
         });
     };
 

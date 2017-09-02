@@ -6,6 +6,10 @@ var bodyParser = require("body-parser");
 var app = express();
 var PORT = process.env.PORT || 8080;
 
+// Sets up server for sockets
+var ioProm = require('express-socket.io');
+var server = ioProm.init(app);
+
 // Requiring our models for syncing
 var db = require("./models");
 
@@ -29,9 +33,12 @@ require("./routes/boards-api-routes.js")(app);
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync().then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+    /*  app.listen(PORT, function() {
+        console.log("App listening on PORT " + PORT);
+      });*/
+    server.listen(PORT, function() {
+        console.log('Server listening on PORT: ', PORT);
+    });
 });
 
 //{ force: true }
