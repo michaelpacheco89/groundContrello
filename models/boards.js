@@ -1,34 +1,38 @@
 module.exports = function(sequelize, DataTypes) {
-  var Board = sequelize.define("Board", {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    },
-    body: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      validate:{
-        len:[1]
-      }
-    }
-  });
+    var Board = sequelize.define("Board", {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [1]
+            }
+        },
+        body: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            validate: {
+                len: [1]
+            }
+        }
+    });
 
-  Board.associate = function(models) {
-      Board.hasMany(models.List, {
-        onDelete: "cascade"
-      });
-      Board.belongsTo(models.User,{
-        foreignKey:{
-            name:"OwnerId"
-          }
-      });
-      Board.belongsToMany(models.User, {
-        through: "UserTeam"
-      });
-  };
+    const UserTeam = sequelize.define('UserTeam', {
+        teamName: DataTypes.STRING
+    })
 
-  return Board;
+    Board.associate = function(models) {
+        Board.hasMany(models.List, {
+            onDelete: "cascade"
+        });
+        Board.belongsTo(models.User, {
+            foreignKey: {
+                name: "OwnerId"
+            }
+        });
+        Board.belongsToMany(models.User, {
+            through: UserTeam
+        });
+    };
+
+    return Board;
 };

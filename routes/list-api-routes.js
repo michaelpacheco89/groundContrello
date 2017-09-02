@@ -11,7 +11,7 @@ module.exports = function(app) {
 
         db.List.findAll({
             where: query,
-            include: [db.Board,db.Task]
+            include: [db.Board, db.Task]
         }).then(function(dbList) {
             res.json(dbList);
         });
@@ -24,7 +24,7 @@ module.exports = function(app) {
             where: {
                 id: req.params.id
             },
-            include: [db.Board,db.Task]
+            include: [db.Board, db.Task]
         }).then(function(dbList) {
             res.json(dbList);
         });
@@ -36,13 +36,14 @@ module.exports = function(app) {
         db.List.create(req.body).then(function(dbList) {
             res.json(dbList);
         });
-// conflicts parts When Nan merge
-  //   // POST route for saving a new post
-  // app.post("/api/lists", function(req, res) {
-  //   db.List.create({
-  //     title:req.body.name
-  //   }).then(function(dbList) {
-  //     res.json(dbList);
+    });
+    // conflicts parts When Nan merge
+    //   // POST route for saving a new post
+    // app.post("/api/lists", function(req, res) {
+    //   db.List.create({
+    //     title:req.body.name
+    //   }).then(function(dbList) {
+    //     res.json(dbList);
 
 
     // DELETE route for deleting lists
