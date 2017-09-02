@@ -59,29 +59,30 @@ form {
 
 .boards-page{
     white-space: nowrap;
-    display:inline-flex;   
+    display:inline-flex; 
+    color:black;  
 }
 
 .card-wrap{
     background-color:#E2E4E6;
     border: 2px solid grey;
     border-radius: 3px;
+    
 }
 #lists{
-    width:30%;
+    width:auto;
 	background-color:#E2E4E6;      
     height:auto;
     white-space: pre-wrap;
     display: inline-flex;
+    
 }
 
-/*detail{
-	white-space: pre-wrap;
-	
-}
-*/
 #defaultList{
-    float:right;
+    background-color:#E2E4E6;
+    border: 2px solid grey;
+    border-radius: 3px;
+
 }
 /* Dropdown Button */
 .dropbtn {

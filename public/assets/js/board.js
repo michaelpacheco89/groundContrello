@@ -23,6 +23,9 @@ $(addList).on("submit",function(event){
 	form.append(input,button);
 	list.append(header,content,form);
 	$("#lists").prepend(list);
+
+// clear input data
+	$("#title").val(" ");
 });
 
 $(document).on("click",".makingNewCard" ,function(event){
@@ -36,5 +39,8 @@ $(document).on("click",".makingNewCard" ,function(event){
 	var cardDetail = $("<div class='card-detail'>");
 	cardDetail.text(newCard.val().trim());
 	list.append(cardDetail);
+
+// clear input data
+	$(".newCard").val(" ");
 });
 
