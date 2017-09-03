@@ -34,7 +34,8 @@ module.exports = function(sequelize, DataTypes) {
             }
         });
         User.belongsToMany(models.Board, {
-            through: UserTeam
+            through: UserTeam,
+            as:"Users"
         });
     };
 
