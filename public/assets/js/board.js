@@ -68,4 +68,4 @@ function createList(list) {
         console.log(data);
         localStorage.setItem('list', data.id);
     });
-}//s
+}

@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     });
-//s
+
     const UserTeam = sequelize.define('UserTeam', {
         teamName: DataTypes.STRING
     })

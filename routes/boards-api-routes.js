@@ -19,7 +19,7 @@ module.exports = function(app) {
             res.json(dbBoards);
         });
     });
-//s
+
 
     app.get("/api/boards/:id", function(req, res) {
         db.Board.findOne({

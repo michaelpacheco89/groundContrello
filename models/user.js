@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
         teamName: DataTypes.STRING
     })
 
-    //LINK USER TO LIST (USER HAS MANY LISTs)
+    //LINK USER TO LIST (USER HAS MANY LIST)
     User.associate = function(models) {
         User.hasMany(models.Board, {
             onDelete: "cascade",

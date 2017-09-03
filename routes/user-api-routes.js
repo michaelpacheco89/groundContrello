@@ -18,7 +18,7 @@ module.exports = function(app) {
             res.json(dbUser);
         });
     });
-//s
+
     // to find a user by id, or to check if username exists for signup
     app.get("/api/users/:id", function(req, res) {
         var query = {};

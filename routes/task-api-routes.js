@@ -22,7 +22,7 @@ module.exports = function(app) {
         });
     });
 
-    //GET SPECIFIC TASK BY TASK IDs
+    //GET SPECIFIC TASK BY TASK ID
     app.get("/api/tasks/:id", function(req, res) {
         db.Task.findOne({
             where: {
