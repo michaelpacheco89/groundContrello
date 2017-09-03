@@ -18,7 +18,7 @@ $(document).ready(function() {
 
         submitUser(user);
     });
-
+//s
     // Submits a user and brings user to profile page upon completion
     function submitUser(user) {
         // set query name to allow for login with username or email

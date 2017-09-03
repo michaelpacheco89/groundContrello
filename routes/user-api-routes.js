@@ -18,7 +18,7 @@ module.exports = function(app) {
             res.json(dbUser);
         });
     });
-
+//s
     // to find a user by id, or to check if username exists for signup
     app.get("/api/users/:id", function(req, res) {
         var query = {};
@@ -41,7 +41,7 @@ module.exports = function(app) {
         });
     });
 
-    // to validate password on user login
+    // to validate password on user logins
     app.post("/api/users/login", function(req, res) {
         var query = req.query;
         db.User.findOne({
