@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "#Dubnium105#",
+    "password": "Dubinum105#",
     "database": "groundContrelloDB",
     "host": "127.0.0.1",
     "dialect": "mysql"
