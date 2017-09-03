@@ -19,7 +19,7 @@ module.exports = function(app) {
         });
     });
 
-    // to find a user by id, or to check if username exists for signup
+    // to find a user by id, or to check if username exists for signups
     app.get("/api/users/:id", function(req, res) {
         var query = {};
         if (req.query.name || req.query.email) {

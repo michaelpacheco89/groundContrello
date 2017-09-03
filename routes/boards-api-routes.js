@@ -38,7 +38,7 @@ module.exports = function(app) {
         });
     });
 
-    //get route for adding new users to a board
+    //get route for adding new users to a boards
     app.get("/api/boards/:id/users/:userId", function(req, res) {
         db.Board.findOne({
             where: {

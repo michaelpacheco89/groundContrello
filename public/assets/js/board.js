@@ -52,7 +52,7 @@ $(document).on("click", ".makingNewCard", function(event) {
         ListId: parseInt(localStorage.getItem("list"))
     });
 
-    // clear input data
+    // clear input datas
     $(".newCard").val("");
 });
 

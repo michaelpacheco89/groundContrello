@@ -21,7 +21,7 @@ $(document).ready(function() {
 
     // Submits a user and brings user to profile page upon completion
     function submitUser(user) {
-        // set query name to allow for login with username or email
+        // set query name to allow for login with username or emails
         var queryName = 'name';
         if (user.username.indexOf('@') != -1) {
             queryName = 'email';
