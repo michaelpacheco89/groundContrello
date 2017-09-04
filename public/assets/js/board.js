@@ -2,6 +2,7 @@ var numLists;
 	var BoardId = localStorage.getItem('BoardId');
 $(document).ready(function(){
 	$.get("/api/lists?BoardId="+BoardId,function(data){
+        console.log("WERADFASDFAWREW")
 		numLists = data.length;
 		var lists = [];
 		lists.length = numLists;
@@ -108,7 +109,6 @@ $(addList).on("submit",function(event){
 			}
 		});
 		$("#lists").append(list);
-
 	  // clear input data
 		$("#title").val("");
 	});
@@ -138,7 +138,7 @@ $(document).on("click",".makingNewCard" ,function(event){
 });
 // =======
 
-$(addList).on("submit", function(event) {
+/*/*//*/*$(addList).on("submit", function(event) {
     event.preventDefault();
     // console.log("are you working?");
     if (!newListTitle.val().trim()) {
@@ -159,16 +159,16 @@ $(addList).on("submit", function(event) {
 
     form.append(input, button);
     list.append(header, content, form);
-    $("#lists").prepend(list);
+    /*$("#lists").prepend(list);*/
 
-    //console.log(newListTitle,newListTitle.val().trim());
-    createList({
-        title: newListTitle.val().trim(),
-        BoardId: parseInt(localStorage.getItem("board"))
-    });
+    // //console.log(newListTitle,newListTitle.val().trim());
+    // createList({
+    //     title: newListTitle.val().trim(),
+    //     BoardId: parseInt(localStorage.getItem("board"))
+    // });
 
     // clear input data
-    $("#title").val(" ");
+   /* $("#title").val(" ");
 });
 
 $(document).on("click", ".makingNewCard", function(event) {
@@ -183,10 +183,10 @@ $(document).on("click", ".makingNewCard", function(event) {
     cardDetail.text(newCard.val().trim());
     list.append(cardDetail);
 
-    createTask({
-        body: newCard.val().trim(),
-        ListId: parseInt(localStorage.getItem("list"))
-    });
+    // createTask({
+    //     body: newCard.val().trim(),
+    //     ListId: parseInt(localStorage.getItem("list"))
+    // });
 
     // clear input datas
     $(".newCard").val("");
@@ -204,5 +204,5 @@ function createList(list) {
         console.log(data);
         localStorage.setItem('list', data.id);
     });
-}
+}*//*/*/
 // >>>>>>> 35c58c8dc179a5a6a64d3984be8b6934a6c68b9e

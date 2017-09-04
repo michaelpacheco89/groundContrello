@@ -40,24 +40,25 @@ module.exports = function(app) {
         });
     });
 
-    app.post("/api/lists/update", function(req,res) {
-      console.log(req.body);
-      var indices = req.body.data;
-      console.log(indices);
-      function helper(count) {
-        if(count == indices.length)
-          return res.end();
-        db.List.update({
-          index:count
-        },{
-          where:{
-            id:indices[count]
-          }
-        }).then(function(result){
-          helper(count+1);
-        });
-      }
-      helper(0);
+    app.post("/api/lists/update", function(req, res) {
+        console.log(req.body);
+        var indices = req.body.data;
+        console.log(indices);
+
+        function helper(count) {
+            if (count == indices.length)
+                return res.end();
+            db.List.update({
+                index: count
+            }, {
+                where: {
+                    id: indices[count]
+                }
+            }).then(function(result) {
+                helper(count + 1);
+            });
+        }
+        helper(0);
     });
     // conflicts parts When Nan merge
     //   // POST route for saving a new post
