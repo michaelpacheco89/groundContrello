@@ -51,6 +51,14 @@ form {
 	background-color:#549F3D;
 }
 
+#menuWrapper{
+    position:absolute;
+}
+#menu{
+    position:relative;
+    left:100%;
+}
+
 .main-container{
 	margin: 0 auto;
     max-width: 1250px;
@@ -84,6 +92,12 @@ form {
     border-radius: 3px;
 
 }
+
+#newBoardInfo,
+#newTeamInfo{
+    display:none;
+}
+
 /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
@@ -128,4 +142,5 @@ form {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
 

@@ -1,3 +1,7 @@
+var title;
+var boardName = $("#boardName");
+var teamName = $("#teamName");
+var teamDescription = $("#teamDescription");
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 
@@ -18,3 +22,40 @@ window.onclick = function(event) {
   }
 }
 
+$(document).on("click", "#popover1", function(event) {
+      event.preventDefault();
+      $("#newBoardInfo").show();
+});
+
+$("#newBoard").on("click", function(event){
+    event.preventDefault();
+    if (!boardName.val().trim()){
+      return;
+    }
+   var newBD = $("<li><a></li></a>");
+   boardName.css({"font-size":"1em"});
+   newBD.text(boardName.val().trim());
+   $(".boards-wrapper").append(newBD);
+
+   // clear input datas
+  boardName.val(" ");
+})
+
+$(document).on("click", "#popover2", function(event) {
+      event.preventDefault();
+      $("#newTeamInfo").show();
+});
+
+// $("#newTeam").on("click", function(event){
+//   event.preventDefault();
+//   if (!teamName.val().trim()){
+//     return;
+//   }
+//   var teamTitle = $("<li><a></li></a>");
+//   var teamInfo = $()
+//   newTm.text(teamName.val().trim());
+//   $(".teams-wrapper").append(newTm, teamDescription);
+//   // clear inpur datas
+//   teamName.val(" ");
+    
+// })
