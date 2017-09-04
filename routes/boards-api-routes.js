@@ -5,7 +5,15 @@ module.exports = function(app) {
     // find all the user's boards
     app.get("/api/boards", function(req, res) {
         db.Board.findAll({
-            include: [db.User, db.List],
+            include: [{
+                    model: db.User,
+                    as:"Owner"
+                },{
+                    model: db.User,
+                    as:"Users"
+                },
+                db.List
+            ],
             where: req.query
         }).then(function(dbBoards) {
             res.json(dbBoards);
@@ -18,13 +26,19 @@ module.exports = function(app) {
             where: {
                 id: req.params.id
             },
-            include: [db.User, db.List]
+            include: [{
+                    model: db.User,
+                    as:"Owner"
+                },{
+                    model: db.User,
+                    as:"Users"
+                }, db.List]
         }).then(function(dbBoards) {
             res.json(dbBoards);
         });
     });
 
-    //get route for adding new users to a board
+    //get route for adding new users to a boards
     app.get("/api/boards/:id/users/:userId", function(req, res) {
         db.Board.findOne({
             where: {

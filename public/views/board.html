@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Project Board | Gound Contrello</title>
+    <title>Project Board | Ground Contrello</title>
     <!-- bootstrap 4.0 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <!-- fontawesome -->
@@ -22,72 +22,73 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Board</button>
-                <div id="myDropdown" class="dropdown-content">
-                </div>
-            </div>
-            <a href="#">
-                <input type="text">
-                <button type="">
-                    <i class="fa fa-search" aria-hidden="true">
-                </i></button>
-            </a>
-            <h4 class="text-center"><a href="/project">Ground Contrello</a></h4>
-            <a href="#">
-                <button id="">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
-            </a>
-            <a href="#">
-                <button id="">
-                    <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                </button>
-            </a>
-            <a href="#">
-                <button id=""> NJ
-                </button>
-            </a>
-        </div>
-    </nav>
-    <nav id="subnav" class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <a><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Personal Boards</a>
-            <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
-                <h4 class="text-center">Menu</h4>
-                <hr>
-                <ul class="nav navmenu-nav">
-
-                </ul>
-            </nav>
-            <div class="navbar navbar-default navbar-fixed-top">
-                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
-                    ...Show Menu
-                </button>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Board</button>
+            <div id="myDropdown" class="dropdown-content">
             </div>
         </div>
-    </nav>
-    <div class="main-container">
-        <div class="boards-page">
-            <div id="lists">
+        <a href="#">
+            <input type="text">
+            <button type="">
+                <i class="fa fa-search" aria-hidden="true">
+            </i></button>
+        </a>
+        <h4 class="text-center"><a href="/project">Ground Contrello</a></h4>
+        <a href="#">
+            <button id="">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+        </a>
+        <a href="#">
+            <button id="">
+                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+            </button>
+        </a>
+        <a href="#">
+            <button id=""> NJ
+            </button>
+        </a>
+    </div>
+</nav>
 
-            </div>
-            <div id="defaultList">
-                <form id="addList">
-                    <input type="text" id="title" name="name" placeholder="Add a list">
-                    <br>
-                    <button type="submit" id="newlist">Save</button>
-                    <span class="cancel"><i class="fa fa-times" aria-hidden="true"></i></span>
-                </form>
-            </div>
+<nav id="subnav" class="navbar navbar-default navbar-static-top">
+    <div class="container" id="menuWrapper">
+        <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
+            <h4 class="text-center">Menu</h4>
+            <hr>
+            <ul class="nav navmenu-nav">
+
+            </ul>
+        </nav>
+        <div class="navbar navbar-default navbar-fixed-top" id="menu">
+            <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+                ...Show Menu
+            </button>
         </div>
     </div>
+</nav>
+
+<div class="main-container">
+    <div class="boards-page">
+        <div id="lists">
+
+        </div>
+        <div id="defaultList">
+            <form id="addList">
+                <input type="text" id="title" name="name" placeholder="Add a list">
+                <br>
+                <button type="submit" id="newlist">Save</button>
+                <span class="cancel"><i class="fa fa-times" aria-hidden="true"></i></span>
+            </form>
+        </div>
     </div>
+</div>
 </body>
 <!-- Jasny Bootstrap Js -->
 <script src="../assets/js/jasny-bootstrap.min.js"></script>
+<script src="../assets/js/project.js"></script>
 <script src="../assets/js/board.js"></script>
 
 </html>

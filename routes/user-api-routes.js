@@ -19,7 +19,7 @@ module.exports = function(app) {
         });
     });
 
-    // to find a user by id, or to check if username exists for signup
+    // to find a user by id, or to check if username exists for signups
     app.get("/api/users/:id", function(req, res) {
         var query = {};
         if (req.query.name || req.query.email) {
@@ -41,7 +41,7 @@ module.exports = function(app) {
         });
     });
 
-    // to validate password on user login
+    // to validate password on user logins
     app.post("/api/users/login", function(req, res) {
         var query = req.query;
         db.User.findOne({

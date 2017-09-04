@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     });
-
+//s
     const UserTeam = sequelize.define('UserTeam', {
         teamName: DataTypes.STRING
     })
@@ -25,12 +25,14 @@ module.exports = function(sequelize, DataTypes) {
             onDelete: "cascade"
         });
         Board.belongsTo(models.User, {
+            as:"Owner",
             foreignKey: {
                 name: "OwnerId"
             }
         });
         Board.belongsToMany(models.User, {
-            through: UserTeam
+            through: UserTeam,
+            as:"Users"
         });
     };
 
