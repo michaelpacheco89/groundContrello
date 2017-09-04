@@ -44,6 +44,26 @@ module.exports = function(app) {
         });
     });
 
+    app.post("/api/tasks/update", function(req,res) {
+      console.log(req.body);
+      var indices = req.body.data;
+      function helper(count) {
+        if(count == indices.length)
+          return res.end();
+        db.Task.update({
+          index:count,
+          ListId: req.query.ListId
+        },{
+          where:{
+            id:indices[count]
+          }
+        }).then(function(result) {
+          helper(count+1);
+        });
+      }
+      helper(0);
+    });
+
     // DELETE A TASK BY ID
     app.delete("/api/tasks/:id", function(req, res) {
         db.Task.destroy({

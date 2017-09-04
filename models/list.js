@@ -7,7 +7,8 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 len: [1]
             }
-        }
+        },
+        index: DataTypes.INTEGER
     });
 
     List.associate = function(models) {

@@ -5,9 +5,11 @@ module.exports = function(app) {
     //GET ALL LISTS || GET ALL LISTS FROM SPECIFIC USER
     app.get("/api/lists", function(req, res) {
         var query = {};
-        if (req.query.User_id) {
-            query.UserId = req.query.User_id;
-        }
+        // if (req.query.User_id) {
+        //     query.UserId = req.query.User_id;
+        // } else if(req.query.BoardId) {
+        //   query.BoardId = req.query.BoardId;
+        // }
 
         db.List.findAll({
             where: query,
@@ -36,6 +38,26 @@ module.exports = function(app) {
         db.List.create(req.body).then(function(dbList) {
             res.json(dbList);
         });
+    });
+
+    app.post("/api/lists/update", function(req,res) {
+      console.log(req.body);
+      var indices = req.body.data;
+      console.log(indices);
+      function helper(count) {
+        if(count == indices.length)
+          return res.end();
+        db.List.update({
+          index:count
+        },{
+          where:{
+            id:indices[count]
+          }
+        }).then(function(result){
+          helper(count+1);
+        });
+      }
+      helper(0);
     });
     // conflicts parts When Nan merge
     //   // POST route for saving a new post

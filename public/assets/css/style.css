@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 body{
 	width: 100%;
 	box-sizing: border-box;
@@ -35,10 +39,6 @@ p{
 	color:black;
 }
 
-form {
-	margin:20px;
-}
-
 .jumbotron{
 	background-color:#026AA7;
 	width: 100%;
@@ -59,31 +59,47 @@ form {
 
 .boards-page{
     white-space: nowrap;
-    display:inline-flex; 
-    color:black;  
+    display:inline-flex;
+    color:black;
+}
+
+.list-cards {
+	min-height: 10px;
 }
 
 .card-wrap{
     background-color:#E2E4E6;
-    border: 2px solid grey;
     border-radius: 3px;
-    
+		height: fit-content;
+		width: 250px;
+		margin: 0 3px;
+		padding: 8px;
 }
 #lists{
     width:auto;
-	background-color:#E2E4E6;      
     height:auto;
     white-space: pre-wrap;
     display: inline-flex;
-    
+		padding: 0 4px;
 }
 
 #defaultList{
     background-color:#E2E4E6;
-    border: 2px solid grey;
     border-radius: 3px;
-
+		height: fit-content;
+		padding: 5px;
 }
+
+.card-detail {
+	border-radius: 3px;
+	height: fit-content;
+	background-color: white;
+	padding: 4px;
+	margin-bottom: 6px;
+	word-break: break-all;
+	box-shadow: 0px 1px 1px -1px grey;
+}
+
 /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
@@ -129,3 +145,16 @@ form {
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
 
+/* jQuery UI styling*/
+.ui-sortable-placeholder-lists {
+	width: 250px;
+	background: #158;
+	border-radius: 4px;
+	margin: 0 6px;
+}
+
+.ui-sortable-placeholder-cards {
+	background: #bbb;
+	border-radius: 5px;
+	margin-bottom: 6px;
+}

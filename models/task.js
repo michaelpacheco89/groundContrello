@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.TEXT,
             allowNull: false,
             len: [1]
-        }
+        },
+        index: DataTypes.INTEGER
     });
 
 //link TASK to USER (TASK BELONGS TO USER)

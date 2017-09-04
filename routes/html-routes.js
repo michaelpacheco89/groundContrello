@@ -22,9 +22,9 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname, "../public/views/board.html"));
     });
 
-    /*  // authors route loads author-manager.html
-      app.get("/authors", function(req, res) {
-        res.sendFile(path.join(__dirname, "../public/author-manager.html"));
-      });*/
+    // project route loads a user's projects/profile page
+    app.get("/project", function(req, res) {
+        res.sendFile(path.join(__dirname, "../public/views/profile.html"));
+    });
 
 };
