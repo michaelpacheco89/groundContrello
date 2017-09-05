@@ -1,5 +1,5 @@
 var numLists;
-var BoardId = localStorage.getItem('BoardId');
+var BoardId = localStorage.getItem('board');
 $(document).ready(function() {
     $.get("/api/lists?BoardId=" + BoardId, function(data) {
         numLists = data.length;

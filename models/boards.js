@@ -6,14 +6,14 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 len: [1]
             }
-        },
+        }/*,
         body: {
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
                 len: [1]
             }
-        }
+        }*/
     });
 //s
     const UserTeam = sequelize.define('UserTeam', {
