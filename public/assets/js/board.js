@@ -138,6 +138,11 @@ $(document).on("click", ".makingNewCard", function(event) {
     });
 });
 
+$(document).on("click", ".sign-out", function() {
+	document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
+	window.location.href = "/login";
+});
+
 $(document).on("click", ".deleteList", function() {
     var id = $(this).parent().attr('id');
     $.ajax({
