@@ -10,13 +10,15 @@ $(document).ready(function() {
             newList.attr('id', data[i].id);
             var header = $("<h6 class='list-header'>");
             header.text(data[i].title);
+            var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;'></i>");
             var content = $("<div  class='list-cards'>");
             var tasks = [];
             tasks.length = data[i].Tasks.length;
             for (j = 0; j < tasks.length; j++) {
                 var cardDetail = $("<p class='card-detail ui-state-default'>");
                 cardDetail.attr('id', data[i].Tasks[j].id);
-                cardDetail.text(data[i].Tasks[j].body);
+                cardDetail.html(data[i].Tasks[j].body +
+                    "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;'></i>");
                 tasks[data[i].Tasks[j].index] = cardDetail;
             }
             for (j = 0; j < tasks.length; j++) {
@@ -29,7 +31,7 @@ $(document).ready(function() {
             var button = $("<button type='submit' class='makingNewCard'>Add new card</button>");
 
             form.append(input, button);
-            newList.append(header, content, form);
+            newList.append(remove, header, content, form);
             $(content).sortable({
                 connectWith: ".list-cards",
                 placeholder: "ui-sortable-placeholder-cards",

@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
 //s
     const UserTeam = sequelize.define('UserTeam', {
         teamName: DataTypes.STRING
-    })
+    });
 
     Board.associate = function(models) {
         Board.hasMany(models.List, {
