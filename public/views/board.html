@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <!-- fontawesome -->
     <script src="https://use.fontawesome.com/41a66b8b63.js"></script>
+    <!-- socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- Jasny bootstrap extension -->
@@ -85,10 +87,25 @@
         </div>
     </div>
 </div>
+
+<!-- CHAT SECTION -->
+
+<div id = "board-chat">
+  <div id="chat-window">
+    <div id="output"></div>
+    <div id="feedback"></div>
+  </div>
+  <input id="message" type="text" placeholder="Message">
+  <button id="sendBtn">Send</button>
+</div>
+
+
+<!-- END CHAT SECTION -->
+
 </body>
 <!-- Jasny Bootstrap Js -->
 <script src="../assets/js/jasny-bootstrap.min.js"></script>
 <script src="../assets/js/project.js"></script>
 <script src="../assets/js/board.js"></script>
-
+<script src="../assets/js/chat.js"></script>
 </html>

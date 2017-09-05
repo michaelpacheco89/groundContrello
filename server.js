@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-
+var socket = require("socket.io");
 // Sets up the Express App
 // =============================================================
 var app = express();
@@ -9,6 +9,7 @@ var PORT = process.env.PORT || 8080;
 // Sets up server for sockets
 var ioProm = require('express-socket.io');
 var server = ioProm.init(app);
+var io = socket(server);
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -42,3 +43,15 @@ db.sequelize.sync({force: true}).then(function() {
 });
 
 //{ force: true }
+
+// Socket for chat
+// ===========================
+io.on("connection", function(socket){
+  // console.log("made socket connection", socket.id);
+  socket.on("chat", function(data){
+    io.sockets.emit("chat", data);
+  });
+  socket.on("typing", function(data){
+    socket.broadcast.emit("typing", data);
+  });
+});
