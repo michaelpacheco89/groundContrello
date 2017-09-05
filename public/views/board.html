@@ -22,69 +22,70 @@
 </head>
 
 <body>
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Board</button>
-            <div id="myDropdown" class="dropdown-content">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Board</button>
+                <div id="myDropdown" class="dropdown-content">
+                </div>
+            </div>
+            <a href="#">
+                <input type="text">
+                <button type="">
+                    <i class="fa fa-search" aria-hidden="true">
+            </i></button>
+            </a>
+            <h4 class="text-center"><a href="/project">Ground Contrello</a></h4>
+            <a href="#">
+                <button id="">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </a>
+            <a href="#">
+                <button id="">
+                    <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                </button>
+            </a>
+            <a href="#">
+                <button id=""> NJ
+                </button>
+            </a>
+        </div>
+    </nav>
+    <nav id="subnav" class="navbar navbar-default navbar-static-top">
+        <div class="container" id="menuWrapper">
+            <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
+                <h4 class="text-center">Menu</h4>
+                <hr>
+                <div class="container text-center">
+                    <a href="#" class="btn btn-info btn-lg">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
+            </a>
+                </div>
+                <ul class="nav navmenu-nav">
+                </ul>
+            </nav>
+            <div class="navbar navbar-default navbar-fixed-top" id="menu">
+                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+                    ...Show Menu
+                </button>
             </div>
         </div>
-        <a href="#">
-            <input type="text">
-            <button type="">
-                <i class="fa fa-search" aria-hidden="true">
-            </i></button>
-        </a>
-        <h4 class="text-center"><a href="/project">Ground Contrello</a></h4>
-        <a href="#">
-            <button id="">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-        </a>
-        <a href="#">
-            <button id="">
-                <i class="fa fa-commenting-o" aria-hidden="true"></i>
-            </button>
-        </a>
-        <a href="#">
-            <button id=""> NJ
-            </button>
-        </a>
-    </div>
-</nav>
-
-<nav id="subnav" class="navbar navbar-default navbar-static-top">
-    <div class="container" id="menuWrapper">
-        <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
-            <h4 class="text-center">Menu</h4>
-            <hr>
-            <ul class="nav navmenu-nav">
-
-            </ul>
-        </nav>
-        <div class="navbar navbar-default navbar-fixed-top" id="menu">
-            <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
-                ...Show Menu
-            </button>
+    </nav>
+    <div class="main-container">
+        <div class="boards-page">
+            <div id="lists">
+            </div>
+            <div id="defaultList">
+                <form id="addList">
+                    <input type="text" id="title" name="name" placeholder="Add a list">
+                    <br>
+                    <button type="submit" id="newlist">Save</button>
+                    <span class="cancel"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </form>
+            </div>
         </div>
     </div>
-</nav>
-
-<div class="main-container">
-    <div class="boards-page">
-        <div id="lists">
-
-        </div>
-        <div id="defaultList">
-            <form id="addList">
-                <input type="text" id="title" name="name" placeholder="Add a list">
-                <br>
-                <button type="submit" id="newlist">Save</button>
-                <span class="cancel"><i class="fa fa-times" aria-hidden="true"></i></span>
-            </form>
-        </div>
-    </div>
-</div>
 </body>
 <!-- Jasny Bootstrap Js -->
 <script src="../assets/js/jasny-bootstrap.min.js"></script>

@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var cookieParser = require('cookie-parser');
 
 // Sets up the Express App
 // =============================================================
@@ -14,6 +15,7 @@ var server = ioProm.init(app);
 var db = require("./models");
 
 // Sets up the Express app to handle data parsing
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
