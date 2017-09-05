@@ -41,6 +41,8 @@ $(document).ready(function() {
                     OwnerId: data.id
                 });
 
+                updateCookies(data.id);
+
                 localStorage.clear();
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('username', user.username);
@@ -48,6 +50,10 @@ $(document).ready(function() {
         });
     }
 });
+
+function updateCookies(userId) {
+    document.cookie = "userId=" + userId + "; expires=Thu, 18 Dec 2020 12:00:00 UTC; path=/";
+};
 
 function createBoard(board) {
     $.post("/api/boards", board, function(data) {

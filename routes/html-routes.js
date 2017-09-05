@@ -4,7 +4,15 @@ module.exports = function(app) {
 
     // home route loads home.html
     app.get("/", function(req, res) {
-        res.sendFile(path.join(__dirname, "../public/views/index.html"));
+        console.log(req.cookies);
+        // var test = req.cookies;
+        // console.log(Object.hasOwnProperty.call(test, "userId"));
+        if (Object.hasOwnProperty.call(req.cookies, "userId")) {
+            res.sendFile(path.join(__dirname, "../public/views/board.html"));
+        } else {
+            res.sendFile(path.join(__dirname, "../public/views/index.html"));
+        }
+        //res.sendFile(path.join(__dirname, "../public/views/index.html"));
     });
 
     // signup route loads signup.html
@@ -19,7 +27,12 @@ module.exports = function(app) {
 
     // board route loads a user's board page
     app.get("/board", function(req, res) {
-        res.sendFile(path.join(__dirname, "../public/views/board.html"));
+        console.log(req.cookies);
+        if (Object.hasOwnProperty.call(req.cookies, "userId")) {
+            res.sendFile(path.join(__dirname, "../public/views/board.html"));
+        } else {
+            res.sendFile(path.join(__dirname, "../public/views/index.html"));
+        }
     });
 
     // project route loads a user's projects/profile page
