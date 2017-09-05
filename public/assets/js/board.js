@@ -72,6 +72,8 @@ $(document).on("submit", ".editListForm, .editTaskForm",function(event) {
 });
 
 // populate the page with the right lists in the right order on load
+var BoardId = localStorage.getItem('board');
+
 $(document).ready(function() {
     $.get("/api/lists?BoardId=" + BoardId, function(data) {
         numLists = data.length;

@@ -37,7 +37,7 @@ module.exports = function(app) {
 
     // project route loads a user's projects/profile page
     app.get("/project", function(req, res) {
-        res.sendFile(path.join(__dirname, "../public/views/profile.html"));
+        res.sendFile(path.join(__dirname, "../public/views/project.html"));
     });
 
 };
