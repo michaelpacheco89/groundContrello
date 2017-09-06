@@ -45,6 +45,7 @@ module.exports = function(app) {
                 id: req.params.id
             }
         }).then(function(dbBoards) {
+            console.log(dbBoards)
             dbBoards.addUsers(req.params.userId, { through: { teamName: dbBoards.name } });
             res.json(dbBoards);
         }).catch(function(error) {
