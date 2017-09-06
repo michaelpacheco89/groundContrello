@@ -155,7 +155,8 @@ $(addList).on("submit", function(event) {
     }
     $.post("/api/lists", {
         title: newListTitle.val().trim(),
-        index: numLists
+        index: numLists,
+        BoardId: localStorage.getItem('board')
     }, function(data) {
         numLists++;
         var list = $("<div class='card-wrap'>");
