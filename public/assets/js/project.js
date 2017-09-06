@@ -36,12 +36,11 @@ $("#newBoard").on("click", function(event) {
     var newBD = $("<li><a></li></a>");
     boardName.css({ "font-size": "1em" });
     newBD.text(boardName.val().trim());
-    $(".boards-wrapper").append(newBD);
 
     createBoard({
         name: boardName.val().trim(),
-        OwnerId: localStorage.getItem('id')
-    });
+        OwnerId: parseInt(localStorage.getItem('id'))
+    },newBD);
 
     // clear input datas
     boardName.val(" ");
@@ -52,17 +51,20 @@ $(document).on("click", "#popover2", function(event) {
     $("#newTeamInfo").show();
 });
 
-$(document).on("click", ".boards-wrapper", function(event) {
-  console.log("CLICKED!")
+$(document).on("click", ".boards-wrapper li", function(event) {
+  //console.log("CLICKED! ID is: " + $(this).attr('id'));
+  localStorage.setItem('board', $(this).attr('id'));
+  window.location.href = "/board";
 });
 
-function createBoard(board) {
+function createBoard(board,BD) {
+  //console.log(board)
     $.post("/api/boards", board, function(data) {
-        localStorage.setItem('board', data.id);
-    }).catch(function(error) {
-        console.log(error);
+        //localStorage.setItem('board', data.id);
+        BD.attr('id', data.id);
+        $(".boards-wrapper").append(BD);
     });
-    //console.log(board)
+    //
 }
 
 // $("#newTeam").on("click", function(event){

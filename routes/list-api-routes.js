@@ -5,12 +5,12 @@ module.exports = function(app) {
     //GET ALL LISTS || GET ALL LISTS FROM SPECIFIC USER
     app.get("/api/lists", function(req, res) {
         var query = {};
-        // if (req.query.User_id) {
-        //     query.UserId = req.query.User_id;
-        // } else if(req.query.BoardId) {
-        //   query.BoardId = req.query.BoardId;
-        // }
-
+        if (req.query.User_id) {
+            query.UserId = req.query.User_id;
+        } else if(req.query.BoardId) {
+          query.BoardId = req.query.BoardId;
+        }
+        //console.log(query)
         db.List.findAll({
             where: query,
             include: [db.Board, db.Task]
@@ -41,9 +41,9 @@ module.exports = function(app) {
     });
 
     app.post("/api/lists/update", function(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         var indices = req.body.data;
-        console.log(indices);
+        /*console.log(indices);*/
 
         function helper(count) {
             if (count == indices.length)
