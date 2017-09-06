@@ -20,7 +20,7 @@ window.onclick = function(event) {
       }
     }
   }
-}
+};
 
 $(document).on("click", "#popover1", function(event) {
       event.preventDefault();
@@ -39,7 +39,7 @@ $("#newBoard").on("click", function(event){
 
    // clear input datas
   boardName.val(" ");
-})
+});
 
 $(document).on("click", "#popover2", function(event) {
       event.preventDefault();
@@ -57,5 +57,5 @@ $(document).on("click", "#popover2", function(event) {
 //   $(".teams-wrapper").append(newTm, teamDescription);
 //   // clear inpur datas
 //   teamName.val(" ");
-    
+
 // })
