@@ -9,8 +9,7 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 // Sets up server for sockets
-var ioProm = require('express-socket.io');
-var server = ioProm.init(app);
+var server = require('http').Server(app);
 var io = socket(server);
 
 // Requiring our models for syncing
@@ -20,9 +19,13 @@ var db = require("./models");
 // app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+app.use(bodyParser.json({
+  type: "application/vnd.api+json"
+}));
 
 // Static directory
 app.use(express.static("public"));
@@ -38,24 +41,32 @@ require("./routes/boards-api-routes.js")(app);
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync().then(function() {
-    /*  app.listen(PORT, function() {
-        console.log("App listening on PORT " + PORT);
-      });*/
-    server.listen(PORT, function() {
-        console.log('Server listening on PORT: ', PORT);
-    });
+  /*  app.listen(PORT, function() {
+      console.log("App listening on PORT " + PORT);
+    });*/
+  server.listen(PORT, function() {
+    console.log('Server listening on PORT: ', PORT);
+  });
 });
 
 //{ force: true }
 
 // Socket for chat
 // ===========================
-io.on("connection", function(socket){
+io.on("connection", function(socket) {
   // console.log("made socket connection", socket.id);
-  socket.on("chat", function(data){
+  socket.on("chat", function(data) {
     io.sockets.emit("chat", data);
   });
-  socket.on("typing", function(data){
+  socket.on("typing", function(data) {
     socket.broadcast.emit("typing", data);
   });
+  // real time for tasks and lists
+  socket.on("list", function(data){
+    console.log(data);
+    io.sockets.emit("list", data);
+  });
+  // socket.on("task", function(data){
+  //   io.sockets.emit();
+  // });
 });

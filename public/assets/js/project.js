@@ -54,7 +54,7 @@ $(document).on("click", "#popover2", function(event) {
 
 $(document).on("click", ".boards-wrapper li", function(event) {
   //console.log("CLICKED! ID is: " + $(this).attr('id'));
-  localStorage.setItem('boardId', $(this).attr('id'));
+  localStorage.setItem('BoardId', $(this).attr('id'));
   window.location.href = "/board";
 });
 
