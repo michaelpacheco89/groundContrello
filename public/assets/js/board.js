@@ -12,67 +12,67 @@ $("input").keypress(function(event) {
 });
 
 function submitOnFocusOut(input) {
-    if(!$(input).val()) {
-      $(input).val($(input).attr('value'));
+    if (!$(input).val()) {
+        $(input).val($(input).attr('value'));
     }
     $(input).parent().submit();
 }
 
 // event listener to edit title of lists and lists
-$(document).on("click",".list-header, .card-detail", function() {
-  var placeholder = $(this).text();
-  var editForm = $("<form>");
-  var listIdInput = $("<input type='hidden' name='id'>");
-  var editInput = $("<input type='text' class='editInput' value='"+placeholder+"' onfocusout='submitOnFocusOut(this)'>").val(placeholder);
-  editInput.attr('name','text');
-  if($(this).hasClass("list-header")) {
-    editForm.attr('class','editListForm');
-    listIdInput.attr('value', $(this).parent().attr('id'));
-  } else {
-    editForm.attr('class','editTaskForm');
-    listIdInput.attr('value', $(this).attr('id'));
-  }
-  editForm.append(listIdInput, editInput);
-  $(this).replaceWith(editForm);
-  $(".editInput").focus().select();
+$(document).on("click", ".list-header, .card-detail", function() {
+    var placeholder = $(this).text();
+    var editForm = $("<form>");
+    var listIdInput = $("<input type='hidden' name='id'>");
+    var editInput = $("<input type='text' class='editInput' value='" + placeholder + "' onfocusout='submitOnFocusOut(this)'>").val(placeholder);
+    editInput.attr('name', 'text');
+    if ($(this).hasClass("list-header")) {
+        editForm.attr('class', 'editListForm');
+        listIdInput.attr('value', $(this).parent().attr('id'));
+    } else {
+        editForm.attr('class', 'editTaskForm');
+        listIdInput.attr('value', $(this).attr('id'));
+    }
+    editForm.append(listIdInput, editInput);
+    $(this).replaceWith(editForm);
+    $(".editInput").focus().select();
 });
 
 // event listeners to return the list/task body back from input to text
-$(document).on("submit", ".editListForm, .editTaskForm",function(event) {
-  event.preventDefault();
-  var $form = $(this);
-  var queryString;
-  var editObject={
-    id:$form.find("input[name='id']").val()
-  };
-  var newContent;
-  if(!$form.find("input[name='text']").val()){
-    $form.find("input[name='text']").val($form.find("input[name='text']").attr('value'));
-  }
-  if($form.hasClass("editListForm")) {
-    newContent = $("<h6 class='list-header'>");
-    editObject.title = $form.find("input[name='text']").val();
-    queryString = "/api/lists";
-  } else {
-    newContent = $("<p class='card-detail ui-state-default'>");
-    newContent.attr('id',$form.find("input[name='id']").val());
-    newContent.append(
-        "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;'></i>");
-    editObject.body = $form.find("input[name='text']").val();
-    queryString = "/api/tasks";
-  }
-  newContent.prepend($form.find("input[name='text']").val());
-  $.ajax({
-    method:"PUT",
-    url:queryString,
-    data: editObject
-  }).done(function() {
-    $form.replaceWith(newContent);
-  });
+$(document).on("submit", ".editListForm, .editTaskForm", function(event) {
+    event.preventDefault();
+    var $form = $(this);
+    var queryString;
+    var editObject = {
+        id: $form.find("input[name='id']").val()
+    };
+    var newContent;
+    if (!$form.find("input[name='text']").val()) {
+        $form.find("input[name='text']").val($form.find("input[name='text']").attr('value'));
+    }
+    if ($form.hasClass("editListForm")) {
+        newContent = $("<h6 class='list-header'>");
+        editObject.title = $form.find("input[name='text']").val();
+        queryString = "/api/lists";
+    } else {
+        newContent = $("<p class='card-detail ui-state-default'>");
+        newContent.attr('id', $form.find("input[name='id']").val());
+        newContent.append(
+            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;'></i>");
+        editObject.body = $form.find("input[name='text']").val();
+        queryString = "/api/tasks";
+    }
+    newContent.prepend($form.find("input[name='text']").val());
+    $.ajax({
+        method: "PUT",
+        url: queryString,
+        data: editObject
+    }).done(function() {
+        $form.replaceWith(newContent);
+    });
 });
 
-// populate the page with the right lists in the right order on load
-var BoardId = localStorage.getItem('board');
+/*// populate the page with the right lists in the right order on load
+var BoardId = localStorage.getItem('board');*/
 
 $(document).ready(function() {
     $.get("/api/lists?BoardId=" + BoardId, function(data) {
@@ -156,7 +156,7 @@ $(addList).on("submit", function(event) {
     $.post("/api/lists", {
         title: newListTitle.val().trim(),
         index: numLists,
-        BoardId: localStorage.getItem('board')
+        BoardId: localStorage.getItem('BoardId')
     }, function(data) {
         numLists++;
         var list = $("<div class='card-wrap'>");
@@ -222,8 +222,36 @@ $(document).on("click", ".makingNewCard", function(event) {
 
 // event listener to sign out
 $(document).on("click", ".sign-out", function() {
-	document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
-	window.location.href = "/login";
+    document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
+    window.location.href = "/login";
+});
+
+// event listener to add user to board
+$(document).on("click", ".addUser", function() {
+    //console.log($('#newUser').val().trim());
+    var newUser = $('#newUser').val().trim();
+
+    if (newUser === "") {
+        alert("User cannot be blank!");
+    } else {
+        //console.log("Success!");
+
+        $.get("api/users/n?name=" + newUser, function(user) {
+            console.log(user);
+            $.get("api/boards/" + parseInt(localStorage.getItem("BoardId")) +"/users/" + user.id, function(data) {
+                console.log(data);
+                $('#newUser').val("");
+            });
+        });
+
+
+        /*$.post("api/boards/" +  + "/users/" + , function(data) {
+            console.log(data);
+            $('#newUser').val() = "";
+        });*/
+    }
+
+    ///api/boards/:id/users/:userId
 });
 
 // event listeners to delete a list or task card upon clicking the x
