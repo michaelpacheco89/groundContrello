@@ -83,6 +83,20 @@ p{
 		margin: 0 3px;
 		padding: 8px;
 }
+
+.editListForm input, .editTaskForm input {
+	padding: 0;
+	border: none;
+	margin: 6px 0;
+	font-family: 'Roboto', sans-serif;
+	width: 100%;
+}
+
+.editListForm input {
+	width: 220px;
+	margin-top: 0;
+}
+
 #lists{
     width:auto;
     height:auto;
@@ -96,6 +110,10 @@ p{
     border-radius: 3px;
 		height: fit-content;
 		padding: 5px;
+}
+
+input #title {
+	font-family: 'Roboto', sans-serif;
 }
 
 .card-detail {
@@ -223,7 +241,7 @@ label{
     padding: 10px 20px;
 }
 
-input{
+#message {
     padding: 10px 20px;
     box-sizing: border-box;
     background: #eee;

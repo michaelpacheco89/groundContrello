@@ -5,7 +5,9 @@ module.exports = function(sequelize, DataTypes) {
         body: {
             type: DataTypes.TEXT,
             allowNull: false,
-            len: [1]
+            validate: {
+              len: [1]
+            }
         },
         index: DataTypes.INTEGER
     });
