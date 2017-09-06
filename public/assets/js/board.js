@@ -106,6 +106,7 @@ $(document).ready(function() {
                 placeholder: "ui-sortable-placeholder-cards",
                 start: function(e, ui) {
                     ui.placeholder.height(ui.helper.outerHeight());
+                    ui.placeholder.width(ui.helper.outerWidth());
                 },
                 update: function(e, ui) {
                     var dataTask = $(this).sortable('toArray');
@@ -235,6 +236,7 @@ $(addList).on("submit", function(event) {
             placeholder: "ui-sortable-placeholder-cards",
             start: function(e, ui) {
                 ui.placeholder.height(ui.helper.outerHeight());
+                ui.placeholder.width(ui.helper.outerWidth());
             },
             update: function(e, ui) {
                 var data = $(this).sortable('toArray');
