@@ -11,6 +11,7 @@ $("input").keypress(function(event) {
     }
 });
 
+// event listener to submit edit on focus out. if empty, restore to original value
 function submitOnFocusOut(input) {
     if(!$(input).val()) {
       $(input).val($(input).attr('value'));
@@ -72,8 +73,6 @@ $(document).on("submit", ".editListForm, .editTaskForm",function(event) {
 });
 
 // populate the page with the right lists in the right order on load
-var BoardId = localStorage.getItem('board');
-
 $(document).ready(function() {
     $.get("/api/lists?BoardId=" + BoardId, function(data) {
         numLists = data.length;
@@ -98,14 +97,9 @@ $(document).ready(function() {
             for (j = 0; j < tasks.length; j++) {
                 content.append(tasks[j]);
             }
-            // var addCard = $("<a> Add a card </a>");
+            var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
 
-            var form = $("<form class='addCard'>");
-            var input = $("<input class='newCard'>");
-            var button = $("<button type='submit' class='makingNewCard'>Add new card</button>");
-
-            form.append(input, button);
-            newList.append(remove, header, content, form);
+            newList.append(remove, header, content, addCard);
             $(content).sortable({
                 connectWith: ".list-cards",
                 placeholder: "ui-sortable-placeholder-cards",
@@ -129,6 +123,69 @@ $(document).ready(function() {
     });
 });
 
+// helper to replace form with link on blur of add card form
+function addCardOnBlur(input) {
+  if(!$(input).siblings("button.makingNewCard").attr("mouseDown") && !$(input).siblings(".closeAddCard").attr("mouseDown")){
+    var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
+    addCard.attr('value',$(input).val());
+    $(input).parent().replaceWith(addCard);
+  }
+}
+
+// event listener to replace add a card link with form
+$(document).on("click",".addCardLink",function() {
+  var form = $("<form class='addCard'>");
+  var input = $("<input class='newCard' onblur='addCardOnBlur(this)'>");
+  var button = $("<button type='submit' class='makingNewCard'>Add</button>");
+  var remove = $("<i class='fa fa-times closeAddCard' aria-hidden='true' style='position: relative;float: right;'></i>");
+  if($(this).attr('value')){
+    input.val($(this).attr('value'));
+  }
+  form.append(input, button,remove);
+  $(this).replaceWith(form);
+  $(".newCard").focus().select();
+});
+
+// to prevent loss of focus behavior upon clicking x or add buttons
+$(document).on("mousedown",".makingNewCard, .closeAddCard", function(e) {
+  $(this).attr("mouseDown", true);
+});
+
+$(document).on("mouseup",".makingNewCard, .closeAddCard", function(e) {
+  $(this).attr("mouseDown", false);
+});
+
+// helper to replace form with link on blur of add list form
+function addListOnBlur(input) {
+  if(!$(input).siblings("button").attr("mouseDown") && !$(input).siblings(".closeAddList").attr("mouseDown")){
+    var addListSpan = $("<span>").text("Add a list...");
+    addListSpan.attr('value',$(input).val());
+    $(input).parent().parent().html(addListSpan);
+  }
+}
+
+// event listener to replace add a list span with form
+$(document).on("click","#addList span", function() {
+  var wrapper = $("<div id='addListWrapper'>");
+  var titleInput = $("<input type='text' id='title' placeholder='Add a list...' style='width:100%;border-radius:3px;display:block;' onblur='addListOnBlur(this)'>");
+  if($(this).attr('value'))
+    titleInput.val($(this).attr('value'));
+  var button = $("<button class='btn btn-success' type='submit' id='newList'>").text('Save');
+  var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true">');
+  wrapper.append(titleInput,button,closeBtn);
+  $(this).replaceWith(wrapper);
+  $("#title").focus().select();
+});
+
+// to prevent loss of focus behavior upon clicking x or add buttons
+$(document).on("mousedown","#newList, .closeAddList", function(e) {
+  $(this).attr("mouseDown", true);
+});
+
+$(document).on("mouseup","#newList, .closeAddList", function(e) {
+  $(this).attr("mouseDown", false);
+});
+
 // allowing for sorting of list order
 $("#lists").sortable({
     placeholder: "ui-sortable-placeholder-lists",
@@ -145,18 +202,20 @@ $("#lists").sortable({
 });
 
 var addList = $("#addList");
-var newListTitle = $("#title");
 
 // event listener to create new list
 $(addList).on("submit", function(event) {
     event.preventDefault();
+    var newListTitle = $("#title");
     if (!newListTitle.val().trim()) {
         return;
     }
+    var addListSpan = $("<span>").text("Add a list...");
+    addList.html(addListSpan);
     $.post("/api/lists", {
         title: newListTitle.val().trim(),
         index: numLists,
-        BoardId: localStorage.getItem('board')
+        BoardId: BoardId
     }, function(data) {
         numLists++;
         var list = $("<div class='card-wrap'>");
@@ -167,14 +226,8 @@ $(addList).on("submit", function(event) {
 
         var content = $("<div  class='list-cards'>");
 
-        // var addCard = $("<a> Add a card </a>");
-
-        var form = $("<form class='addCard'>");
-        var input = $("<input class='newCard'>");
-        var button = $("<button type='submit' class='makingNewCard'>Add new card</button>");
-
-        form.append(input, button);
-        list.append(remove, header, content, form);
+        var addCard = $("<a class='addCardLink'>").text("Add a card...");
+        list.append(remove, header, content, addCard);
         // making the list of tasks sortable
         $(content).sortable({
             connectWith: ".list-cards",
@@ -198,25 +251,25 @@ $(addList).on("submit", function(event) {
 // event listener for making new task
 $(document).on("click", ".makingNewCard", function(event) {
     event.preventDefault();
-    var newCard = $(this).parent().children("input.newCard");
+    var newCard = $(this).parent();
 
-    if (!newCard.val().trim()) {
+    if (!newCard.children("input.newCard").val().trim()) {
         return;
     }
     var numCards = $(this).parent().parent().children("div.list-cards").children().length;
     var parent = $(this).parent().parent().children("div.list-cards");
     $.post("/api/tasks", {
-        body: newCard.val().trim(),
+        body: newCard.children("input.newCard").val().trim(),
         index: numCards,
         ListId: parent.parent().attr('id')
     }, function(data) {
         var cardDetail = $("<p class='card-detail ui-state-default'>");
         cardDetail.attr('id', data.id);
-        cardDetail.html(newCard.val().trim() +
+        cardDetail.html(newCard.children("input.newCard").val().trim() +
             "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;'></i>");
         parent.append(cardDetail);
-        // clear input data
-        newCard.val("");
+        var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
+        newCard.replaceWith(addCard);
     });
 });
 
@@ -257,6 +310,18 @@ $(document).on("click", ".deleteTask", function(event) {
         var data = listEdited.sortable("toArray");
         $.post("/api/tasks/update?ListId=" + ListId, { data: data });
     });
+});
+
+$(document).on("click", ".closeAddCard", function(event) {
+    event.stopPropagation();
+    var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
+    $(this).parent().replaceWith(addCard);
+});
+
+$(document).on("click", ".closeAddList", function(event) {
+    event.stopPropagation();
+    var addListSpan = $("<span>").text("Add a list...");
+    addList.html(addListSpan);
 });
 
 
