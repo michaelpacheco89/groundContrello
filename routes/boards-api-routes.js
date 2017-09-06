@@ -45,7 +45,8 @@ module.exports = function(app) {
                 id: req.params.id
             }
         }).then(function(dbBoards) {
-            dbBoards.addUsers(req.params.userId, { through: { teamName: 'TEST' } });
+            console.log(dbBoards)
+            dbBoards.addUsers(req.params.userId, { through: { teamName: dbBoards.name } });
             res.json(dbBoards);
         }).catch(function(error) {
             console.log(error);
@@ -57,7 +58,7 @@ module.exports = function(app) {
     // EDIT HERE
     app.post("/api/boards", function(req, res) {
         db.Board.create(req.body).then(function(dbBoards) {
-            dbBoards.setUsers([req.body.OwnerId], { through: { teamName: 'TEST' } });
+            dbBoards.setUsers([req.body.OwnerId], { through: { teamName: req.body.name } });
             res.json(dbBoards);
         });
     });

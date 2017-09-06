@@ -8,7 +8,7 @@ module.exports = function(app) {
         // var test = req.cookies;
         // console.log(Object.hasOwnProperty.call(test, "userId"));
         if (Object.hasOwnProperty.call(req.cookies, "userId")) {
-            res.sendFile(path.join(__dirname, "../public/views/board.html"));
+            res.sendFile(path.join(__dirname, "../public/views/project.html"));
         } else {
             res.sendFile(path.join(__dirname, "../public/views/index.html"));
         }

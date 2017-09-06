@@ -21,7 +21,7 @@ window.onclick = function(event) {
             }
         }
     }
-  };
+};
 
 
 $(document).on("click", "#popover1", function(event) {
@@ -41,7 +41,7 @@ $("#newBoard").on("click", function(event) {
     createBoard({
         name: boardName.val().trim(),
         OwnerId: parseInt(localStorage.getItem('id'))
-    },newBD);
+    }, newBD);
 
     // clear input datas
     boardName.val("");
@@ -53,13 +53,13 @@ $(document).on("click", "#popover2", function(event) {
 });
 
 $(document).on("click", ".boards-wrapper li", function(event) {
-  //console.log("CLICKED! ID is: " + $(this).attr('id'));
-  localStorage.setItem('boardId', $(this).attr('id'));
-  window.location.href = "/board";
+    //console.log("CLICKED! ID is: " + $(this).attr('id'));
+    localStorage.setItem('BoardId', $(this).attr('id'));
+    window.location.href = "/board";
 });
 
-function createBoard(board,BD) {
-  //console.log(board)
+function createBoard(board, BD) {
+    //console.log(board)
     $.post("/api/boards", board, function(data) {
         //localStorage.setItem('board', data.id);
         BD.attr('id', data.id);

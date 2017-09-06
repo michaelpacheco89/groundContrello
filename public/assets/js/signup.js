@@ -60,7 +60,7 @@ $(document).ready(function() {
       localStorage.setItem('id',data.id);
       localStorage.setItem('username',user.name);
       document.cookie = "userId=" + data.id + "; expires=Thu, 18 Dec 2020 12:00:00 UTC; path=/";
-      window.location.href = "/board";
+      window.location.href = "/project";
     });
   }
 });

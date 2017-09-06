@@ -37,6 +37,21 @@ module.exports = function(app) {
         });
     });
 
+    //get route for adding new users to a task
+    app.get("/api/tasks/:id/users/:userId", function(req, res) {
+        db.Task.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(dbTasks) {
+            //console.log(dbTasks)
+            dbTasks.addUsers(req.params.userId, { through: "taskTeams" });
+            res.json(dbTasks);
+        }).catch(function(error) {
+            console.log(error);
+        });
+    });
+
     // POST ROUTE FOR CREATING NEW TASKs
     app.post("/api/tasks", function(req, res) {
         db.Task.create(req.body).then(function(dbTask) {
