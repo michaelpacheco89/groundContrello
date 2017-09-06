@@ -48,7 +48,7 @@ module.exports = function(app) {
       console.log(req.body);
       var indices = req.body.data;
       function helper(count) {
-        if(count == indices.length)
+        if(indices == undefined || count == indices.length)
           return res.end();
         db.Task.update({
           index:count,

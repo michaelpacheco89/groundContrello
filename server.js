@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var socket = require("socket.io");
 var cookieParser = require('cookie-parser');
+// var methodOverride = require('method-override');
 // Sets up the Express App
 // =============================================================
 var app = express();
@@ -16,6 +17,7 @@ var io = socket(server);
 var db = require("./models");
 
 // Sets up the Express app to handle data parsing
+// app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,7 +37,7 @@ require("./routes/boards-api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync({force: true}).then(function() {
+db.sequelize.sync().then(function() {
     /*  app.listen(PORT, function() {
         console.log("App listening on PORT " + PORT);
       });*/

@@ -35,17 +35,19 @@ $(document).ready(function() {
                 return;
             } else {
 
-                createBoard({
+                /*createBoard({
                     name: "Goblin King!",
                     body: "Boogie boogie",
                     OwnerId: data.id
-                });
+                });*/
 
                 updateCookies(data.id);
 
                 localStorage.clear();
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('username', user.username);
+
+                window.location.href = "/project";
             }
         });
     }
