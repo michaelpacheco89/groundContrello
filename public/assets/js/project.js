@@ -2,6 +2,7 @@ var title;
 var boardName = $("#boardName");
 var teamName = $("#teamName");
 var teamDescription = $("#teamDescription");
+
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 
@@ -9,42 +10,63 @@ function myFunction() {
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+    if (!event.target.matches('.dropbtn')) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
     }
-  }
-};
+  };
+
 
 $(document).on("click", "#popover1", function(event) {
-      event.preventDefault();
-      $("#newBoardInfo").show();
+    event.preventDefault();
+    $("#newBoardInfo").show();
 });
 
-$("#newBoard").on("click", function(event){
+$("#newBoard").on("click", function(event) {
     event.preventDefault();
-    if (!boardName.val().trim()){
-      return;
+    if (!boardName.val().trim()) {
+        return;
     }
-   var newBD = $("<li><a></li></a>");
-   boardName.css({"font-size":"1em"});
-   newBD.text(boardName.val().trim());
-   $(".boards-wrapper").append(newBD);
+    var newBD = $("<li><a></li></a>");
+    boardName.css({ "font-size": "1em" });
+    newBD.text(boardName.val().trim());
 
-   // clear input datas
-  boardName.val(" ");
+    createBoard({
+        name: boardName.val().trim(),
+        OwnerId: parseInt(localStorage.getItem('id'))
+    },newBD);
+
+    // clear input datas
+    boardName.val("");
 });
 
 $(document).on("click", "#popover2", function(event) {
-      event.preventDefault();
-      $("#newTeamInfo").show();
+    event.preventDefault();
+    $("#newTeamInfo").show();
 });
+
+$(document).on("click", ".boards-wrapper li", function(event) {
+  //console.log("CLICKED! ID is: " + $(this).attr('id'));
+  localStorage.setItem('boardId', $(this).attr('id'));
+  window.location.href = "/board";
+});
+
+function createBoard(board,BD) {
+  //console.log(board)
+    $.post("/api/boards", board, function(data) {
+        //localStorage.setItem('board', data.id);
+        BD.attr('id', data.id);
+        $(".boards-wrapper").append(BD);
+    });
+    //
+}
 
 // $("#newTeam").on("click", function(event){
 //   event.preventDefault();
