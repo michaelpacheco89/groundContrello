@@ -19,54 +19,51 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body id="project">
     <!-- main header -->
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Board</button>
-                <div id="myDropdown" class="dropdown-content">
-                </div>
-            </div>
-            <a href="#">
-                <input type="text">
-                <button type="">
-                    <i class="fa fa-search" aria-hidden="true">                  
-            </i></button>
-            </a>
-            <h4 class="text-center"><a href="/">Ground Contrello</a></h4>
-            <a href="#">
-                <button id="">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
-            </a>
-            <a href="#">
-                <button id="">
-                    <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                </button>
-            </a>
-            <a href="#">
-                <button id=""> NJ
-                </button>
-            </a>
-        </div>
+    <nav class="navbar fixed-top">
+        <a  class="navbar-brand" href="/project"><h1>Ground Contrello</h1></a>
+        <a class="navbar-brand" href="#">
+            <button>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+        </a>
+       <a class="navbar-brand" href="#">
+            <button>
+                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+            </button>
+        </a>
+        <a class="navbar-brand" href="#">
+            <button id=""> NJ
+            </button>
+        </a>
+        <a class="navbar-brand" href="#">
+            <input type="text">
+            <button>
+                <i class="fa fa-search" aria-hidden="true">
+        </i></button>
+        </a>
+        <a class="navbar-brand" href="#">
+            <button type="button" class="btn btn-info btn-lg sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out </button>
+        </a>
     </nav>
     <!-- boards section -->
+<div class="main-content">
+    <header>
+        <h4><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Personal Boards</h4>
+    </header>
     <div class="boards-section">
-        <header>
-            <a><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Personal Boards</a>
-        </header>
         <!-- create new board -->
         <button type="button" id="popover1">Create new board</button>
-        <ul class="boards-wrapper">
-        </ul>
         <form id="newBoardInfo">
             <input type="text" placeholder="Title" id="boardName">
             <button typy="submit" id="newBoard">Create</button>
         </form>
+        <ul class="boards-wrapper">
+        </ul>
     </div>
     <!-- create new team -->
-    <div>
+    <div class="teamBoard">
         <a type="button" id="popover2">Create New Team</a>
         <ul class="teams-wrapper">
         </ul>
@@ -82,6 +79,7 @@
             <button typy="submit" id="newTeam">Create</button>
         </form>
     </div>
+</div>
 </body>
 <!-- Bootstrap 4.0 Js -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

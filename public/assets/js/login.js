@@ -59,7 +59,7 @@ function updateCookies(userId) {
 
 function createBoard(board) {
     $.post("/api/boards", board, function(data) {
-        localStorage.setItem('board', data.id);
+        localStorage.setItem('BoardId', data.id);
         window.location.href = "/board";
     });
 }

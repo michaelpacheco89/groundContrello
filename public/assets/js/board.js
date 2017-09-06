@@ -72,7 +72,7 @@ $(document).on("submit", ".editListForm, .editTaskForm",function(event) {
 });
 
 // populate the page with the right lists in the right order on load
-var BoardId = localStorage.getItem('board');
+// var BoardId = localStorage.getItem('board');
 
 $(document).ready(function() {
     $.get("/api/lists?BoardId=" + BoardId, function(data) {
@@ -156,7 +156,7 @@ $(addList).on("submit", function(event) {
     $.post("/api/lists", {
         title: newListTitle.val().trim(),
         index: numLists,
-        BoardId: localStorage.getItem('board')
+        BoardId: localStorage.getItem('BoardId')
     }, function(data) {
         numLists++;
         var list = $("<div class='card-wrap'>");
