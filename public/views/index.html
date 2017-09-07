@@ -5,39 +5,123 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Home | Ground Contrello</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap 4.0 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+ <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<!-- stylesheet -->
     <link rel="stylesheet" href="../assets/css/style.css">
+<!-- Jquery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 
 <body>
 
         <nav class="navbar fixed-top">
             <div class="container">
-                <h1>Ground Contrello</h1>
+                <a href="/"><h1>Ground Contrello</h1></a>
             <!-- <div class="inline-button" -->
-                <a class="navbar-brand" href="/about"><button id="info">
-                About
-                </button></a>
-                <a class="navbar-brand" href="/login"><button id="logIn">
+                <a class="navbar-brand btn btn-success" role="button" href="#aboutUs">
+                About Us
+               </a>
+                <a class="navbar-brand btn btn-lg" href="/login" role="button" id="logIn">
                 Log In
-                </button></a>
-                <a class="navbar-brand" href="/signup"><button id="signUp">
+               </a>
+                <a class="navbar-brand btn btn-success" href="/signup" role="button" id="signUp">
                 Sign Up
-                </button></a>
+               </a>
             </div>
         </nav>
     <div class="jumbotron text-center">
         <div class="welcomeBar">
-            <h3>Welcome To Ground Contrello</h2>
-        </div>
-        <a href="/login"><button id="signUp">
+            <h3>Welcome To Ground Contrello</h3>
+            <p>ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>  
+        <a href="/login" class="btn btn-success" role="button" id="signUp">
                 Log in with Ground Contrello
-                </button></a>
+        </a>
+    </div>
+    <div id="aboutUs">
+        <!-- <header>
+               <h3>About</h3>
+        </header>
+ -->
+        <ul>
+            <div class="members">
+            <img src="../assets/images/badcat-Javier.jpg" data-alt-src="../assets/images/Javier.JPG" alt="Responsive image" class="img-fluid rounded-circle">
+
+            <li>Javier Avitia-Velazquez</li>
+            <p>ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+
+            <div class="members">
+            <img src="../assets/images/minion.png"  data-alt-src="../assets/images/Michael.jpg" class="img-fluid rounded-circle">
+            <li>Michael Pacheco</li>
+            <p>ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+
+            <div class="members">
+            <img src="../assets/images/one-piece-Stephen.jpg" data-alt-src="../assets/images/Stephen.png" class="img-fluid rounded-circle">
+            <li>Stephen Woo</li>
+            <p>ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+
+            <div class="members">
+            <img src="../assets/images/dodge-Nan.JPG" data-alt-src="../assets/images/Nan.JPG" class="img-fluid rounded-circle">
+            <li>Nan Jia</li>
+            <p>ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </ul>
+ 
     </div>
     <footer class="text-center">
         &copy; Copyright 2017
     </footer>
 </body>
+<script>
+     var sourceSwap = function () {
+        var $this = $(this);
+        var newSource = $this.data('alt-src');
+        $this.data('alt-src', $this.attr('src'));
+        $this.attr('src', newSource);
+    }
 
+    $(function() {
+        $('img[data-alt-src]').each(function() { 
+            new Image().src = $(this).data('alt-src'); 
+        }).hover(sourceSwap, sourceSwap); 
+    });
+</script>
 </html>

@@ -24,6 +24,10 @@ $("#chatForm").submit(function(e) {
     socket.emit("typing", handle);
   });
 
+message.keypress(function(){
+  socket.emit("typing", handle);
+  $("#chat-window").show();
+});
 
   socket.on("chat", function(data) {
     feedback.html("");
@@ -36,3 +40,7 @@ $("#chatForm").submit(function(e) {
   });
 
 });
+
+function closeChatWindow(){
+	$("#chat-window").hide();
+}
