@@ -298,7 +298,7 @@ h2{
 
 #chat-window{
     overflow: auto;
-  /*  display:none;*/
+    display:none;
 }
 
 #output p{
@@ -346,3 +346,12 @@ label{
 }
 
 /*========END CHAT STYLING============*/
+
+.blocker {
+    background-color: transparent;
+}
+
+.modal a.close-modal {
+    top:-2.5px;
+    right:-2.5px;
+}

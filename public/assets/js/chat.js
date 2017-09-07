@@ -23,7 +23,7 @@ $("#chatForm").submit(function(e) {
 
 message.keypress(function(){
   socket.emit("typing", handle);
-  // $("#chat-window").show();
+  $("#chat-window").show();
 });
 
   socket.on("chat", function(data) {
