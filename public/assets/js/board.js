@@ -5,12 +5,15 @@ var socket = io.connect();
 var numLists;
 // id to get the correct lists for the board
 var BoardId = localStorage.getItem('BoardId');
+// javier knows what this is
+var tasksUsersObj = {};
+
+///////////////////////////// MISC /////////////////////////////
 
 $("form").submit(function(event) {
     event.preventDefault();
 });
 
-///////////////////////////// MISC /////////////////////////////
 // event listener to sign out
 $(document).on("click", ".sign-out", function() {
     localStorage.clear();
@@ -45,9 +48,10 @@ function populateBoard(tasksUsersObj) {
 
               var taskId = data[i].Tasks[j].id;
 
-              for (var u = 0; u < tasksUsersObj[taskId].length; u++) {
-                  //console.log(j + ": " + tasksUsersObj[j][u].name);
+              if (tasksUsersObj[taskId] != null) {
+                for (var u = 0; u < tasksUsersObj[taskId].length; u++) {
                   cardDetail.append(tasksUsersObj[taskId][u].name);
+                }
               }
 
               tasks[data[i].Tasks[j].index] = cardDetail;
@@ -70,7 +74,9 @@ function populateBoard(tasksUsersObj) {
                   var ListId = $(this).parent().attr('id');
                   console.log(dataTask);
                   console.log(ListId);
-                  $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask });
+                  $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask }, function() {
+                    socket.emit("moveCards", { ListId: ListId});
+                  });
               },
               helper: 'clone'
           });
@@ -83,7 +89,6 @@ function populateBoard(tasksUsersObj) {
 }
 
 $(document).ready(function() {
-    var tasksUsersObj = {};
     $.get("/api/tasks", function(tasks) {
         for (var t = 0; t < tasks.length; t++) {
             tasksUsersObj[t + 1] = tasks[t].Users;
@@ -99,12 +104,16 @@ $("#lists").sortable({
     placeholder: "ui-sortable-placeholder-lists",
     start: function(e, ui) {
         ui.placeholder.height(ui.helper.outerHeight());
+        ui.item.startPos = ui.item.index();
     },
     tolerance: 'pointer',
     update: function(event, ui) {
         var data = $(this).sortable('toArray');
         console.log(data);
-        $.post("/api/lists/update", { data: data });
+        var ListId2 = $($("#lists").children()[ui.item.startPos]).attr('id');
+        $.post("/api/lists/update", { data: data }, function() {
+          socket.emit("moveLists");
+        });
     },
     helper: 'clone'
 });
@@ -159,7 +168,7 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         newContent = $("<p class='card-detail ui-state-default'>");
         newContent.attr('id', $form.find("input[name='id']").val());
         newContent.append(
-            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;'></i>");
+            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
         editObject.body = $form.find("input[name='text']").val();
         queryString = "/api/tasks";
     }
@@ -170,6 +179,52 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         data: editObject
     }).done(function() {
         $form.replaceWith(newContent);
+    });
+});
+
+// actual socket function to update orders of task cards
+socket.on('moveCard', function(data) {
+    console.log(data);
+    $.get("/api/tasks?ListId="+data.ListId, function(tasks) {
+      console.log(tasks);
+      $("div#"+data.ListId+".card-wrap").children("div.list-cards").html('');
+      var taskArr = [];
+      taskArr.length = tasks.length;
+      for(i=0;i<tasks.length;i++) {
+        var cardDetail = $("<p class='card-detail ui-state-default'>");
+        cardDetail.attr('id', tasks[i].id);
+        cardDetail.html(tasks[i].body +
+            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+        taskArr[tasks[i].index] = cardDetail;
+      }
+      for(j=0;j<tasks.length;j++) {
+        $("div#"+data.ListId+".card-wrap").children("div.list-cards").append(taskArr[j]);
+      }
+    });
+});
+
+// actual socket function to update orders of lists
+socket.on('moveList', function() {
+    $.get("/api/lists?BoardId="+BoardId, function(lists) {
+      console.log(lists);
+      for(i=0;i<lists.length;i++){
+        var correctList = $($("#lists").children()[lists[i].index]);
+        correctList.attr('id',lists[i].id);
+        correctList.children("h6").html(lists[i].title);
+        correctList.children("div.list-cards").html('');
+        var tasks = [];
+        tasks.length = lists[i].Tasks.length;
+        for(j=0;j<lists[i].Tasks.length;j++) {
+          var cardDetail = $("<p class='card-detail ui-state-default'>");
+          cardDetail.attr('id', lists[i].Tasks[j].id);
+          cardDetail.html(lists[i].Tasks[j].body +
+              "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+          tasks[lists[i].Tasks[j].index] = cardDetail;
+        }
+        for(k=0;k<tasks.length;k++){
+          correctList.children("div.list-cards").append(tasks[k]);
+        }
+      }
     });
 });
 
@@ -318,9 +373,13 @@ socket.on("list", function(data) {
             ui.placeholder.width(ui.helper.outerWidth());
         },
         update: function(e, ui) {
-            var data = $(this).sortable('toArray');
+            var dataTask = $(this).sortable('toArray');
             var ListId = $(this).parent().attr('id');
-            $.post("/api/tasks/update?ListId=" + ListId, { data: data });
+            console.log(dataTask);
+            console.log(ListId);
+            $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask }, function() {
+              socket.emit("moveCards", { ListId: ListId });
+            });
         },
         helper: 'clone'
     });
@@ -356,7 +415,6 @@ $(document).on("click", ".closeAddList", function(event) {
     var addListSpan = $("<span>").text("Add a list...");
     addList.html(addListSpan);
 });
-
 
 
 

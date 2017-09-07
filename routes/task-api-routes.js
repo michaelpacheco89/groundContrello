@@ -2,11 +2,13 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-    //GET ALL TASKS || GET ALL TASKS FROM SPECIFIC USER
+    //GET ALL TASKS || GET ALL TASKS FROM SPECIFIC USER || AND FROM SPECIFIC LIST
     app.get("/api/tasks", function(req, res) {
         var query = {};
         if (req.query.User_id) {
             query.UserId = req.query.User_id;
+        } else if(req.query.ListId) {
+          query.ListId = req.query.ListId;
         }
 
         //console.log("++++",query,"++++");
