@@ -178,9 +178,19 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         url: queryString,
         data: editObject
     }).done(function() {
-        $form.replaceWith(newContent);
+      socket.emit("editListTasks",editObject);
+      $form.replaceWith(newContent);
     });
 });
+
+// // socket function to update values of tasks/lists
+// socket.on('editListTask', function(data) {
+//   if(data.title){
+//     $("div#"+data.id+".card-wrap").children("h6").text(data.title);
+//   } else {
+//     $("div.list-cards").children("#"+data.id).
+//   }
+// });
 
 // actual socket function to update orders of task cards
 socket.on('moveCard', function(data) {
@@ -468,7 +478,7 @@ $(document).on("click", ".deleteList", function() {
     });
 });
 
-// event listenener for deleting tasks in real time
+// event listener for deleting tasks in real time
 socket.on("deleteTask", function(test){
    $(".card-detail").remove(test);
 });
