@@ -7,13 +7,21 @@ module.exports = function(app) {
     app.get("/api/users", function(req, res) {
         //db.List.include([db.Task])
         db.User.findAll({
-            include: {
+            include: [{
                 model: db.Board,
-              include: {
-                model: db.List,
-                include:[db.Task]
-              }
-            }
+                as: "OwnedBoards",
+                include: {
+                    model: db.List,
+                    include: [db.Task]
+                }
+            },{
+                model: db.Board,
+                as: "Boards",
+                include: {
+                    model: db.List,
+                    include: [db.Task]
+                }
+            }]
         }).then(function(dbUser) {
             res.json(dbUser);
         });
@@ -29,13 +37,21 @@ module.exports = function(app) {
         }
         db.User.findOne({
             where: query,
-            include: {
+            include: [{
                 model: db.Board,
-              include: {
-                model: db.List,
-                include:[db.Task]
-              }
-            }
+                as: "OwnedBoards",
+                include: {
+                    model: db.List,
+                    include: [db.Task]
+                }
+            },{
+                model: db.Board,
+                as: "Boards",
+                include: {
+                    model: db.List,
+                    include: [db.Task]
+                }
+            }]
         }).then(function(dbUser) {
             res.json(dbUser);
         });

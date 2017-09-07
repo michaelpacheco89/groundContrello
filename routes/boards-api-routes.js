@@ -4,17 +4,27 @@ module.exports = function(app) {
 
     // find all the user's boards
     app.get("/api/boards", function(req, res) {
+        //console.log(req.query.User_id)
+        var query = {};
+        if (req.query.User_id) {
+            query.id = req.query.User_id;
+        }/* else if (req.query.BoardId) {
+            query.BoardId = req.query.BoardId;
+        }*/
+
+        console.log(query)
+
         db.Board.findAll({
             include: [{
                     model: db.User,
-                    as:"Owner"
-                },{
+                    as: "Owner"
+                }, {
                     model: db.User,
-                    as:"Users"
+                    as: "Users"
                 },
                 db.List
             ],
-            where: req.query
+            where: query
         }).then(function(dbBoards) {
             res.json(dbBoards);
         });
@@ -27,12 +37,12 @@ module.exports = function(app) {
                 id: req.params.id
             },
             include: [{
-                    model: db.User,
-                    as:"Owner"
-                },{
-                    model: db.User,
-                    as:"Users"
-                }, db.List]
+                model: db.User,
+                as: "Owner"
+            }, {
+                model: db.User,
+                as: "Users"
+            }, db.List]
         }).then(function(dbBoards) {
             res.json(dbBoards);
         });

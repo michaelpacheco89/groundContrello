@@ -7,7 +7,7 @@ var numLists;
 var BoardId = localStorage.getItem('BoardId');
 
 $("form").submit(function(event) {
-        event.preventDefault();
+    event.preventDefault();
 });
 
 
@@ -16,6 +16,15 @@ $("form").submit(function(event) {
 // populate the page with the right lists in the right order on load
 
 $(document).ready(function() {
+    var tasksUsersObj = {};
+    $.get("/api/tasks", function(tasks) {
+        for (var t = 0; t < tasks.length; t++) {
+            tasksUsersObj[t + 1] = tasks[t].Users;
+        }
+
+    });
+    console.log(tasksUsersObj);
+
     $.get("/api/lists?BoardId=" + BoardId, function(data) {
         numLists = data.length;
         var lists = [];
@@ -34,6 +43,14 @@ $(document).ready(function() {
                 cardDetail.attr('id', data[i].Tasks[j].id);
                 cardDetail.html(data[i].Tasks[j].body +
                     "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+
+                var taskId = data[i].Tasks[j].id;
+
+                for (var u = 0; u < tasksUsersObj[taskId].length; u++) {
+                    //console.log(j + ": " + tasksUsersObj[j][u].name);
+                    cardDetail.append(tasksUsersObj[taskId][u].name);
+                }
+
                 tasks[data[i].Tasks[j].index] = cardDetail;
             }
             for (j = 0; j < tasks.length; j++) {
@@ -150,34 +167,34 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
 
 // helper to replace form with link on blur of add card form
 function addCardOnBlur(input) {
-  if(!$(input).siblings("button.makingNewCard").attr("mouseDown") && !$(input).siblings(".closeAddCard").attr("mouseDown")){
-    var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
-    addCard.attr('value',$(input).val());
-    $(input).parent().replaceWith(addCard);
-  }
+    if (!$(input).siblings("button.makingNewCard").attr("mouseDown") && !$(input).siblings(".closeAddCard").attr("mouseDown")) {
+        var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
+        addCard.attr('value', $(input).val());
+        $(input).parent().replaceWith(addCard);
+    }
 }
 
 // event listener to replace add a card link with form
-$(document).on("click",".addCardLink",function() {
-  var form = $("<form class='addCard'>");
-  var input = $("<input class='newCard editInput' style='width:100%;border-radius:3px;display:block;border:none;' onblur='addCardOnBlur(this)'>");
-  var button = $("<button type='submit' class='btn btn-sm btn-success makingNewCard'>Add</button>");
-  var remove = $("<i class='fa fa-times closeAddCard' aria-hidden='true' style='position: relative;top:2px;'></i>");
-  if($(this).attr('value')){
-    input.val($(this).attr('value'));
-  }
-  form.append(input, button,remove);
-  $(this).replaceWith(form);
-  $(".newCard").focus().select();
+$(document).on("click", ".addCardLink", function() {
+    var form = $("<form class='addCard'>");
+    var input = $("<input class='newCard editInput' style='width:100%;border-radius:3px;display:block;border:none;' onblur='addCardOnBlur(this)'>");
+    var button = $("<button type='submit' class='btn btn-sm btn-success makingNewCard'>Add</button>");
+    var remove = $("<i class='fa fa-times closeAddCard' aria-hidden='true' style='position: relative;top:2px;'></i>");
+    if ($(this).attr('value')) {
+        input.val($(this).attr('value'));
+    }
+    form.append(input, button, remove);
+    $(this).replaceWith(form);
+    $(".newCard").focus().select();
 });
 
 // to prevent loss of focus behavior upon clicking x or add buttons
-$(document).on("mousedown",".makingNewCard, .closeAddCard", function(e) {
-  $(this).attr("mouseDown", true);
+$(document).on("mousedown", ".makingNewCard, .closeAddCard", function(e) {
+    $(this).attr("mouseDown", true);
 });
 
-$(document).on("mouseup",".makingNewCard, .closeAddCard", function(e) {
-  $(this).attr("mouseDown", false);
+$(document).on("mouseup", ".makingNewCard, .closeAddCard", function(e) {
+    $(this).attr("mouseDown", false);
 });
 
 // event listener for making new task
@@ -219,11 +236,11 @@ var addList = $("#addList");
 
 // helper to replace form with link on blur of add list form
 function addListOnBlur(input) {
-  if(!$(input).siblings("button").attr("mouseDown") && !$(input).siblings(".closeAddList").attr("mouseDown")){
-    var addListSpan = $("<span>").text("Add a list...");
-    addListSpan.attr('value',$(input).val());
-    $(input).parent().parent().html(addListSpan);
-  }
+    if (!$(input).siblings("button").attr("mouseDown") && !$(input).siblings(".closeAddList").attr("mouseDown")) {
+        var addListSpan = $("<span>").text("Add a list...");
+        addListSpan.attr('value', $(input).val());
+        $(input).parent().parent().html(addListSpan);
+    }
 }
 
 // helper to prevent blur when enter is pressed to submit a List
@@ -249,46 +266,46 @@ $(document).on("click","#addList span", function() {
 });
 
 // to prevent loss of focus behavior upon clicking x or add buttons
-$(document).on("mousedown","#newList, .closeAddList", function(e) {
-  $(this).attr("mouseDown", true);
+$(document).on("mousedown", "#newList, .closeAddList", function(e) {
+    $(this).attr("mouseDown", true);
 });
 
-$(document).on("mouseup","#newList, .closeAddList", function(e) {
-  $(this).attr("mouseDown", false);
+$(document).on("mouseup", "#newList, .closeAddList", function(e) {
+    $(this).attr("mouseDown", false);
 });
 
 // event listener to create new list IN REAL TIME
-socket.on("list", function(data){
-  // console.log(data);
-  numLists++;
-  var list = $("<div class='card-wrap'>");
-  list.attr('id', data.id);
-  var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
-  var header = $("<h6 class='list-header'>");
-  header.text(data.title);
+socket.on("list", function(data) {
+    // console.log(data);
+    numLists++;
+    var list = $("<div class='card-wrap'>");
+    list.attr('id', data.id);
+    var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
+    var header = $("<h6 class='list-header'>");
+    header.text(data.title);
 
-  var content = $("<div  class='list-cards'>");
+    var content = $("<div  class='list-cards'>");
 
-  var addCard = $("<a class='addCardLink'>").text("Add a card...");
-  list.append(remove, header, content, addCard);
-  // making the list of tasks sortable
-  $(content).sortable({
-      connectWith: ".list-cards",
-      placeholder: "ui-sortable-placeholder-cards",
-      start: function(e, ui) {
-          ui.placeholder.height(ui.helper.outerHeight());
-          ui.placeholder.width(ui.helper.outerWidth());
-      },
-      update: function(e, ui) {
-          var data = $(this).sortable('toArray');
-          var ListId = $(this).parent().attr('id');
-          $.post("/api/tasks/update?ListId=" + ListId, { data: data });
-      },
-      helper: 'clone'
-  });
-  $("#lists").append(list);
-  // clear input data
-  $("#title").val("");
+    var addCard = $("<a class='addCardLink'>").text("Add a card...");
+    list.append(remove, header, content, addCard);
+    // making the list of tasks sortable
+    $(content).sortable({
+        connectWith: ".list-cards",
+        placeholder: "ui-sortable-placeholder-cards",
+        start: function(e, ui) {
+            ui.placeholder.height(ui.helper.outerHeight());
+            ui.placeholder.width(ui.helper.outerWidth());
+        },
+        update: function(e, ui) {
+            var data = $(this).sortable('toArray');
+            var ListId = $(this).parent().attr('id');
+            $.post("/api/tasks/update?ListId=" + ListId, { data: data });
+        },
+        helper: 'clone'
+    });
+    $("#lists").append(list);
+    // clear input data
+    $("#title").val("");
 });
 
 // event listener for posting new list to db
@@ -339,7 +356,7 @@ $(document).on("click", ".addUser", function() {
 
         $.get("api/users/n?name=" + newUser, function(user) {
             console.log(user);
-            $.get("api/boards/" + parseInt(localStorage.getItem("BoardId")) +"/users/" + user.id, function(data) {
+            $.get("api/boards/" + parseInt(localStorage.getItem("BoardId")) + "/users/" + user.id, function(data) {
                 console.log(data);
                 $('#newUser').val("");
             });
