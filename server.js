@@ -66,4 +66,11 @@ io.on("connection", function(socket) {
     console.log(data);
     io.sockets.emit("task", data);
   });
+  // real time for updating positions for tasks and lists
+  socket.on('moveCards', function(data) {
+    socket.broadcast.emit('moveCard', data);
+  });
+  socket.on('moveLists', function() {
+    socket.broadcast.emit('moveList');
+  });
 });
