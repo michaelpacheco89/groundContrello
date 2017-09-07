@@ -10,14 +10,79 @@ $("form").submit(function(event) {
         event.preventDefault();
 });
 
-// event listener to submit nearest form when enter key pressed while focused on input
-// $("input.editInput").keypress(function(event) {
-//     if (event.which == 13) {
-//         event.preventDefault();
-//         $("form").submit();
-//     }
-// });
 
+////////////////////////////////////////////////////////////////////////////////// POPULATE DATA ON PAGE LOAD /////////////////
+////////////////////////////////////////////////////////////////
+// populate the page with the right lists in the right order on load
+
+$(document).ready(function() {
+    $.get("/api/lists?BoardId=" + BoardId, function(data) {
+        numLists = data.length;
+        var lists = [];
+        lists.length = numLists;
+        for (i = 0; i < numLists; i++) {
+            var newList = $("<div class='card-wrap'>");
+            newList.attr('id', data[i].id);
+            var header = $("<h6 class='list-header'>");
+            header.text(data[i].title);
+            var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
+            var content = $("<div  class='list-cards'>");
+            var tasks = [];
+            tasks.length = data[i].Tasks.length;
+            for (j = 0; j < tasks.length; j++) {
+                var cardDetail = $("<p class='card-detail ui-state-default'>");
+                cardDetail.attr('id', data[i].Tasks[j].id);
+                cardDetail.html(data[i].Tasks[j].body +
+                    "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+                tasks[data[i].Tasks[j].index] = cardDetail;
+            }
+            for (j = 0; j < tasks.length; j++) {
+                content.append(tasks[j]);
+            }
+            var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
+
+            newList.append(remove, header, content, addCard);
+            $(content).sortable({
+                connectWith: ".list-cards",
+                placeholder: "ui-sortable-placeholder-cards",
+                start: function(e, ui) {
+                    ui.placeholder.height(ui.helper.outerHeight());
+                    ui.placeholder.width(ui.helper.outerWidth());
+                },
+                update: function(e, ui) {
+                    var dataTask = $(this).sortable('toArray');
+                    var ListId = $(this).parent().attr('id');
+                    console.log(dataTask);
+                    console.log(ListId);
+                    $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask });
+                },
+                helper: 'clone'
+            });
+            lists[parseInt(data[i].index)] = newList;
+        }
+        for (i = 0; i < numLists; i++) {
+            $("#lists").append(lists[i]);
+        }
+    });
+});
+
+///////////////////// MAKE LISTS SORTABLE /////////////////////
+
+$("#lists").sortable({
+    placeholder: "ui-sortable-placeholder-lists",
+    start: function(e, ui) {
+        ui.placeholder.height(ui.helper.outerHeight());
+    },
+    tolerance: 'pointer',
+    update: function(event, ui) {
+        var data = $(this).sortable('toArray');
+        console.log(data);
+        $.post("/api/lists/update", { data: data });
+    },
+    helper: 'clone'
+});
+
+////////////////////////////////////////////////////////////////////////////////////// EDITING TASKS/LISTS //////////////////// ////////////////////////////////////////////////////////////////
 // event listener to submit edit on focus out. if empty, restore to original value
 function submitOnFocusOut(input) {
     if (!$(input).val()) {
@@ -79,58 +144,9 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
     });
 });
 
-// populate the page with the right lists in the right order on load
+///////////////////////////////////////////////////////////////////////////////////// ADDING LISTS/TASK CARDS ///////////////// ////////////////////////////////////////////////////////////////
 
-$(document).ready(function() {
-    $.get("/api/lists?BoardId=" + BoardId, function(data) {
-        numLists = data.length;
-        var lists = [];
-        lists.length = numLists;
-        for (i = 0; i < numLists; i++) {
-            var newList = $("<div class='card-wrap'>");
-            newList.attr('id', data[i].id);
-            var header = $("<h6 class='list-header'>");
-            header.text(data[i].title);
-            var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
-            var content = $("<div  class='list-cards'>");
-            var tasks = [];
-            tasks.length = data[i].Tasks.length;
-            for (j = 0; j < tasks.length; j++) {
-                var cardDetail = $("<p class='card-detail ui-state-default'>");
-                cardDetail.attr('id', data[i].Tasks[j].id);
-                cardDetail.html(data[i].Tasks[j].body +
-                    "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
-                tasks[data[i].Tasks[j].index] = cardDetail;
-            }
-            for (j = 0; j < tasks.length; j++) {
-                content.append(tasks[j]);
-            }
-            var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
-
-            newList.append(remove, header, content, addCard);
-            $(content).sortable({
-                connectWith: ".list-cards",
-                placeholder: "ui-sortable-placeholder-cards",
-                start: function(e, ui) {
-                    ui.placeholder.height(ui.helper.outerHeight());
-                    ui.placeholder.width(ui.helper.outerWidth());
-                },
-                update: function(e, ui) {
-                    var dataTask = $(this).sortable('toArray');
-                    var ListId = $(this).parent().attr('id');
-                    console.log(dataTask);
-                    console.log(ListId);
-                    $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask });
-                },
-                helper: 'clone'
-            });
-            lists[parseInt(data[i].index)] = newList;
-        }
-        for (i = 0; i < numLists; i++) {
-            $("#lists").append(lists[i]);
-        }
-    });
-});
+/////////////////////// ADD CARDS //////////////////////////////
 
 // helper to replace form with link on blur of add card form
 function addCardOnBlur(input) {
@@ -164,6 +180,43 @@ $(document).on("mouseup",".makingNewCard, .closeAddCard", function(e) {
   $(this).attr("mouseDown", false);
 });
 
+// event listener for making new task
+$(document).on("submit", "form.addCard", function(event) {
+    event.preventDefault();
+    var newCard = $(this);
+    if (!newCard.children("input.newCard").val().trim()) {
+        return;
+    }
+    var parent = $(this).parent().children("div.list-cards");
+    var numCards = parent.children().length;
+
+    $.post("/api/tasks", {
+        body: newCard.children("input.newCard").val().trim(),
+        index: numCards,
+        ListId: parent.parent().attr('id')
+    }, function(data) {
+
+        var cardDetail = $("<p class='card-detail ui-state-default'>");
+        cardDetail.attr('id', data.id);
+        cardDetail.html(newCard.children("input.newCard").val().trim() +
+            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+        parent.append(cardDetail);
+        newCard.children("input.newCard").val('').focus().select();
+    });
+});
+
+// event listener to close the add card form when x is pressed
+$(document).on("click", ".closeAddCard", function(event) {
+    event.stopPropagation();
+    var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
+    $(this).parent().replaceWith(addCard);
+});
+
+/////////////////////// ADD LISTS //////////////////////////////
+
+// jQuery capture of addList form element
+var addList = $("#addList");
+
 // helper to replace form with link on blur of add list form
 function addListOnBlur(input) {
   if(!$(input).siblings("button").attr("mouseDown") && !$(input).siblings(".closeAddList").attr("mouseDown")){
@@ -173,6 +226,7 @@ function addListOnBlur(input) {
   }
 }
 
+// helper to prevent blur when enter is pressed to submit a List
 function addListOnEnter(event,input) {
   if(event.which == 13) {
     event.stopImmediatePropagation();
@@ -202,23 +256,6 @@ $(document).on("mousedown","#newList, .closeAddList", function(e) {
 $(document).on("mouseup","#newList, .closeAddList", function(e) {
   $(this).attr("mouseDown", false);
 });
-
-// allowing for sorting of list order
-$("#lists").sortable({
-    placeholder: "ui-sortable-placeholder-lists",
-    start: function(e, ui) {
-        ui.placeholder.height(ui.helper.outerHeight());
-    },
-    tolerance: 'pointer',
-    update: function(event, ui) {
-        var data = $(this).sortable('toArray');
-        console.log(data);
-        $.post("/api/lists/update", { data: data });
-    },
-    helper: 'clone'
-});
-
-var addList = $("#addList");
 
 // event listener to create new list IN REAL TIME
 socket.on("list", function(data){
@@ -254,13 +291,15 @@ socket.on("list", function(data){
   $("#title").val("");
 });
 
+// event listener for posting new list to db
 $(addList).on("submit", function(event) {
     event.preventDefault();
 
     var newListTitle = $("#title");
     if (!newListTitle.val().trim()) {
-        $(this).attr('onblur','addListOnBlur(this)');
-        return;
+      newListTitle.attr('onblur','addListOnBlur(this)');
+      newListTitle.focus().select();
+      return;
     }
     var addListSpan = $("<span>").text("Add a list...");
     $(this).html(addListSpan);
@@ -273,30 +312,14 @@ $(addList).on("submit", function(event) {
     });
 });
 
-// event listener for making new task
-$(document).on("submit", "form.addCard", function(event) {
-    event.preventDefault();
-    var newCard = $(this);
-    if (!newCard.children("input.newCard").val().trim()) {
-        return;
-    }
-    var parent = $(this).parent().children("div.list-cards");
-    var numCards = parent.children().length;
-
-    $.post("/api/tasks", {
-        body: newCard.children("input.newCard").val().trim(),
-        index: numCards,
-        ListId: parent.parent().attr('id')
-    }, function(data) {
-
-        var cardDetail = $("<p class='card-detail ui-state-default'>");
-        cardDetail.attr('id', data.id);
-        cardDetail.html(newCard.children("input.newCard").val().trim() +
-            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
-        parent.append(cardDetail);
-        newCard.children("input.newCard").val('').focus().select();
-    });
+// event listener to close the add list form when the x is pressed
+$(document).on("click", ".closeAddList", function(event) {
+    event.stopPropagation();
+    var addListSpan = $("<span>").text("Add a list...");
+    addList.html(addListSpan);
 });
+
+
 
 // event listener to sign out
 $(document).on("click", ".sign-out", function() {
@@ -341,6 +364,9 @@ $(document).on("click", ".addUser", function() {
 //   $.post("/api/lists/update", { data: data });
 // });
 
+/////////////////////////////////////////////////////////////////////////////////// DELETING LISTS/TASK CARDS ///////////////// ///////////////////////////////////////////////////////////////
+
+// event listener to delete a list
 $(document).on("click", ".deleteList", function() {
     var id = $(this).parent().attr('id');
     var listEdited = $(this).parent().parent();
@@ -356,6 +382,7 @@ $(document).on("click", ".deleteList", function() {
     });
 });
 
+// event listener to delete a task card
 $(document).on("click", ".deleteTask", function(event) {
     event.stopPropagation();
     var id = $(this).parent().attr('id');
@@ -371,18 +398,6 @@ $(document).on("click", ".deleteTask", function(event) {
         var data = listEdited.sortable("toArray");
         $.post("/api/tasks/update?ListId=" + ListId, { data: data });
     });
-});
-
-$(document).on("click", ".closeAddCard", function(event) {
-    event.stopPropagation();
-    var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
-    $(this).parent().replaceWith(addCard);
-});
-
-$(document).on("click", ".closeAddList", function(event) {
-    event.stopPropagation();
-    var addListSpan = $("<span>").text("Add a list...");
-    addList.html(addListSpan);
 });
 
 
