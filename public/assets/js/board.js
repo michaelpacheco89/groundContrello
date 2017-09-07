@@ -1,8 +1,5 @@
 // making socket connection
 var socket = io.connect();
-
-// to keep track of the number of lists on the page for index purposes
-var numLists;
 // id to get the correct lists for the board
 var BoardId = localStorage.getItem('BoardId');
 // javier knows what this is
@@ -28,7 +25,7 @@ $(document).on("click", ".sign-out", function() {
 
 function populateBoard(tasksUsersObj) {
   $.get("/api/lists?BoardId=" + BoardId, function(data) {
-      numLists = data.length;
+      var numLists = data.length;
       var lists = [];
       lists.length = numLists;
       for (i = 0; i < numLists; i++) {
@@ -353,7 +350,6 @@ $(document).on("mouseup", "#newList, .closeAddList", function(e) {
 // event listener to create new list IN REAL TIME
 socket.on("list", function(data) {
     // console.log(data);
-    numLists++;
     var list = $("<div class='card-wrap'>");
     list.attr('id', data.id);
     var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
@@ -402,7 +398,7 @@ $(addList).on("submit", function(event) {
     $(this).html(addListSpan);
     $.post("/api/lists", {
         title: newListTitle.val().trim(),
-        index: numLists,
+        index: $("#lists").children().length,
         BoardId: BoardId
     }, function(data) {
         socket.emit("list", data);
