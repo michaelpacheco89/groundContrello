@@ -188,7 +188,7 @@ $(document).on("click","#addList span", function() {
   if($(this).attr('value'))
     titleInput.val($(this).attr('value'));
   var button = $("<button class='btn btn-sm btn-success' type='submit' id='newList'>").text('Save');
-  var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true" style="position:relative;top:10px;">');
+  var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true" style="position:relative;top:3px;">');
   wrapper.append(titleInput,button,closeBtn);
   $(this).replaceWith(wrapper);
   $("#title").focus().select();
