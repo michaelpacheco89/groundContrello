@@ -18,6 +18,7 @@ btn.click(function(){
 
 message.keypress(function(){
   socket.emit("typing", handle);
+  $("#chat-window").show();
 });
 
 
@@ -29,3 +30,7 @@ socket.on("chat", function(data){
 socket.on("typing", function(data){
   feedback.html("<p><em>" + data + " is typing...</em></p>");
 });
+
+function closeChatWindow(){
+	$("#chat-window").hide();
+}
