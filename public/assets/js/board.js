@@ -6,9 +6,16 @@ var numLists;
 // id to get the correct lists for the board
 var BoardId = localStorage.getItem('BoardId');
 
-// event listener to submit nearest form when enter key pressed while focused on input
 $("form").submit(function(event) {
         event.preventDefault();
+});
+
+// event listener to submit nearest form when enter key pressed while focused on input
+$("input.editInput").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        $("form").submit();
+    }
 });
 
 // event listener to submit edit on focus out. if empty, restore to original value
@@ -84,7 +91,7 @@ $(document).ready(function() {
             newList.attr('id', data[i].id);
             var header = $("<h6 class='list-header'>");
             header.text(data[i].title);
-            var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;'></i>");
+            var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
             var content = $("<div  class='list-cards'>");
             var tasks = [];
             tasks.length = data[i].Tasks.length;
@@ -92,7 +99,7 @@ $(document).ready(function() {
                 var cardDetail = $("<p class='card-detail ui-state-default'>");
                 cardDetail.attr('id', data[i].Tasks[j].id);
                 cardDetail.html(data[i].Tasks[j].body +
-                    "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;'></i>");
+                    "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
                 tasks[data[i].Tasks[j].index] = cardDetail;
             }
             for (j = 0; j < tasks.length; j++) {
@@ -137,9 +144,9 @@ function addCardOnBlur(input) {
 // event listener to replace add a card link with form
 $(document).on("click",".addCardLink",function() {
   var form = $("<form class='addCard'>");
-  var input = $("<input class='newCard' onblur='addCardOnBlur(this)'>");
-  var button = $("<button type='submit' class='makingNewCard'>Add</button>");
-  var remove = $("<i class='fa fa-times closeAddCard' aria-hidden='true' style='position: relative;float: right;'></i>");
+  var input = $("<input class='newCard editInput' style='width:100%;border-radius:3px;display:block;border:none;' onblur='addCardOnBlur(this)'>");
+  var button = $("<button type='submit' class='btn btn-sm btn-success makingNewCard'>Add</button>");
+  var remove = $("<i class='fa fa-times closeAddCard' aria-hidden='true' style='position: relative;top:2px;'></i>");
   if($(this).attr('value')){
     input.val($(this).attr('value'));
   }
@@ -169,11 +176,11 @@ function addListOnBlur(input) {
 // event listener to replace add a list span with form
 $(document).on("click","#addList span", function() {
   var wrapper = $("<div id='addListWrapper'>");
-  var titleInput = $("<input type='text' id='title' placeholder='Add a list...' style='width:100%;border-radius:3px;display:block;' onblur='addListOnBlur(this)'>");
+  var titleInput = $("<input type='text' class='editInput' id='title' placeholder='Add a list...' style='width:100%;border-radius:3px;display:block;border:none;padding:8px;font-size:14px;' onblur='addListOnBlur(this)'>");
   if($(this).attr('value'))
     titleInput.val($(this).attr('value'));
-  var button = $("<button class='btn btn-success' type='submit' id='newList'>").text('Save');
-  var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true">');
+  var button = $("<button class='btn btn-sm btn-success' type='submit' id='newList'>").text('Save');
+  var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true" style="position:relative;top:2px;">');
   wrapper.append(titleInput,button,closeBtn);
   $(this).replaceWith(wrapper);
   $("#title").focus().select();
@@ -211,7 +218,7 @@ socket.on("list", function(data){
   numLists++;
   var list = $("<div class='card-wrap'>");
   list.attr('id', data.id);
-  var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;'></i>");
+  var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
   var header = $("<h6 class='list-header'>");
   header.text(data.title);
 
@@ -275,10 +282,9 @@ $(document).on("click", ".makingNewCard", function(event) {
         var cardDetail = $("<p class='card-detail ui-state-default'>");
         cardDetail.attr('id', data.id);
         cardDetail.html(newCard.children("input.newCard").val().trim() +
-            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;'></i>");
+            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
         parent.append(cardDetail);
-        var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
-        newCard.replaceWith(addCard);
+        newCard.children("input.newCard").val('');
     });
 });
 
