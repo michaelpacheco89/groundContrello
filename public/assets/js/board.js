@@ -11,12 +11,12 @@ $("form").submit(function(event) {
 });
 
 // event listener to submit nearest form when enter key pressed while focused on input
-$("input.editInput").keypress(function(event) {
-    if (event.which == 13) {
-        event.preventDefault();
-        $("form").submit();
-    }
-});
+// $("input.editInput").keypress(function(event) {
+//     if (event.which == 13) {
+//         event.preventDefault();
+//         $("form").submit();
+//     }
+// });
 
 // event listener to submit edit on focus out. if empty, restore to original value
 function submitOnFocusOut(input) {
@@ -173,14 +173,22 @@ function addListOnBlur(input) {
   }
 }
 
+function addListOnEnter(event,input) {
+  if(event.which == 13) {
+    event.stopImmediatePropagation();
+    $(input).attr('onblur','');
+    $(input).parent().submit();
+  }
+}
+
 // event listener to replace add a list span with form
 $(document).on("click","#addList span", function() {
   var wrapper = $("<div id='addListWrapper'>");
-  var titleInput = $("<input type='text' class='editInput' id='title' placeholder='Add a list...' style='width:100%;border-radius:3px;display:block;border:none;padding:8px;font-size:14px;' onblur='addListOnBlur(this)'>");
+  var titleInput = $("<input type='text' class='editInput' id='title' placeholder='Add a list...' style='width:100%;border-radius:3px;display:block;border:none;padding:8px;font-size:14px;margin-bottom:8px;' onblur='addListOnBlur(this)' onkeydown='addListOnEnter(event,this)'>");
   if($(this).attr('value'))
     titleInput.val($(this).attr('value'));
   var button = $("<button class='btn btn-sm btn-success' type='submit' id='newList'>").text('Save');
-  var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true" style="position:relative;top:2px;">');
+  var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true" style="position:relative;top:10px;">');
   wrapper.append(titleInput,button,closeBtn);
   $(this).replaceWith(wrapper);
   $("#title").focus().select();
@@ -248,12 +256,14 @@ socket.on("list", function(data){
 
 $(addList).on("submit", function(event) {
     event.preventDefault();
+
     var newListTitle = $("#title");
     if (!newListTitle.val().trim()) {
+        $(this).attr('onblur','addListOnBlur(this)');
         return;
     }
     var addListSpan = $("<span>").text("Add a list...");
-    addList.html(addListSpan);
+    $(this).html(addListSpan);
     $.post("/api/lists", {
         title: newListTitle.val().trim(),
         index: numLists,
@@ -264,14 +274,14 @@ $(addList).on("submit", function(event) {
 });
 
 // event listener for making new task
-$(document).on("click", ".makingNewCard", function(event) {
+$(document).on("submit", "form.addCard", function(event) {
     event.preventDefault();
-    var newCard = $(this).parent();
+    var newCard = $(this);
     if (!newCard.children("input.newCard").val().trim()) {
         return;
     }
-    var numCards = $(this).parent().parent().children("div.list-cards").children().length;
-    var parent = $(this).parent().parent().children("div.list-cards");
+    var parent = $(this).parent().children("div.list-cards");
+    var numCards = parent.children().length;
 
     $.post("/api/tasks", {
         body: newCard.children("input.newCard").val().trim(),
@@ -284,7 +294,7 @@ $(document).on("click", ".makingNewCard", function(event) {
         cardDetail.html(newCard.children("input.newCard").val().trim() +
             "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
         parent.append(cardDetail);
-        newCard.children("input.newCard").val('');
+        newCard.children("input.newCard").val('').focus().select();
     });
 });
 

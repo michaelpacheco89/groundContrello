@@ -2,6 +2,10 @@
 	box-sizing: border-box;
 }
 
+input:focus {
+	outline: none;
+}
+
 body{
 	width: 100%;
 	box-sizing: border-box;
@@ -94,6 +98,9 @@ p{
 
 .list-cards {
 	min-height: 10px;
+	max-height: 590px;
+	overflow-y:scroll;
+	margin-bottom: 8px;
 }
 
 .card-wrap{
@@ -103,7 +110,6 @@ p{
 		width: 250px;
 		margin: 0 3px;
     max-height: 700px;
-    overflow-y:scroll;
 }
 
 .card-wrap h6 {
