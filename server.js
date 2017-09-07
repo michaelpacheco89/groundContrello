@@ -9,8 +9,7 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 // Sets up server for sockets
-var ioProm = require('express-socket.io');
-var server = ioProm.init(app);
+var server = require('http').Server(app);
 var io = socket(server);
 
 // Requiring our models for syncing
@@ -48,14 +47,23 @@ db.sequelize.sync().then(function() {
 
 //{ force: true }
 
-// Socket for chat
-// ===========================
-io.on("connection", function(socket){
+// Sockets for REAL TIME ERRTHANG
+// ================================
+io.on("connection", function(socket) {
   // console.log("made socket connection", socket.id);
-  socket.on("chat", function(data){
+  socket.on("chat", function(data) {
     io.sockets.emit("chat", data);
   });
-  socket.on("typing", function(data){
+  socket.on("typing", function(data) {
     socket.broadcast.emit("typing", data);
+  });
+  // real time for tasks and lists
+  socket.on("list", function(data){
+    console.log(data);
+    io.sockets.emit("list", data);
+  });
+  socket.on("task", function(data){
+    console.log(data);
+    io.sockets.emit("task", data);
   });
 });
