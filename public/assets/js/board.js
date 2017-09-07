@@ -44,7 +44,7 @@ function populateBoard(tasksUsersObj) {
               var cardDetail = $("<p class='card-detail ui-state-default'>");
               cardDetail.attr('id', data[i].Tasks[j].id);
               cardDetail.html(data[i].Tasks[j].body +
-                  "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+                  "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
 
               var taskId = data[i].Tasks[j].id;
 
