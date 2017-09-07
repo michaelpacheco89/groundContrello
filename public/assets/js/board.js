@@ -197,13 +197,13 @@ $(document).on("click", ".list-header, .card-detail", function() {
 
     var editForm = $("<form>");
     var listIdInput = $("<input type='hidden' name='id'>");
-
+    var placeholder;
     if ($(this).hasClass("list-header")) {
-        var placeholder = $(this).text();
+        placeholder = $(this).text();
         editForm.attr('class', 'editListForm');
         listIdInput.attr('value', $(this).parent().attr('id'));
     } else {
-        var placeholder = $(this).children('span').text();
+        placeholder = $(this).children('span').text();
         editForm.attr('class', 'editTaskForm');
         listIdInput.attr('value', $(this).attr('id'));
     }
@@ -238,7 +238,7 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         newContent.append("<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
         editObject.body = $form.find("input[name='text']").val();
         //new code
-        newSpan = $("<span>")
+        newSpan = $("<span>");
         newSpan.append(editObject.body);
         newContent.prepend(newSpan);
 
@@ -263,14 +263,14 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
     });
 });
 
-// // socket function to update values of tasks/lists
-// socket.on('editListTask', function(data) {
-//   if(data.title){
-//     $("div#"+data.id+".card-wrap").children("h6").text(data.title);
-//   } else {
-//     $("div.list-cards").children("#"+data.id).
-//   }
-// });
+// socket function to update values of tasks/lists
+socket.on('editListTask', function(data) {
+  if(data.title){
+    $("div#"+data.id+".card-wrap").children("h6").text(data.title);
+  } else {
+    $("p#"+data.id).children("span").text(data.body);
+  }
+});
 
 // actual socket function to update orders of task cards
 socket.on('moveCard', function(data) {
