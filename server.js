@@ -59,11 +59,19 @@ io.on("connection", function(socket) {
   });
   // real time for tasks and lists
   socket.on("list", function(data){
-    console.log(data);
+    // console.log(data);
     io.sockets.emit("list", data);
   });
   socket.on("task", function(data){
-    console.log(data);
+    // console.log(data);
     io.sockets.emit("task", data);
+  });
+  socket.on("deleteList", function(data){
+    // console.log(data);
+    io.sockets.emit("deleteList", data);
+  });
+  socket.on("deleteTask", function(data){
+    // console.log(data);
+    io.sockets.emit("deleteTask", data);
   });
 });
