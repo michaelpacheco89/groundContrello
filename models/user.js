@@ -28,6 +28,7 @@ module.exports = function(sequelize, DataTypes) {
     //LINK USER TO LIST (USER HAS MANY LISTs)
     User.associate = function(models) {
         User.hasMany(models.Board, {
+            as: "OwnedBoards",
             onDelete: "cascade",
             foreignKey: {
                 name: "OwnerId"
@@ -35,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
         });
         User.belongsToMany(models.Board, {
             through: UserTeam,
-            as:"Users"
+            as:"Boards"
         });
         User.belongsToMany(models.Task, {
             through: "taskTeams"/*,
