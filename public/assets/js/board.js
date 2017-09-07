@@ -388,6 +388,10 @@ $(document).on("submit","#addUserForm", function() {
 //////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// DELETING LISTS/TASK CARDS ////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
+// event listenener for deleting tasks in real time
+socket.on("deleteList", function(test){
+    $(".card-wrap").remove(test);
+});
 
 // event listener to delete a list
 $(document).on("click", ".deleteList", function() {
@@ -399,10 +403,16 @@ $(document).on("click", ".deleteList", function() {
     }).done(function(result) {
         var test = "#" + id;
         console.log(result);
-        $(".card-wrap").remove(test);
+        // $(".card-wrap").remove(test);
+        socket.emit('deleteList', test);
         var data = listEdited.sortable("toArray");
         $.post("/api/lists/update", { data: data });
     });
+});
+
+// event listenener for deleting tasks in real time
+socket.on("deleteTask", function(test){
+   $(".card-detail").remove(test);
 });
 
 // event listener to delete a task card
@@ -417,7 +427,8 @@ $(document).on("click", ".deleteTask", function(event) {
     }).done(function(result) {
         var test = "#" + id;
         console.log(result);
-        $(".card-detail").remove(test);
+        // $(".card-detail").remove(test);
+        socket.emit("deleteTask", test);
         var data = listEdited.sortable("toArray");
         $.post("/api/tasks/update?ListId=" + ListId, { data: data });
     });
