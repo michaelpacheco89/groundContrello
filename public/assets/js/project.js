@@ -11,7 +11,7 @@ function myFunction() {
 $(document).ready(function() {
     $.get("/api/users/" + localStorage.getItem("id"), function(data) {
         //console.log(data.Boards.length)
-        var boards = data.Boards
+        var boards = data.Boards;
         var numBoards = data.Boards.length;
         for (var i = 0; i < numBoards; i++) {
             //console.log(boards[i].name, "////", boards[i].id);
