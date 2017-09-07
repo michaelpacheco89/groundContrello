@@ -7,7 +7,7 @@ module.exports = function(app) {
         //console.log(req.query.User_id)
         var query = {};
         if (req.query.User_id) {
-            query.UserId = req.query.User_id;
+            query.id = req.query.User_id;
         }/* else if (req.query.BoardId) {
             query.BoardId = req.query.BoardId;
         }*/
