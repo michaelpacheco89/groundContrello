@@ -27,7 +27,11 @@ $("#message").focus(function(){
 message.keypress(function(){
 	  $("#chat-window").show();
   socket.emit("typing", handle);
+// <<<<<<< HEAD
 
+// =======
+//   $("#chat-window").show();
+// >>>>>>> b49f7511e0af130db98fdbc704a00c1394d62b77
 });
 
   socket.on("chat", function(data) {

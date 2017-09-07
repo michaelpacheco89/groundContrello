@@ -336,3 +336,12 @@ label{
 }
 
 /*========END CHAT STYLING============*/
+
+.blocker {
+    background-color: transparent;
+}
+
+.modal a.close-modal {
+    top:-2.5px;
+    right:-2.5px;
+}

@@ -17,23 +17,26 @@
     <!-- Jasny bootstrap extension -->
     <link rel="stylesheet" href="../assets/css/jasny-bootstrap.min.css">
     <!-- css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.8.2/jquery.modal.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- jquery -->
-    <!-- <script src="http://code.jquery.com/jquery-1.8.2.js"></script> -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <!-- <script src="http://code.jquery.com/jquery-1.8.2.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.8.2/jquery.modal.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../assets/js/board.js"></script>
 </head>
 
 <body>
     <nav class="navbar fixed-top">
-        <a  class="navbar-brand" href="/project"><h1>Ground Contrello</h1></a>
-        <a class="navbar-brand" href="#">
-            <button>
+        <a class="navbar-brand" href="/project"><h1>Ground Contrello</h1></a>
+        <a class="navbar-brand" href="#ex1" rel="modal:open">
+            <button class='addUser'>
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
         </a>
-       <a class="navbar-brand" href="#">
-            <button class='.addUser'>
+        <a class="navbar-brand" href="#">
+            <button id="">
                 <i class="fa fa-commenting-o" aria-hidden="true"></i>
             </button>
         </a>
@@ -51,37 +54,38 @@
             <button type="button" class="btn btn-success btn-lg sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out </button>
         </a>
     </nav>
-   
+    <!-- Adding modal -->
+    <div id="ex1" style="display:none;">
+        <p>Thanks for clicking. That felt good. <a href="#" rel="modal:close">Close</a> or press ESC</p>
+    </div>
+    <!-- End modal -->
     <div class="main-container">
         <div class="boards-page">
             <div id="lists">
             </div>
             <form id="addList">
-              <span>Add a list...</span>
+                <span>Add a list...</span>
             </form>
         </div>
     </div>
     </div>
     <!-- CHAT SECTION -->
-   
-        <div id="board-chat">
+    <div id="board-chat">
         <!-- <span style="color:black;position:fixed;right:20px"><a onclick="closeChatWindow()"><i class="fa fa-window-minimize" aria-hidden="true"></i></a></span> -->
-            <div id="chat-window">
-                <div id="output"></div>
-                <div id="feedback"></div>
-            </div>
-            <form id="chatForm" autocomplete="off">
+        <div id="chat-window">
+            <div id="output"></div>
+            <div id="feedback"></div>
+        </div>
+        <form id="chatForm" autocomplete="off">
             <input id="message" type="text" placeholder="Message">
             <button id="sendBtn">Send</button>
-            </form>
-        </div>
-
+        </form>
+    </div>
     <!-- END CHAT SECTION -->
 </body>
 <!-- Jasny Bootstrap Js -->
 <script src="../assets/js/jasny-bootstrap.min.js"></script>
 <script src="../assets/js/project.js"></script>
-<script src="../assets/js/board.js"></script>
 <script src="../assets/js/chat.js"></script>
 
 </html>
