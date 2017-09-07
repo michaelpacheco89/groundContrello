@@ -8,6 +8,22 @@ function myFunction() {
 
 }
 
+$(document).ready(function() {
+    $.get("/api/users/" + localStorage.getItem("id"), function(data) {
+        //console.log(data.Boards.length)
+        var boards = data.Boards
+        var numBoards = data.Boards.length;
+        for (var i = 0; i < numBoards; i++) {
+            //console.log(boards[i].name, "////", boards[i].id);
+            var newBD = $("<li><a></li></a>");
+            boardName.css({ "font-size": "1em" });
+            newBD.text(boards[i].name);
+            newBD.attr('id', boards[i].id);
+            $(".boards-wrapper").append(newBD);
+        }
+    });
+});
+
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
@@ -55,7 +71,7 @@ $(document).on("click", "#popover2", function(event) {
 $(document).on("click", ".boards-wrapper li", function(event) {
     //console.log("CLICKED! ID is: " + $(this).attr('id'));
     localStorage.setItem('BoardId', $(this).attr('id'));
-    window.location.href = "/board";  
+    window.location.href = "/board";
 });
 
 function createBoard(board, BD) {
