@@ -274,31 +274,22 @@ ul.boards-wrapper {
 /*body{
     font-family: 'Nunito';
 }*/
-
-nav div#board-chat{
-    border: 1px solid #ddd;
+#board-chat{
+    /*border: 1px solid #ddd;*/
     box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
     border-radius: 2px;
-    background: #f9f9f9;
-    max-width: 50%;
-    max-height:50%;
-}
-
-h2{
-    font-size: 18px;
-    padding: 10px 20px;
-    color: #575ed8;
-}
-
-.close-window{
-    color:black;
-    float:right;
-    margin-right:3%;
+    background-color: white;
+    width:24%;
+    position:fixed;
+    right:10px;
+    bottom:0;
+    max-height:500px;
 }
 
 #chat-window{
+    max-height:300px;
     overflow: auto;
-  /*  display:none;*/
+    display:none;
 }
 
 #output p{
@@ -325,15 +316,14 @@ label{
 }
 
 #message {
-    padding: 10px 20px;
     box-sizing: border-box;
-    background: #eee;
     border: 0;
     display: block;
-    background: #fff;
+    color: black;
     border-bottom: 1px solid #eee;
     font-family: Nunito;
     font-size: 16px;
+    width:100%;
 }
 
 #sendBtn{
