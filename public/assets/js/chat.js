@@ -20,13 +20,10 @@ $("#chatForm").submit(function(e) {
   return false;
 });
   // will emit a " 'user' is typing" msg to everyone except the typer
-  message.keypress(function() {
-    socket.emit("typing", handle);
-  });
 
 message.keypress(function(){
   socket.emit("typing", handle);
-  $("#chat-window").show();
+  // $("#chat-window").show();
 });
 
   socket.on("chat", function(data) {
@@ -41,6 +38,6 @@ message.keypress(function(){
 
 });
 
-function closeChatWindow(){
-	$("#chat-window").hide();
-}
+// function closeChatWindow(){
+// 	// $("#chat-window").hide();
+// }
