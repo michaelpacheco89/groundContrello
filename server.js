@@ -81,4 +81,8 @@ io.on("connection", function(socket) {
   socket.on('moveLists', function() {
     socket.broadcast.emit('moveList');
   });
+  // real time for updating values of tasks/lists
+  socket.on('editListTasks', function(data) {
+    socket.broadcast.emit('editListTask', data);
+  });
 });

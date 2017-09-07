@@ -25,63 +25,63 @@ $(document).on("click", ".sign-out", function() {
 
 function populateBoard(tasksUsersObj) {
   $.get("/api/lists?BoardId=" + BoardId, function(data) {
-      var numLists = data.length;
-      var lists = [];
-      lists.length = numLists;
-      for (i = 0; i < numLists; i++) {
-          var newList = $("<div class='card-wrap'>");
-          newList.attr('id', data[i].id);
-          var header = $("<h6 class='list-header'>");
-          header.text(data[i].title);
-          var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
-          var content = $("<div  class='list-cards'>");
-          var tasks = [];
-          tasks.length = data[i].Tasks.length;
-          for (j = 0; j < tasks.length; j++) {
-              var cardDetail = $("<p class='card-detail ui-state-default'>");
-              cardDetail.attr('id', data[i].Tasks[j].id);
-              cardDetail.html(data[i].Tasks[j].body +
-                  "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
+    var numLists = data.length;
+    var lists = [];
+    lists.length = numLists;
+    for (i = 0; i < numLists; i++) {
+       var newList = $("<div class='card-wrap'>");
+       newList.attr('id', data[i].id);
+       var header = $("<h6 class='list-header'>");
+       header.text(data[i].title);
+       var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
+       var content = $("<div  class='list-cards'>");
+       var tasks = [];
+       tasks.length = data[i].Tasks.length;
+       for (j = 0; j < tasks.length; j++) {
+           var cardDetail = $("<p class='card-detail ui-state-default'>");
+           cardDetail.attr('id', data[i].Tasks[j].id);
+           cardDetail.html("<span>" + data[i].Tasks[j].body + "</span>" +
+               "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
 
-              var taskId = data[i].Tasks[j].id;
+           var taskId = data[i].Tasks[j].id;
 
-              if (tasksUsersObj[taskId] != null) {
-                for (var u = 0; u < tasksUsersObj[taskId].length; u++) {
-                  cardDetail.append(tasksUsersObj[taskId][u].name);
-                }
-              }
+           if (tasksUsersObj[taskId] != null) {
+             for (var u = 0; u < tasksUsersObj[taskId].length; u++) {
+               cardDetail.append(tasksUsersObj[taskId][u].name);
+             }
+           }
 
-              tasks[data[i].Tasks[j].index] = cardDetail;
-          }
-          for (j = 0; j < tasks.length; j++) {
-              content.append(tasks[j]);
-          }
-          var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
+           tasks[data[i].Tasks[j].index] = cardDetail;
+       }
+       for (j = 0; j < tasks.length; j++) {
+           content.append(tasks[j]);
+       }
+       var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
 
-          newList.append(remove, header, content, addCard);
-          $(content).sortable({
-              connectWith: ".list-cards",
-              placeholder: "ui-sortable-placeholder-cards",
-              start: function(e, ui) {
-                  ui.placeholder.height(ui.helper.outerHeight());
-                  ui.placeholder.width(ui.helper.outerWidth());
-              },
-              update: function(e, ui) {
-                  var dataTask = $(this).sortable('toArray');
-                  var ListId = $(this).parent().attr('id');
-                  console.log(dataTask);
-                  console.log(ListId);
-                  $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask }, function() {
-                    socket.emit("moveCards", { ListId: ListId});
-                  });
-              },
-              helper: 'clone'
-          });
-          lists[parseInt(data[i].index)] = newList;
-      }
-      for (i = 0; i < numLists; i++) {
-          $("#lists").append(lists[i]);
-      }
+       newList.append(remove, header, content, addCard);
+       $(content).sortable({
+           connectWith: ".list-cards",
+           placeholder: "ui-sortable-placeholder-cards",
+           start: function(e, ui) {
+               ui.placeholder.height(ui.helper.outerHeight());
+               ui.placeholder.width(ui.helper.outerWidth());
+           },
+           update: function(e, ui) {
+               var dataTask = $(this).sortable('toArray');
+               var ListId = $(this).parent().attr('id');
+               console.log(dataTask);
+               console.log(ListId);
+               $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask }, function() {
+                 socket.emit("moveCards", { ListId: ListId});
+               });
+           },
+           helper: 'clone'
+       });
+       lists[parseInt(data[i].index)] = newList;
+    }
+    for (i = 0; i < numLists; i++) {
+       $("#lists").append(lists[i]);
+    }
   });
 }
 
@@ -100,14 +100,13 @@ $(document).ready(function() {
 $("#lists").sortable({
     placeholder: "ui-sortable-placeholder-lists",
     start: function(e, ui) {
-        ui.placeholder.height(ui.helper.outerHeight());
-        ui.item.startPos = ui.item.index();
+      $(".list-header").addClass('noClick');
+      ui.placeholder.height(ui.helper.outerHeight());
     },
     tolerance: 'pointer',
     update: function(event, ui) {
         var data = $(this).sortable('toArray');
         console.log(data);
-        var ListId2 = $($("#lists").children()[ui.item.startPos]).attr('id');
         $.post("/api/lists/update", { data: data }, function() {
           socket.emit("moveLists");
         });
@@ -123,26 +122,32 @@ function submitOnFocusOut(input) {
     if (!$(input).val()) {
         $(input).val($(input).attr('value'));
     }
-    $(input).parent().submit();
+    $(input).parent().parent().submit();
 }
 
 // event listener to edit title of lists and lists
 $(document).on("click", ".list-header, .card-detail", function() {
-    var placeholder = $(this).text();
-    var editForm = $("<form>");
-    var listIdInput = $("<input type='hidden' name='id'>");
-    var editInput = $("<input type='text' class='editInput' value='" + placeholder + "' onfocusout='submitOnFocusOut(this)'>").val(placeholder);
-    editInput.attr('name', 'text');
-    if ($(this).hasClass("list-header")) {
-        editForm.attr('class', 'editListForm');
-        listIdInput.attr('value', $(this).parent().attr('id'));
-    } else {
-        editForm.attr('class', 'editTaskForm');
-        listIdInput.attr('value', $(this).attr('id'));
-    }
-    editForm.append(listIdInput, editInput);
-    $(this).replaceWith(editForm);
-    $(".editInput").focus().select();
+  if($(this).hasClass('noClick')){
+    $(this).removeClass('noClick');
+    return;
+  }
+  var placeholder;
+  var editForm = $("<form>");
+  var listIdInput = $("<input type='hidden' name='id'>");
+  if ($(this).hasClass("list-header")) {
+      placeholder = $(this).text();
+      editForm.attr('class', 'editListForm');
+      listIdInput.attr('value', $(this).parent().attr('id'));
+  } else {
+      placeholder = $(this).children('span').text();
+      editForm.attr('class', 'editTaskForm');
+      listIdInput.attr('value', $(this).attr('id'));
+  }
+  var editInput = $("<input type='text' class='editInput' value='" + placeholder + "' onfocusout='submitOnFocusOut(this)'>").val(placeholder);
+  editInput.attr('name', 'text');
+  editForm.append(listIdInput, editInput);
+  $(this).replaceWith(editForm);
+  $(".editInput").focus().select();
 });
 
 // event listeners to return the list/task body back from input to text
@@ -154,6 +159,7 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         id: $form.find("input[name='id']").val()
     };
     var newContent;
+    var newSpan;
     if (!$form.find("input[name='text']").val()) {
         $form.find("input[name='text']").val($form.find("input[name='text']").attr('value'));
     }
@@ -161,22 +167,40 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         newContent = $("<h6 class='list-header'>");
         editObject.title = $form.find("input[name='text']").val();
         queryString = "/api/lists";
+        newContent.prepend($form.find("input[name='text']").val());
     } else {
         newContent = $("<p class='card-detail ui-state-default'>");
         newContent.attr('id', $form.find("input[name='id']").val());
-        newContent.append(
-            "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+        newContent.append("<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
         editObject.body = $form.find("input[name='text']").val();
+        newSpan = $("<span>");
+        newSpan.append(editObject.body);
+        newContent.prepend(newSpan);
+
+        if (tasksUsersObj[newContent.attr('id')] != null) {
+            for (var u = 0; u < tasksUsersObj[newContent.attr('id')].length; u++) {
+                newContent.append(tasksUsersObj[newContent.attr('id')][u].name);
+            }
+        }
         queryString = "/api/tasks";
     }
-    newContent.prepend($form.find("input[name='text']").val());
     $.ajax({
         method: "PUT",
         url: queryString,
         data: editObject
     }).done(function() {
-        $form.replaceWith(newContent);
+      socket.emit("editListTasks",editObject);
+      $form.replaceWith(newContent);
     });
+});
+
+// socket function to update values of tasks/lists
+socket.on('editListTask', function(data) {
+  if(data.title){
+    $("div#"+data.id+".card-wrap").children("h6").text(data.title);
+  } else {
+    $("p#"+data.id).children("span").text(data.body);
+  }
 });
 
 // actual socket function to update orders of task cards
@@ -430,15 +454,6 @@ $(document).on("submit","#addUserForm", function() {
 
 });
 
-// event listeners to delete a list or task card upon clicking the x IN REAL TIME
-// socket.on("deleteList",function(result){
-//   var test = "#" + id;
-//   console.log(result);
-//   $(".card-wrap").remove(test);
-//   var data = listEdited.sortable("toArray");
-//   $.post("/api/lists/update", { data: data });
-// });
-
 //////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// DELETING LISTS/TASK CARDS ////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
@@ -457,14 +472,13 @@ $(document).on("click", ".deleteList", function() {
     }).done(function(result) {
         var test = "#" + id;
         console.log(result);
-        // $(".card-wrap").remove(test);
         socket.emit('deleteList', test);
         var data = listEdited.sortable("toArray");
         $.post("/api/lists/update", { data: data });
     });
 });
 
-// event listenener for deleting tasks in real time
+// event listener for deleting tasks in real time
 socket.on("deleteTask", function(test){
    $(".card-detail").remove(test);
 });
@@ -481,84 +495,8 @@ $(document).on("click", ".deleteTask", function(event) {
     }).done(function(result) {
         var test = "#" + id;
         console.log(result);
-        // $(".card-detail").remove(test);
         socket.emit("deleteTask", test);
         var data = listEdited.sortable("toArray");
         $.post("/api/tasks/update?ListId=" + ListId, { data: data });
     });
 });
-
-
-
-// =======
-
-/*/*/
-/*/*$(addList).on("submit", function(event) {
-    event.preventDefault();
-    // console.log("are you working?");
-    if (!newListTitle.val().trim()) {
-        return;
-    }
-
-    list = $("<div class='card-wrap'>");
-    var header = $("<div class='list-header'>");
-    header.text(newListTitle.val().trim());
-
-    var content = $("<div class='list-cards'>");
-
-    // var addCard = $("<a> Add a card </a>");
-
-    var form = $("<form class='addCard'>");
-    var input = $("<input class='newCard'>");
-    var button = $("<button type='submit' class='makingNewCard'>Add new card</button>");
-
-    form.append(input, button);
-    list.append(header, content, form);
-    /*$("#lists").prepend(list);*/
-
-// //console.log(newListTitle,newListTitle.val().trim());
-// createList({
-//     title: newListTitle.val().trim(),
-//     BoardId: parseInt(localStorage.getItem("board"))
-// });
-
-// clear input data
-/* $("#title").val(" ");
-});
-
-$(document).on("click", ".makingNewCard", function(event) {
-    event.preventDefault();
-    var newCard = $(".newCard");
-
-    if (!newCard.val().trim()) {
-        return;
-    }
-
-    var cardDetail = $("<div class='card-detail'>");
-    cardDetail.text(newCard.val().trim());
-    list.append(cardDetail);
-
-    // createTask({
-    //     body: newCard.val().trim(),
-    //     ListId: parseInt(localStorage.getItem("list"))
-    // });
-
-    // clear input datas
-    $(".newCard").val("");
-});
-
-function createTask(task) {
-    $.post("/api/tasks", task, function(data) {
-        console.log(data);
-        localStorage.setItem('task', data.id);
-    });
-}
-
-function createList(list) {
-    $.post("/api/lists", list, function(data) {
-        console.log(data);
-        localStorage.setItem('list', data.id);
-    });
-}*/
-/*/*/
-// >>>>>>> 35c58c8dc179a5a6a64d3984be8b6934a6c68b9e
