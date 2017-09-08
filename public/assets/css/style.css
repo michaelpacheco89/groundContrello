@@ -62,6 +62,7 @@ p{
     padding-top:20%;
     padding-bottom:20%;
     margin:5% 0;
+		height: -webkit-fill-available;
 }
 
 .welcomeBar a{
@@ -376,7 +377,7 @@ label{
 }
 
 #logo-link {
-	color: #eff
+	color: #eff;
 }
 
 #logo-link:hover {

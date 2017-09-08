@@ -31,13 +31,13 @@
             <!-- username -->
                 <li class="nav-item">
                     <a class="navbar-brand" role="button" href="#">
-                
+
                     <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="navbar-brand btn btn-success sign-out" href="#">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i> Log out 
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
                     </a>
                 </li>
             </ul>
@@ -48,12 +48,12 @@
     <h3 style="padding-top:6%;margin-bottom:40px;color:white"><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Personal Boards</h3>
     </header>
 <div class="main-content">
-    
+
     <div class="boards-section">
         <!-- create new board -->
         <button type="button" id="popover1" class="btn btn-md btn-secondary">Create new board</button>
         <form id="newBoardInfo">
-            <input type="text" placeholder="Title" id="boardName" required>
+            <input type="text" placeholder="Title" id="boardName" required onblur='noBoardOnBlur(this)'>
             <button typy="submit" id="newBoard">Create</button>
         </form>
         <ul class="boards-wrapper">

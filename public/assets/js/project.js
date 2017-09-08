@@ -5,6 +5,12 @@ var teamDescription = $("#teamDescription");
 var userName = localStorage.getItem('username');
 $("title").text(userName + " | Ground Contrello");
 
+// event listener to sign out
+$(document).on("click", ".sign-out", function() {
+    localStorage.clear();
+    document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
+    window.location.href = "/";
+});
 
 // function myFunction() {
 //     document.getElementById("myDropdown").classList.toggle("show");
@@ -47,10 +53,25 @@ $(document).ready(function() {
 //     }
 // };
 
+function noBoardOnBlur(input) {
+    if (!$(input).siblings("#newBoard").attr("mouseDown")) {
+      $("#newBoardInfo").hide();
+    }
+}
+
+// to prevent loss of focus behavior upon clicking x or add buttons
+$(document).on("mousedown", "#newBoard", function(e) {
+    $(this).attr("mouseDown", true);
+});
+
+$(document).on("mouseup", "#newBoard", function(e) {
+    $(this).attr("mouseDown", false);
+});
 
 $(document).on("click", "#popover1", function(event) {
     event.preventDefault();
     $("#newBoardInfo").show();
+    $("#boardName").focus().select();
 });
 
 $("#newBoard").on("click", function(event) {
