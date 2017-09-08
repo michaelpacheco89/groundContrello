@@ -34,17 +34,18 @@
         <div class="collapse navbar-collapse" id="collapseNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link btn" data-toggle="collapse" data-target="#collapseNav" href="#aboutUs">
+                    <a style='border:1px solid #cff;color:#cff' class="nav-link btn hover" href="#aboutUs">
                 About Us  <span class="sr-only">(current)</span>
                </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-success" data-toggle="collapse" data-target="#collapseNav" href="/login" role="button" id="logIn">
+                    <a style='margin:0 10px'class="nav-link btn btn-success"
+                    href="/login" role="button" id="logIn">
                 Log In
                </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn" data-toggle="collapse" data-target="#collapseNav" href="/signup" role="button" id="signUp">
+                    <a class="nav-link btn hover" style='border:1px solid #cff;color:#cff' href="/signup" role="button" id="signUp">
                 Sign Up
                </a>
                 </li>
@@ -55,7 +56,7 @@
         <div class="welcomeBar">
             <h3 style="font-weight:100" class="display-3">Welcome To Ground Contrello</h3>
         </div>
-        <a data-toggle="collapse" data-target="#collapseNav" href="/login" class="btn btn-success" role="button" id="signUp">
+        <a href="/login" class="btn btn-success" role="button" id="signUp">
                 Log in with Ground Contrello
         </a>
     </div>
@@ -63,22 +64,22 @@
         <div class="row">
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <img src="../assets/images/badcat-Javier.jpg" data-alt-src="../assets/images/Javier.JPG" alt="Responsive image" class="img-fluid rounded-circle">
-                <h5>Javier Avitia-Velazquez</h5>
+                <h5 style="color:#026AA7">Javier Avitia-Velazquez</h5>
                 <p>Great Guy!Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <img src="../assets/images/minion.png" data-alt-src="../assets/images/Michael.jpg" class="img-fluid rounded-circle">
-                <h5>Michael Pacheco</h5>
+                <h5 style="color:#026AA7">Michael Pacheco</h5>
                 <p>Great Guy 2!Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <img src="../assets/images/one-piece-Stephen.jpg" data-alt-src="../assets/images/Stephen.png" class="img-fluid rounded-circle">
-                <h5>Stephen Woo</h5>
+                <h5 style="color:#026AA7">Stephen Woo</h5>
                 <p>Great Guy 3!Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <img src="../assets/images/dodge-Nan.JPG" data-alt-src="../assets/images/Nan.JPG" class="img-fluid rounded-circle">
-                <h5>Nan Jia</h5>
+                <h5 style="color:#026AA7">Nan Jia</h5>
                 <p>Badass!Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
             </div>
         </div>
@@ -94,11 +95,9 @@ $(document).on("click","#collapseBtn",function(e){
     $("#logIn").css({'margin':'10px 0'});
 });
 
-$(document).on("click", ".nav-link", function(e){
-  e.preventDefault();
-  $('.navbar-toggle').click();
-  $("#logIn").css({'margin':'0 10px'});
-})
+$('.navbar-collapse a').click(function(){
+    $(".navbar-collapse").collapse('hide');
+});
 
 var sourceSwap = function() {
     var $this = $(this);

@@ -26,24 +26,24 @@
 
 </head>
 
-<body>
-     <nav class="navbar navbar-toggleable-md fixed-top">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapseNav" aria-expanded="false" aria-label="Toggle navigation" style="background: white" id="collpaseBtn">
+<body style="background-color:#026aa7">
+     <nav style="position:absolute;top:0;left:0;right:0;"class="navbar navbar-toggleable-md fixed-top">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapseNav" aria-expanded="false" aria-label="Toggle navigation" id="collapseBtn">
             &#9776;
         </button>
-        <a href="/"><h1><i class="fa fa-trello" aria-hidden="true"></i>&nbsp;Ground Contrello</h1></a>
+        <h1><a id="logo-link" href="/"><i class="fa fa-trello" aria-hidden="true"></i>&nbsp;Ground Contrello</a></h1>
         <div class="collapse navbar-collapse" id="collapseNav">
             <ul class="navbar-nav ml-auto">
             <!-- username -->
                 <li class="nav-item">
                     <a class="navbar-brand" role="button" href="#">
-                
+
                     <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="navbar-brand btn btn-success sign-out" href="#">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i> Log out 
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
                     </a>
                 </li>
             </ul>
@@ -86,9 +86,16 @@
     </div>
     <!-- END CHAT SECTION -->
 </body>
+<script type="text/javascript">
+$(document).on('blur','#collapseBtn', function(e) {
+  e.preventDefault();
+  $("#collapseNav").attr('class','collapse navbar-collapse');
+  $("#collapseNav").attr('aria-hidden','true');
+});
+</script>
 <!-- Jasny Bootstrap Js -->
 <script src="../assets/js/jasny-bootstrap.min.js"></script>
-    
+
 <!-- NEW LINK -->
 <script src="../assets/js/modals.js"></script>
 

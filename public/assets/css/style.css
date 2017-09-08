@@ -54,6 +54,8 @@ p{
 
 .navbar {
     background-color:#0079BF;
+		box-shadow: 0px 6px 6px -4px #386f8f;
+		border-radius: 0 !important;
 }
 
 .jumbotron{
@@ -94,7 +96,7 @@ p{
 }
 
 .main-container{
-    padding: 10% 0;
+    padding-top:100px;
 }
 
 .boards-page{
@@ -202,7 +204,7 @@ form.editTaskForm input {
 }
 
 #addList span {
-	background-color:#006aa8;
+	background-color:#005180;
 	color: #b0d1e4;
 	display: block;
 	border-radius: 3px;
@@ -215,7 +217,7 @@ form.editTaskForm input {
 }
 
 #addList span:hover {
-	background-color: #005180;
+	background-color: #386f8f;
 }
 
 #addListWrapper {
@@ -306,6 +308,7 @@ ul.boards-wrapper {
     max-height:300px;
     overflow: auto;
     display:none;
+		padding: 5px;
 }
 
 #output p{
@@ -337,9 +340,10 @@ label{
     display: block;
     color: black;
     border-bottom: 1px solid #eee;
-    font-family: Nunito;
+    font-family: sans-serif;
     font-size: 16px;
     width:100%;
+		padding-left: 5px;
 }
 
 #sendBtn{
@@ -364,20 +368,26 @@ label{
 
 /* navbar styling new */
 
+.hover:hover {
+	background: #cff;
+	border: 1px solid #0079bf !important;
+	color: #0079bf !important;
+}
+
 #collapseBtn {
 	background: #0079BF;
-	border: 1px solid #eff;
-	color: #eff;
+	border: 1px solid #cff;
+	color: #cff;
 }
 
 #collapseBtn:hover {
-	background: #eff;
+	background: #cff;
 	border: 1px solid #0079BF;
 	color: #0079BF;
 }
 
 #logo-link {
-	color: #eff;
+	color: #cff;
 }
 
 #logo-link:hover {
