@@ -79,6 +79,7 @@ function createBoard(board, BD) {
     $.post("/api/boards", board, function(data) {
         //localStorage.setItem('board', data.id);
         BD.attr('id', data.id);
+        // BD.attr('name', data.title);
         $(".boards-wrapper").append(BD);
     });
     //
