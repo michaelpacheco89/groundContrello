@@ -50,3 +50,10 @@ $(document).on("click", ".btn.btn-md.btn-danger", function() {
         console.log(data);
     });
 });
+
+$(".card-detail").mousedown(function(ev){
+      if(ev.which == 3)
+      {
+            alert("Right mouse button clicked on element with id myId");
+      }
+});
