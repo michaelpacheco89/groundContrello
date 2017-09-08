@@ -15,7 +15,13 @@ $("form").submit(function(event) {
 $(document).on("click", ".sign-out", function() {
     localStorage.clear();
     document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
+    socket.emit('disconnect');
     window.location.href = "/login";
+});
+
+// event listener to redirect to projects page
+$(document).on("click", "#projects-link", function() {
+    socket.emit('disconnect');
 });
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +30,6 @@ $(document).on("click", ".sign-out", function() {
 // populate the page with the right lists in the right order on load
 
 function populateBoard(tasksUsersObj) {
-// <<<<<<< HEAD
   $.get("/api/lists?BoardId=" + BoardId, function(data) {
     var numLists = data.length;
     var lists = [];
@@ -73,7 +78,7 @@ function populateBoard(tasksUsersObj) {
                console.log(dataTask);
                console.log(ListId);
                $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask }, function() {
-                 socket.emit("moveCards", { ListId: ListId});
+                 socket.broadcast.to(BoardId.toString()).emit("moveCards", { ListId: ListId});
                });
            },
            helper: 'clone'
@@ -90,6 +95,7 @@ function populateBoard(tasksUsersObj) {
 var tasksUsersObj = {};
 
 $(document).ready(function() {
+    socket.emit('joinRoom',{BoardId:BoardId,username:localStorage.getItem('username')});
     $.get("/api/tasks", function(tasks) {
         for (var t = 0; t < tasks.length; t++) {
             tasksUsersObj[t + 1] = tasks[t].Users;
