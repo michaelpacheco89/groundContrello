@@ -105,13 +105,25 @@ p{
     margin-bottom:5%;
 }
 
-.fa-times {
+.fa-times{
 	color: #6f6f6f;
 }
 
 .fa-times:hover {
 	color: black;
 }
+
+/*NEW CSS*/
+
+.fa-plus{
+    color: #6f6f6f;
+}
+
+.fa-plus:hover {
+    color: black;
+}
+
+/*END NEW*/
 
 .list-cards {
 	min-height: 10px;

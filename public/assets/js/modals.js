@@ -44,16 +44,65 @@ $(document).on("click", ".btn.btn-md.btn-danger", function() {
 
     $(this).removeClass("btn-danger").addClass("btn-success");
 
-    setTimeout(function(){$(".btn-success").remove()},750);
+    setTimeout(function() { $(".btn-success").remove() }, 750);
 
     $.get("/api/boards/" + BoardId + "/users/" + userId, function(data) {
         console.log(data);
     });
 });
 
-$(".card-detail").mousedown(function(ev){
-      if(ev.which == 3)
-      {
-            alert("Right mouse button clicked on element with id myId");
-      }
+$(document).on("click", ".assignTask", function() {
+
+    $.get("/api/boards/" + BoardId, function(boardUsers) {
+        for (var b = 0; b < boardUsers.Users.length; b++) {
+
+            var userBtn = $("<button class='btn btn-md btn-success task' style='margin:1em'>");
+            userBtn.append(boardUsers.Users[b].name);
+            userBtn.attr('id', boardUsers.Users[b].id);
+
+            if (boardUsersArr.indexOf(boardUsers.Users[b].id) === -1) {
+
+                boardUsersArr.push(boardUsers.Users[b].id);
+
+            }
+
+            $("#ex2").children("div").append(userBtn);
+
+        }
+        $('#ex2').modal('show');
+    });
+
 });
+
+$(document).on("click", ".btn-success task", function() {
+
+    $.get("/api/boards/" + BoardId, function(boardUsers) {
+        for (var b = 0; b < boardUsers.Users.length; b++) {
+
+            var userBtn = $("<button class='btn btn-md btn-success task' style='margin:1em'>");
+            userBtn.append(boardUsers.Users[b].name);
+            userBtn.attr('id', boardUsers.Users[b].id);
+
+            if (boardUsersArr.indexOf(boardUsers.Users[b].id) === -1) {
+
+                boardUsersArr.push(boardUsers.Users[b].id);
+
+            }
+
+            $("#ex2").children("div").append(userBtn);
+
+        }
+        $('#ex2').modal('show');
+    });
+
+});
+
+
+
+
+// $('.assignTask').click(function(event) {
+//   event.preventDefault();
+//   $.get(this.href, function(html) {
+//     $(html).appendTo('body').modal();
+//   });
+// });
