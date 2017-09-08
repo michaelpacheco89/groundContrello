@@ -27,6 +27,7 @@ body{
 
 h1{
 	font-family: 'Roboto', sans-serif;
+    white-space: nowrap;
 }
 
 h4{
@@ -63,27 +64,23 @@ p{
 	background-color:#026AA7;
 	width: 100%;
     padding-top:20%;
+    padding-bottom:20%;
+    margin:5% 0;
 }
 
 .welcomeBar a{
     margin-top:5%;
 }
 
-#logIn{
-	background-color:#026AA7;
+#aboutUs{
+    text-align:center;
 }
-/*#signUp{
-	background-color:#549F3D;
-}
-*/
+
 
 #aboutUs ul{
     display: inline-flex;
 }
 
-.members{
-    list-style: none;
-}
 
 .members p{
     max-width: 80%;
@@ -233,7 +230,6 @@ input #title {
 }
 
 .main-content{
-    background: #FFFFFF;
     width:90%;
     margin:0 auto;
     padding-top:10%;
