@@ -26,10 +26,13 @@ body{
 }
 
 h1{
-	font-family: 'Roboto', sans-serif;
+    font-family: 'Pacifico', cursive;
     white-space: nowrap;
 }
 
+h2{
+    font-family: 'Roboto', sans-serif;
+}
 h4{
 	color:black;
 }
