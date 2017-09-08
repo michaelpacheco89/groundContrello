@@ -2,6 +2,8 @@
 var socket = io.connect();
 // id to get the correct lists for the board
 var BoardId = localStorage.getItem('BoardId');
+var BoardName = localStorage.getItem('BoardName');
+$("title").text(BoardName + " | Ground Contrello");
 // javier knows what this is
 var tasksUsersObj = {};
 
@@ -16,7 +18,7 @@ $(document).on("click", ".sign-out", function() {
     localStorage.clear();
     document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
     socket.emit('disconnect');
-    window.location.href = "/login";
+    window.location.href = "/";
 });
 
 // event listener to redirect to projects page

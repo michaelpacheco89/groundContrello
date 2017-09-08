@@ -2,6 +2,9 @@ var title;
 var boardName = $("#boardName");
 var teamName = $("#teamName");
 var teamDescription = $("#teamDescription");
+var userName = localStorage.getItem('username');
+$("title").text(userName + " | Ground Contrello");
+
 
 // function myFunction() {
 //     document.getElementById("myDropdown").classList.toggle("show");
@@ -23,6 +26,7 @@ $(document).ready(function() {
             newBD.attr('id', boards[i].id);
             newBD.append(remove);
             newBD.addClass("board");
+            newBD.attr('name', boards[i].name);
             $(".boards-wrapper").append(newBD);
         }
     });
@@ -81,14 +85,14 @@ $(document).on("click", ".boards-wrapper li", function(event) {
 function createBoard(board, BD) {
     //console.log(board)
     $.post("/api/boards", board, function(data) {
-        //localStorage.setItem('board', data.id);      
+        //localStorage.setItem('board', data.id);
         var remove = $("<i class='fa fa-times deleteBoard' aria-hidden='true'></i>");
             remove.css({"position": "absolute","top":"1%","right":"2%"});
         BD.attr('name', data.name);
         BD.attr('id', data.id);
         BD.append(remove);
         BD.addClass("board");
-        
+        BD.attr('name', data.name);
         $(".boards-wrapper").append(BD);
 
     });
