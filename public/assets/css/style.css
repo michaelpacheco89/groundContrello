@@ -158,7 +158,7 @@ form.editTaskForm input {
 
 .card-wrap a {
 	width: 100%;
-	color: #8c8c8c;
+	color: #8c8c8c !important;
 	font-size: 14px;
 	padding: 4px 8px 10px 8px;
 	display: block;
