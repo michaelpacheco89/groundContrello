@@ -33,7 +33,7 @@ $(document).on("click", "#logo-link", function() {
 
 function populateBoard(tasksUsersObj) {
     $.get("/api/lists?BoardId=" + BoardId, function(data) {
-        console.log(data)
+        console.log(data);
         var numLists = data.length;
         var lists = [];
         lists.length = numLists;
