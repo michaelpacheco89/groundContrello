@@ -8,8 +8,14 @@ $("title").text(userName + " | Ground Contrello");
 
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
-
 }
+
+// event listener to sign out
+$(document).on("click", ".sign-out", function() {
+    localStorage.clear();
+    document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
+    window.location.href = "/";
+});
 
 $(document).ready(function() {
     $.get("/api/users/" + localStorage.getItem("id"), function(data) {
