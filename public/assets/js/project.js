@@ -92,6 +92,7 @@ function createBoard(board, BD) {
     $.post("/api/boards", board, function(data) {
         //localStorage.setItem('board', data.id);
         var remove = $("<i class='fa fa-times deleteBoard' aria-hidden='true' style='position: relative;float: right; top:-100%;right:-200%;'></i>");
+        BD.attr('name', data.name);
         BD.attr('id', data.id);
         BD.append(remove);
         BD.addClass("board");
