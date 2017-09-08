@@ -25,24 +25,24 @@
 
 <body>
     <nav class="navbar navbar-toggleable-md fixed-top">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapseNav" aria-expanded="false" aria-label="Toggle navigation" style="background: white" id="collpaseBtn">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapseNav" aria-expanded="false" aria-label="Toggle navigation" id="collapseBtn">
             &#9776;
         </button>
-        <a href="/"><h1><i class="fa fa-trello" aria-hidden="true"></i>&nbsp;Ground Contrello</h1></a>
+        <h1><a id="#logo-link" href="/"><i class="fa fa-trello" aria-hidden="true"></i>&nbsp;Ground Contrello</a></h1>
         <div class="collapse navbar-collapse" id="collapseNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="#aboutUs">
+                    <a class="nav-link btn" href="#aboutUs">
                 About Us  <span class="sr-only">(current)</span>
                </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-success" href="/login" role="button" id="logIn" style="margin:0 25px">
+                    <a class="nav-link btn btn-success" href="/login" role="button" id="logIn">
                 Log In
                </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-info" href="/signup" role="button" id="signUp">
+                    <a class="nav-link btn" href="/signup" role="button" id="signUp">
                 Sign Up
                </a>
                 </li>
@@ -87,7 +87,7 @@
     </footer>
 </body>
 <script>
-// disable css when screen size is small 
+// disable css when screen size is small
 $(document).on("click","#collpaseBtn",function(e){
     e.preventDefault;
     $("#logIn").css({'margin':''});

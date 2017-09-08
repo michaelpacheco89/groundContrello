@@ -69,11 +69,13 @@ p{
 }
 
 #aboutUs{
+
     text-align:center;
 }
 
 
 #aboutUs ul{
+	list-style: none;
     display: inline-flex;
 }
 
@@ -357,4 +359,27 @@ label{
 .modal a.close-modal {
     top:-2.5px;
     right:-2.5px;
+}
+
+/* navbar styling new */
+
+#collapseBtn {
+	background: #0079BF;
+	border: 1px solid #eff;
+	color: #eff;
+}
+
+#collapseBtn:hover {
+	background: #eff;
+	border: 1px solid #0079BF;
+	color: #0079BF;
+}
+
+#logo-link {
+	color: #eff
+}
+
+#logo-link:hover {
+	color: white;
+	text-decoration: none !important;
 }
