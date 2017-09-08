@@ -63,6 +63,8 @@ p{
 	background-color:#026AA7;
 	width: 100%;
     padding-top:20%;
+    padding-bottom: 20%;
+    margin: 5% 0;
 }
 
 .welcomeBar a{
@@ -76,6 +78,9 @@ p{
 	background-color:#549F3D;
 }
 */
+#aboutUs{
+    text-align:center;
+}
 
 #aboutUs ul{
     display: inline-flex;
@@ -83,10 +88,7 @@ p{
 
 .members{
     list-style: none;
-}
-
-.members p{
-    max-width: 80%;
+    margin: 5%;
 }
 
 #menuWrapper{
@@ -233,7 +235,6 @@ input #title {
 }
 
 .main-content{
-    background: #FFFFFF;
     width:90%;
     margin:0 auto;
     padding-top:10%;

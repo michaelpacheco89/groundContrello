@@ -22,11 +22,13 @@ $("#chatForm").submit(function(e) {
   // will emit a " 'user' is typing" msg to everyone except the typer
 $("#message").focus(function(){
 	$("#chat-window").show();
+	
 });
 
 message.keypress(function(){
 	  $("#chat-window").show();
   socket.emit("typing", handle);
+  
 
 });
 
@@ -42,11 +44,17 @@ message.keypress(function(){
 
 });
 
-
+// close chat window when clicking outside 
 $(document).mousedown('click', function(e) {
 	var container = $("#board-chat");
 	if(!container.is(e.target)&&container.has(e.target).length === 0){
 		$("#chat-window").hide();
 	}
-
 });
+
+function myFunction() {
+    setInterval(function(){ $("#chat-window").scrollTop(500); }, 1000);
+}
+
+myFunction();
+
