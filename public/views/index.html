@@ -32,12 +32,12 @@
         <div class="collapse navbar-collapse" id="collapseNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="#aboutUs">
-                About Us  <span class="sr-only">(current)</span>
+                    <a href="#aboutUs" class="nav-link btn btn-primary">
+                About Us <span class="sr-only">(current)</span>
                </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-success" href="/login" role="button" id="logIn" style="margin:0 25px">
+                    <a data-toggle="collapse" data-target="#collapseNav" class="nav-link btn btn-success" href="/login" role="button" id="logIn" style="margin:0 25px">
                 Log In
                </a>
                 </li>
@@ -87,8 +87,13 @@
     </footer>
 </body>
 <script>
-// disable css when screen size is small 
+// disable css when screen size is small
 $(document).on("click","#collpaseBtn",function(e){
+    e.preventDefault;
+    $("#logIn").css({'margin':''});
+});
+
+$(document).on("blur","#collpaseBtn",function(e){
     e.preventDefault;
     $("#logIn").css({'margin':''});
 });
