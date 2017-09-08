@@ -2,6 +2,9 @@ var title;
 var boardName = $("#boardName");
 var teamName = $("#teamName");
 var teamDescription = $("#teamDescription");
+var userName = localStorage.getItem('username');
+$("title").text(userName + " | Ground Contrello");
+
 
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -22,6 +25,7 @@ $(document).ready(function() {
             newBD.attr('id', boards[i].id);
             newBD.append(remove);
             newBD.addClass("board");
+            newBD.attr('name', boards[i].name);
             $(".boards-wrapper").append(newBD);
         }
     });
@@ -85,7 +89,7 @@ function createBoard(board, BD) {
         BD.attr('id', data.id);
         BD.append(remove);
         BD.addClass("board");
-        BD.attr('name', data.title);
+        BD.attr('name', data.name);
         $(".boards-wrapper").append(BD);
 
     });
