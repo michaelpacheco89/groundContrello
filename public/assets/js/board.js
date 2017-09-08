@@ -22,7 +22,7 @@ $(document).on("click", ".sign-out", function() {
 });
 
 // event listener to redirect to projects page
-$(document).on("click", "#projects-link", function() {
+$(document).on("click", "#logo-link", function() {
     socket.emit('disconnect');
 });
 
@@ -99,13 +99,10 @@ function populateBoard(tasksUsersObj) {
     });
 }
 
-
-var tasksUsersObj = {};
-
 $(document).ready(function() {
     socket.emit('joinRoom', { BoardId: BoardId, username: localStorage.getItem('username') });
     $.get("/api/tasks", function(tasks) {
-        console.log(tasks)
+        console.log(tasks);
         for (var t = 0; t < tasks.length; t++) {
             tasksUsersObj[tasks[t].id] = tasks[t].Users;
         }
