@@ -102,13 +102,29 @@ p{
     max-height:500px;
 }
 
-.fa-times {
+.fa-times{
 	color: #6f6f6f;
 }
 
 .fa-times:hover {
 	color: black;
 }
+
+/*NEW CSS*/
+
+.btn-info {
+    margin:1px;
+}
+
+.fa-plus{
+    color: #6f6f6f;
+}
+
+.fa-plus:hover {
+    color: black;
+}
+
+/*END NEW*/
 
 .list-cards {
 	min-height: 10px;

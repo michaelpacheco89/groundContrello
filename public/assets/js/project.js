@@ -82,12 +82,15 @@ function createBoard(board, BD) {
     //console.log(board)
     $.post("/api/boards", board, function(data) {
         //localStorage.setItem('board', data.id);
+
         var remove = $("<i class='fa fa-times deleteBoard' aria-hidden='true'></i>");
             remove.css({"position": "absolute","top":"1%","right":"2%"});
+        BD.attr('name', data.name);
+
         BD.attr('id', data.id);
         BD.append(remove);
         BD.addClass("board");
-        BD.attr('name', data.title);
+        
         $(".boards-wrapper").append(BD);
 
     });
