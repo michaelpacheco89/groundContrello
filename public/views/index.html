@@ -17,22 +17,37 @@
 </head>
 
 <body>
+<!-- navbar -->
+    <nav class="navbar fixed-top">
+        <a class="navbar-brand" href="/"><h1>Ground Contrello</h1></a>
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseNavbar">
+                    &#9776;
+        </button>
+        <div class="collapse navbar-toggleable-xs" id="collapseNavbar">
+            
+            <ul class="nav navbar-nav">
 
-        <nav class="navbar fixed-top">
-            <div class="container">
-                <a href="/"><h1>Ground Contrello</h1></a>
-            <!-- <div class="inline-button" -->
-                <a class="navbar-brand btn btn-success" role="button" href="#aboutUs">
-                About Us
-               </a>
-                <a class="navbar-brand btn btn-lg" href="/login" role="button" id="logIn">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#aboutUs">
+                    About Us
+                    <span class="sr-only">(current)</span>
+                   </a>
+                 </li>
+
+                 <li class="nav-item active">
+                <a class="nav-link" href="/login" role="button" id="logIn">
                 Log In
                </a>
-                <a class="navbar-brand btn btn-success" href="/signup" role="button" id="signUp">
+               </li>
+
+               <li class="nav-item active">
+                <a class="nav-link" href="/signup" role="button" id="signUp">
                 Sign Up
                </a>
-            </div>
-        </nav>
+               </li>
+           </ul>
+       </div>
+    </nav>
     <div class="jumbotron text-center">
         <div class="welcomeBar">
             <h1><strong>Welcome To Ground Contrello</strong></h1>
@@ -42,44 +57,40 @@
                 Log in with Ground Contrello
         </a>
     </div>
-    <div id="aboutUs">
-        <!-- <header>
-               <h3>About</h3>
-        </header>
- -->
-        <ul>
-            <div class="members">
+    <div id="aboutUs" class="container">
+       <div class="row">
+            <div class="col-md-12 col-lg-6 col-xl-3">
             <img src="../assets/images/badcat-Javier.jpg" data-alt-src="../assets/images/Javier.JPG" alt="Responsive image" class="img-fluid rounded-circle">
 
-            <li>Javier Avitia-Velazquez</li>
+            <h4>Javier Avitia-Velazquez</h4>
             <p>Great Guy!</p>
             </div>
 
-            <div class="members">
+            <div class="col-md-12 col-lg-6 col-xl-3">
             <img src="../assets/images/minion.png"  data-alt-src="../assets/images/Michael.jpg" class="img-fluid rounded-circle">
-            <li>Michael Pacheco</li>
+            <h4>Michael Pacheco</h4>
             <p>Great Guy 2!</p>
             </div>
 
-            <div class="members">
+            <div class="col-md-12 col-lg-6 col-xl-3">
             <img src="../assets/images/one-piece-Stephen.jpg" data-alt-src="../assets/images/Stephen.png" class="img-fluid rounded-circle">
-            <li>Stephen Woo</li>
+            <h4>Stephen Woo</h4>
             <p>Great Guy 3!</p>
             </div>
 
-            <div class="members">
+            <div class="col-md-12 col-lg-6 col-xl-3">
             <img src="../assets/images/dodge-Nan.JPG" data-alt-src="../assets/images/Nan.JPG" class="img-fluid rounded-circle">
-            <li>Nan Jia</li>
+            <h4>Nan Jia</h4>
             <p>Badass!</p>
             </div>
-        </ul>
- 
+        </div>
     </div>
     <footer class="text-center">
         &copy; Copyright 2017
     </footer>
 </body>
 <script>
+// changing profile photo
      var sourceSwap = function () {
         var $this = $(this);
         var newSource = $this.data('alt-src');

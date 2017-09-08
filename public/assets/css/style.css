@@ -86,11 +86,6 @@ p{
     display: inline-flex;
 }
 
-.members{
-    list-style: none;
-    margin: 5%;
-}
-
 #menuWrapper{
     position:absolute;
 }
