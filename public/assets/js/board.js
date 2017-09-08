@@ -100,7 +100,6 @@ $(document).ready(function() {
 $("#lists").sortable({
     placeholder: "ui-sortable-placeholder-lists",
     start: function(e, ui) {
-      $(".list-header").addClass('noClick');
       ui.placeholder.height(ui.helper.outerHeight());
     },
     tolerance: 'pointer',
@@ -122,15 +121,11 @@ function submitOnFocusOut(input) {
     if (!$(input).val()) {
         $(input).val($(input).attr('value'));
     }
-    $(input).parent().parent().submit();
+    $(input).parent().submit();
 }
 
 // event listener to edit title of lists and lists
 $(document).on("click", ".list-header, .card-detail", function() {
-  if($(this).hasClass('noClick')){
-    $(this).removeClass('noClick');
-    return;
-  }
   var placeholder;
   var editForm = $("<form>");
   var listIdInput = $("<input type='hidden' name='id'>");
@@ -174,7 +169,7 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         newContent.append("<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
         editObject.body = $form.find("input[name='text']").val();
         newSpan = $("<span>");
-        newSpan.append(editObject.body);
+        newSpan.html(editObject.body);
         newContent.prepend(newSpan);
 
         if (tasksUsersObj[newContent.attr('id')] != null) {
@@ -199,7 +194,8 @@ socket.on('editListTask', function(data) {
   if(data.title){
     $("div#"+data.id+".card-wrap").children("h6").text(data.title);
   } else {
-    $("p#"+data.id).children("span").text(data.body);
+    console.log("trying to add back to task card");
+    $("p#"+data.id).children("span").html(data.body);
   }
 });
 
