@@ -27,11 +27,7 @@ $("#message").focus(function(){
 message.keypress(function(){
 	  $("#chat-window").show();
   socket.emit("typing", handle);
-// <<<<<<< HEAD
 
-// =======
-//   $("#chat-window").show();
-// >>>>>>> b49f7511e0af130db98fdbc704a00c1394d62b77
 });
 
   socket.on("chat", function(data) {
@@ -46,7 +42,7 @@ message.keypress(function(){
 
 });
 
-
+// click chat window when clicking outside
 $(document).mousedown('click', function(e) {
 	var container = $("#board-chat");
 	if(!container.is(e.target)&&container.has(e.target).length === 0){
@@ -54,3 +50,9 @@ $(document).mousedown('click', function(e) {
 	}
 
 });
+
+function myFunc() {
+     setInterval(function(){ $("#chat-window").scrollTop(500); }, 1000);
+ }
+ 
+ myFunc();
