@@ -91,8 +91,9 @@ var tasksUsersObj = {};
 
 $(document).ready(function() {
     $.get("/api/tasks", function(tasks) {
+        console.log(tasks)
         for (var t = 0; t < tasks.length; t++) {
-            tasksUsersObj[t + 1] = tasks[t].Users;
+            tasksUsersObj[tasks[t].id] = tasks[t].Users;
         }
         console.log(tasksUsersObj);
         populateBoard(tasksUsersObj);
