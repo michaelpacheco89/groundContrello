@@ -3,10 +3,10 @@ var boardName = $("#boardName");
 var teamName = $("#teamName");
 var teamDescription = $("#teamDescription");
 
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+// function myFunction() {
+//     document.getElementById("myDropdown").classList.toggle("show");
 
-}
+// }
 
 $(document).ready(function() {
     $.get("/api/users/" + localStorage.getItem("id"), function(data) {
@@ -15,7 +15,8 @@ $(document).ready(function() {
         var numBoards = data.Boards.length;
         for (var i = 0; i < numBoards; i++) {
             //console.log(boards[i].name, "////", boards[i].id);
-            var remove = $("<i class='fa fa-times deleteBoard' aria-hidden='true' style='position: relative;float: right;top:-100%;right:-200%;'></i>");
+            var remove = $("<i class='fa fa-times deleteBoard' aria-hidden='true'></i>");
+            remove.css({"position": "absolute","top":"1%","right":"2%"});
             var newBD = $("<li><a></li></a>");
             boardName.css({ "font-size": "1em" });
             newBD.text(boards[i].name);
@@ -28,19 +29,19 @@ $(document).ready(function() {
 });
 
 // Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-    if (!event.target.matches('.dropbtn')) {
+// window.onclick = function(event) {
+//     if (!event.target.matches('.dropbtn')) {
 
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-        }
-    }
-};
+//         var dropdowns = document.getElementsByClassName("dropdown-content");
+//         var i;
+//         for (i = 0; i < dropdowns.length; i++) {
+//             var openDropdown = dropdowns[i];
+//             if (openDropdown.classList.contains('show')) {
+//                 openDropdown.classList.remove('show');
+//             }
+//         }
+//     }
+// };
 
 
 $(document).on("click", "#popover1", function(event) {
@@ -80,8 +81,9 @@ $(document).on("click", ".boards-wrapper li", function(event) {
 function createBoard(board, BD) {
     //console.log(board)
     $.post("/api/boards", board, function(data) {
-        //localStorage.setItem('board', data.id);
-        var remove = $("<i class='fa fa-times deleteBoard' aria-hidden='true' style='position: relative;float: right; top:-100%;right:-200%;'></i>");
+        //localStorage.setItem('board', data.id);      
+        var remove = $("<i class='fa fa-times deleteBoard' aria-hidden='true'></i>");
+            remove.css({"position": "absolute","top":"1%","right":"2%"});
         BD.attr('name', data.name);
         BD.attr('id', data.id);
         BD.append(remove);

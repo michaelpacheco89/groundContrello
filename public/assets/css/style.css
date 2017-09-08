@@ -33,13 +33,6 @@ h1{
 h2{
     font-family: 'Roboto', sans-serif;
 }
-h4{
-	color:black;
-}
-button {
-	border-radius: 3px;
-	box-shadow: 0 2px 1px #888888;
-}
 
 a{
 	color:white;
@@ -106,6 +99,7 @@ p{
     display:inline-flex;
     color:black;
     margin-bottom:5%;
+    max-height:500px;
 }
 
 .fa-times{
@@ -246,13 +240,16 @@ input #title {
 #newTeamInfo{
     display:none;
     color:black;
+    margin-top:1px;
 }
 
 .main-content{
     width:90%;
     margin:0 auto;
-    padding-top:10%;
 }
+/*ul.boards-warpper{
+
+}*/
 ul.boards-wrapper li{
     display: inline-flex;
     border-radius:2%;
@@ -262,6 +259,7 @@ ul.boards-wrapper li{
     margin:2%;
     width:25%;
     font-weight: bold;
+    position:relative;
 }
 
 /* jQuery UI styling*/
@@ -327,7 +325,7 @@ ul.boards-wrapper {
 label{
     box-sizing: border-box;
     display: block;
-    padding: 10px 20px;
+    padding: 10px 0px;
 }
 
 #message {

@@ -12,10 +12,6 @@
     <script src="https://use.fontawesome.com/41a66b8b63.js"></script>
     <!-- socket.io -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-    <!-- Google font -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <!-- Jasny bootstrap extension -->
-    <link rel="stylesheet" href="../assets/css/jasny-bootstrap.min.css">
     <!-- css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.8.2/jquery.modal.css">
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -24,35 +20,34 @@
     <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
     <!-- <script src="http://code.jquery.com/jquery-1.8.2.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.8.2/jquery.modal.js" type="text/javascript" charset="utf-8"></script>
+    <!-- Bootstrap js plugin-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <nav class="navbar fixed-top">
-        <a class="navbar-brand" href="/project" id="projects-link"><h1>Ground Contrello</h1></a>
-        <a class="navbar-brand" href="#ex1" rel="modal:open">
-            <button class='addUser'>
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-        </a>
-        <a class="navbar-brand" href="#">
-            <button id="">
-                <i class="fa fa-commenting-o" aria-hidden="true"></i>
-            </button>
-        </a>
-        <a class="navbar-brand" href="#">
-            <button id=""> NJ
-            </button>
-        </a>
-        <a class="navbar-brand" href="#">
-            <input type="text">
-            <button>
-                <i class="fa fa-search" aria-hidden="true">
-        </i></button>
-        </a>
-        <a class="navbar-brand" href="#">
-            <button type="button" class="btn btn-success btn-lg sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out </button>
-        </a>
+     <nav class="navbar navbar-toggleable-md fixed-top">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapseNav" aria-expanded="false" aria-label="Toggle navigation" style="background: white" id="collpaseBtn">
+            &#9776;
+        </button>
+        <a href="/"><h1><i class="fa fa-trello" aria-hidden="true"></i>&nbsp;Ground Contrello</h1></a>
+        <div class="collapse navbar-collapse" id="collapseNav">
+            <ul class="navbar-nav ml-auto">
+            <!-- username -->
+                <li class="nav-item">
+                    <a class="navbar-brand" role="button" href="#">
+                
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand btn btn-success sign-out" href="#">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Log out 
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
     <!-- Adding modal -->
     <!-- <a href="#" rel="modal:close">Close</a> -->
