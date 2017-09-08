@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = process.env.PORT || 8081;
+var PORT = process.env.PORT || 8080;
 
 // Sets up server for sockets
 var server = require('http').Server(app);
