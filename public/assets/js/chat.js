@@ -20,10 +20,18 @@ $("#chatForm").submit(function(e) {
   return false;
 });
   // will emit a " 'user' is typing" msg to everyone except the typer
+$("#message").focus(function(){
+	$("#chat-window").show();
+});
 
 message.keypress(function(){
+	  $("#chat-window").show();
   socket.emit("typing", handle);
-  // $("#chat-window").show();
+// <<<<<<< HEAD
+
+// =======
+//   $("#chat-window").show();
+// >>>>>>> b49f7511e0af130db98fdbc704a00c1394d62b77
 });
 
   socket.on("chat", function(data) {
@@ -38,6 +46,11 @@ message.keypress(function(){
 
 });
 
-// function closeChatWindow(){
-// 	// $("#chat-window").hide();
-// }
+
+$(document).mousedown('click', function(e) {
+	var container = $("#board-chat");
+	if(!container.is(e.target)&&container.has(e.target).length === 0){
+		$("#chat-window").hide();
+	}
+
+});

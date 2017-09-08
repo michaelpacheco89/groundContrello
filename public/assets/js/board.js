@@ -24,6 +24,7 @@ $(document).on("click", ".sign-out", function() {
 // populate the page with the right lists in the right order on load
 
 function populateBoard(tasksUsersObj) {
+// <<<<<<< HEAD
   $.get("/api/lists?BoardId=" + BoardId, function(data) {
     var numLists = data.length;
     var lists = [];
@@ -83,7 +84,69 @@ function populateBoard(tasksUsersObj) {
        $("#lists").append(lists[i]);
     }
   });
+/*=======
+    $.get("/api/lists?BoardId=" + BoardId, function(data) {
+        numLists = data.length;
+        var lists = [];
+        lists.length = numLists;
+        for (i = 0; i < numLists; i++) {
+            var newList = $("<div class='card-wrap'>");
+            newList.attr('id', data[i].id);
+            var header = $("<h6 class='list-header'>");
+            header.text(data[i].title);
+            var remove = $("<i class='fa fa-times deleteList' aria-hidden='true' style='position: relative;float: right;top:4px;right:8px;'></i>");
+            var content = $("<div  class='list-cards'>");
+            var tasks = [];
+            tasks.length = data[i].Tasks.length;
+            for (j = 0; j < tasks.length; j++) {
+                var cardDetail = $("<p class='card-detail ui-state-default'>");
+                cardDetail.attr('id', data[i].Tasks[j].id);
+                cardDetail.html("<span>" + data[i].Tasks[j].body + "</span>" +
+                    "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
+
+                var taskId = data[i].Tasks[j].id;
+
+                if (tasksUsersObj[taskId] != null) {
+                    for (var u = 0; u < tasksUsersObj[taskId].length; u++) {
+                        cardDetail.append(tasksUsersObj[taskId][u].name);
+                    }
+                }
+
+                tasks[data[i].Tasks[j].index] = cardDetail;
+            }
+            for (j = 0; j < tasks.length; j++) {
+                content.append(tasks[j]);
+            }
+            var addCard = $("<a class='addCardLink' href='#'>").text("Add a card...");
+
+            newList.append(remove, header, content, addCard);
+            $(content).sortable({
+                connectWith: ".list-cards",
+                placeholder: "ui-sortable-placeholder-cards",
+                start: function(e, ui) {
+                    ui.placeholder.height(ui.helper.outerHeight());
+                    ui.placeholder.width(ui.helper.outerWidth());
+                },
+                update: function(e, ui) {
+                    var dataTask = $(this).sortable('toArray');
+                    var ListId = $(this).parent().attr('id');
+                    console.log(dataTask);
+                    console.log(ListId);
+                    $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask });
+                },
+                helper: 'clone'
+            });
+            lists[parseInt(data[i].index)] = newList;
+        }
+        for (i = 0; i < numLists; i++) {
+            $("#lists").append(lists[i]);
+        }
+    });
+>>>>>>> Modal draft working.*/
 }
+
+
+var tasksUsersObj = {};
 
 $(document).ready(function() {
     $.get("/api/tasks", function(tasks) {
@@ -124,8 +187,9 @@ function submitOnFocusOut(input) {
     $(input).parent().submit();
 }
 
-// event listener to edit title of lists and lists
+// event listener to edit title of lists and tasks/cards
 $(document).on("click", ".list-header, .card-detail", function() {
+<<<<<<< HEAD
   var placeholder;
   var editForm = $("<form>");
   var listIdInput = $("<input type='hidden' name='id'>");
@@ -143,6 +207,26 @@ $(document).on("click", ".list-header, .card-detail", function() {
   editForm.append(listIdInput, editInput);
   $(this).replaceWith(editForm);
   $(".editInput").focus().select();
+=======
+
+    var editForm = $("<form>");
+    var listIdInput = $("<input type='hidden' name='id'>");
+
+    if ($(this).hasClass("list-header")) {
+        var placeholder = $(this).text();
+        editForm.attr('class', 'editListForm');
+        listIdInput.attr('value', $(this).parent().attr('id'));
+    } else {
+        var placeholder = $(this).children('span').text();
+        editForm.attr('class', 'editTaskForm');
+        listIdInput.attr('value', $(this).attr('id'));
+    }
+    var editInput = $("<input type='text' class='editInput' value='" + placeholder + "' onfocusout='submitOnFocusOut(this)'>").val(placeholder);
+    editInput.attr('name', 'text');
+    editForm.append(listIdInput, editInput);
+    $(this).replaceWith(editForm);
+    $(".editInput").focus().select();
+>>>>>>> 70d424b0d6558ebd92b04ed3611d2ab5b0ed6fa5
 });
 
 // event listeners to return the list/task body back from input to text
@@ -154,7 +238,11 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         id: $form.find("input[name='id']").val()
     };
     var newContent;
+<<<<<<< HEAD
     var newSpan;
+=======
+    var newSpan; //new code
+>>>>>>> 70d424b0d6558ebd92b04ed3611d2ab5b0ed6fa5
     if (!$form.find("input[name='text']").val()) {
         $form.find("input[name='text']").val($form.find("input[name='text']").attr('value'));
     }
@@ -168,8 +256,14 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
         newContent.attr('id', $form.find("input[name='id']").val());
         newContent.append("<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
         editObject.body = $form.find("input[name='text']").val();
+<<<<<<< HEAD
         newSpan = $("<span>");
         newSpan.html(editObject.body);
+=======
+        //new code
+        newSpan = $("<span>")
+        newSpan.append(editObject.body);
+>>>>>>> 70d424b0d6558ebd92b04ed3611d2ab5b0ed6fa5
         newContent.prepend(newSpan);
 
         if (tasksUsersObj[newContent.attr('id')] != null) {
@@ -177,8 +271,18 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
                 newContent.append(tasksUsersObj[newContent.attr('id')][u].name);
             }
         }
+<<<<<<< HEAD
+=======
+
+        //end code
+>>>>>>> 70d424b0d6558ebd92b04ed3611d2ab5b0ed6fa5
         queryString = "/api/tasks";
+
     }
+<<<<<<< HEAD
+=======
+    // newContent.prepend($form.find("input[name='text']").val());
+>>>>>>> 70d424b0d6558ebd92b04ed3611d2ab5b0ed6fa5
     $.ajax({
         method: "PUT",
         url: queryString,
@@ -285,11 +389,11 @@ $(document).on("mouseup", ".makingNewCard, .closeAddCard", function(e) {
 
 // event listener for making new task in real time
 socket.on("task", function(data) {
-  var cardDetail = $("<p class='card-detail ui-state-default'>");
-  cardDetail.attr('id', data.id);
-  cardDetail.html(data.body +
-      "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
-  $("#lists").children("#"+data.ListId).children("div.list-cards").append(cardDetail);
+    var cardDetail = $("<p class='card-detail ui-state-default'>");
+    cardDetail.attr('id', data.id);
+    cardDetail.html(data.body +
+        "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+    $("#lists").children("#" + data.ListId).children("div.list-cards").append(cardDetail);
 });
 
 // event listener for posting new task to db
@@ -297,8 +401,8 @@ $(document).on("submit", "form.addCard", function(event) {
     event.preventDefault();
     var newCard = $(this);
     if (!newCard.children("input.newCard").val().trim()) {
-      newCard.children("input.newCard").focus().select();
-      return;
+        newCard.children("input.newCard").focus().select();
+        return;
     }
     var body = newCard.children("input.newCard").val().trim();
     newCard.children("input.newCard").val('').focus().select();
@@ -311,7 +415,7 @@ $(document).on("submit", "form.addCard", function(event) {
         index: numCards,
         ListId: parent.parent().attr('id')
     }, function(data) {
-        socket.emit("task",data);
+        socket.emit("task", data);
     });
 });
 
@@ -337,25 +441,25 @@ function addListOnBlur(input) {
 }
 
 // helper to prevent blur when enter is pressed to submit a List
-function addListOnEnter(event,input) {
-  if(event.which == 13) {
-    event.stopImmediatePropagation();
-    $(input).attr('onblur','');
-    $(input).parent().submit();
-  }
+function addListOnEnter(event, input) {
+    if (event.which == 13) {
+        event.stopImmediatePropagation();
+        $(input).attr('onblur', '');
+        $(input).parent().submit();
+    }
 }
 
 // event listener to replace add a list span with form
-$(document).on("click","#addList span", function() {
-  var wrapper = $("<div id='addListWrapper'>");
-  var titleInput = $("<input type='text' class='editInput' id='title' placeholder='Add a list...' style='width:100%;border-radius:3px;display:block;border:none;padding:8px;font-size:14px;margin-bottom:8px;' onblur='addListOnBlur(this)' onkeydown='addListOnEnter(event,this)'>");
-  if($(this).attr('value'))
-    titleInput.val($(this).attr('value'));
-  var button = $("<button class='btn btn-sm btn-success' type='submit' id='newList'>").text('Save');
-  var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true" style="position:relative;top:3px;">');
-  wrapper.append(titleInput,button,closeBtn);
-  $(this).replaceWith(wrapper);
-  $("#title").focus().select();
+$(document).on("click", "#addList span", function() {
+    var wrapper = $("<div id='addListWrapper'>");
+    var titleInput = $("<input type='text' class='editInput' id='title' placeholder='Add a list...' style='width:100%;border-radius:3px;display:block;border:none;padding:8px;font-size:14px;margin-bottom:8px;' onblur='addListOnBlur(this)' onkeydown='addListOnEnter(event,this)'>");
+    if ($(this).attr('value'))
+        titleInput.val($(this).attr('value'));
+    var button = $("<button class='btn btn-sm btn-success' type='submit' id='newList'>").text('Save');
+    var closeBtn = $('<i class="fa fa-times closeAddList" aria-hidden="true" style="position:relative;top:3px;">');
+    wrapper.append(titleInput, button, closeBtn);
+    $(this).replaceWith(wrapper);
+    $("#title").focus().select();
 });
 
 // to prevent loss of focus behavior upon clicking x or add buttons
@@ -410,9 +514,9 @@ $(addList).on("submit", function(event) {
 
     var newListTitle = $("#title");
     if (!newListTitle.val().trim()) {
-      newListTitle.attr('onblur','addListOnBlur(this)');
-      newListTitle.focus().select();
-      return;
+        newListTitle.attr('onblur', 'addListOnBlur(this)');
+        newListTitle.focus().select();
+        return;
     }
     var addListSpan = $("<span>").text("Add a list...");
     $(this).html(addListSpan);
@@ -440,13 +544,15 @@ $(document).on("click", ".addUser", function() {
     var form = $("<form id='addUserForm'>");
     var input = $("<input id='#newUser'>");
     var submitBtn = $("<button type='submit' class='btn btn-sm btn-success'>");
-    form.append(input,button);
+    form.append(input, submitBtn,"BLAM");
+    $("#ex1").children("p").append(form);
+    console.log("TEST!");
     // (drop down from + sign)
     //console.log($('#newUser').val().trim());
     ///api/boards/:id/users/:userId
 });
 
-$(document).on("submit","#addUserForm", function() {
+$(document).on("submit", "#addUserForm", function() {
 
 });
 
@@ -496,3 +602,81 @@ $(document).on("click", ".deleteTask", function(event) {
         $.post("/api/tasks/update?ListId=" + ListId, { data: data });
     });
 });
+<<<<<<< HEAD
+=======
+
+
+
+// =======
+
+/*/*/
+/*/*$(addList).on("submit", function(event) {
+    event.preventDefault();
+    // console.log("are you working?");
+    if (!newListTitle.val().trim()) {
+        return;
+    }
+
+    list = $("<div class='card-wrap'>");
+    var header = $("<div class='list-header'>");
+    header.text(newListTitle.val().trim());
+
+    var content = $("<div class='list-cards'>");
+
+    // var addCard = $("<a> Add a card </a>");
+
+    var form = $("<form class='addCard'>");
+    var input = $("<input class='newCard'>");
+    var button = $("<button type='submit' class='makingNewCard'>Add new card</button>");
+
+    form.append(input, button);
+    list.append(header, content, form);
+    /*$("#lists").prepend(list);*/
+
+// //console.log(newListTitle,newListTitle.val().trim());
+// createList({
+//     title: newListTitle.val().trim(),
+//     BoardId: parseInt(localStorage.getItem("board"))
+// });
+
+// clear input data
+/* $("#title").val(" ");
+});
+
+$(document).on("click", ".makingNewCard", function(event) {
+    event.preventDefault();
+    var newCard = $(".newCard");
+
+    if (!newCard.val().trim()) {
+        return;
+    }
+
+    var cardDetail = $("<div class='card-detail'>");
+    cardDetail.text(newCard.val().trim());
+    list.append(cardDetail);
+
+    // createTask({
+    //     body: newCard.val().trim(),
+    //     ListId: parseInt(localStorage.getItem("list"))
+    // });
+
+    // clear input datas
+    $(".newCard").val("");
+});
+
+function createTask(task) {
+    $.post("/api/tasks", task, function(data) {
+        console.log(data);
+        localStorage.setItem('task', data.id);
+    });
+}
+
+function createList(list) {
+    $.post("/api/lists", list, function(data) {
+        console.log(data);
+        localStorage.setItem('list', data.id);
+    });
+}*/
+/*/*/
+// >>>>>>> 35c58c8dc179a5a6a64d3984be8b6934a6c68b9e
+>>>>>>> 70d424b0d6558ebd92b04ed3611d2ab5b0ed6fa5
