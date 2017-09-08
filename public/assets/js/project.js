@@ -2,11 +2,27 @@ var title;
 var boardName = $("#boardName");
 var teamName = $("#teamName");
 var teamDescription = $("#teamDescription");
+var userName = localStorage.getItem('username');
+$("title").text(userName + " | Ground Contrello");
+
+// event listener to sign out
+$(document).on("click", ".sign-out", function() {
+    localStorage.clear();
+    document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
+    window.location.href = "/";
+});
 
 // function myFunction() {
 //     document.getElementById("myDropdown").classList.toggle("show");
 
 // }
+
+// event listener to sign out
+$(document).on("click", ".sign-out", function() {
+    localStorage.clear();
+    document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
+    window.location.href = "/";
+});
 
 $(document).ready(function() {
     $.get("/api/users/" + localStorage.getItem("id"), function(data) {
@@ -23,6 +39,7 @@ $(document).ready(function() {
             newBD.attr('id', boards[i].id);
             newBD.append(remove);
             newBD.addClass("board");
+            newBD.attr('name', boards[i].name);
             $(".boards-wrapper").append(newBD);
         }
     });
@@ -43,10 +60,25 @@ $(document).ready(function() {
 //     }
 // };
 
+function noBoardOnBlur(input) {
+    if (!$(input).siblings("#newBoard").attr("mouseDown")) {
+      $("#newBoardInfo").hide();
+    }
+}
+
+// to prevent loss of focus behavior upon clicking x or add buttons
+$(document).on("mousedown", "#newBoard", function(e) {
+    $(this).attr("mouseDown", true);
+});
+
+$(document).on("mouseup", "#newBoard", function(e) {
+    $(this).attr("mouseDown", false);
+});
 
 $(document).on("click", "#popover1", function(event) {
     event.preventDefault();
     $("#newBoardInfo").show();
+    $("#boardName").focus().select();
 });
 
 $("#newBoard").on("click", function(event) {
@@ -81,14 +113,14 @@ $(document).on("click", ".boards-wrapper li", function(event) {
 function createBoard(board, BD) {
     //console.log(board)
     $.post("/api/boards", board, function(data) {
-        //localStorage.setItem('board', data.id);      
+        //localStorage.setItem('board', data.id);
         var remove = $("<i class='fa fa-times deleteBoard' aria-hidden='true'></i>");
             remove.css({"position": "absolute","top":"1%","right":"2%"});
         BD.attr('name', data.name);
         BD.attr('id', data.id);
         BD.append(remove);
         BD.addClass("board");
-        
+        BD.attr('name', data.name);
         $(".boards-wrapper").append(BD);
 
     });

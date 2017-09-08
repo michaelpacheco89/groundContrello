@@ -17,7 +17,7 @@ $(document).ready(function() {
                 //console.log(users[t].id)
                 if (boardUsersArr.indexOf(users[t].id) === -1) {
 
-                    var userBtn = $("<button class='btn btn-md btn-danger' style='margin:1em'>");
+                    var userBtn = $("<button class='btn btn-md btn-danger user' style='margin:1em'>");
                     userBtn.append(users[t].name);
                     userBtn.attr('id', users[t].id);
                     $("#ex1").children("div").append(userBtn);
@@ -29,8 +29,8 @@ $(document).ready(function() {
             if (noUsers) {
                 $("#ex1").children("div").html("<h1 style='color:black'> No unique users to add! </h1>");
             } else {
-                $("#ex1").children("div").prepend("<span style='color:black'>Users not in board:</span>")
-            };
+                $("#ex1").children("div").prepend("<span style='color:black'>Users not in board:</span>");
+            }
         });
     });
 });
@@ -44,7 +44,7 @@ $(document).on("click", ".btn.btn-md.btn-danger", function() {
 
     $(this).removeClass("btn-danger").addClass("btn-success");
 
-    setTimeout(function() { $(".btn-success").remove() }, 750);
+    setTimeout(function() { $(".btn-success.user").remove(); }, 750);
 
     $.get("/api/boards/" + BoardId + "/users/" + userId, function(data) {
         console.log(data);
@@ -83,7 +83,7 @@ $(document).on("click", ".assignTask", function() {
                 if(taskUsersArr.indexOf(boardUsers.Users[b].id) === -1){
                     $("#ex2").children("div").append(userBtn);
                     noUsers = false;
-                }               
+                }
 
             }
 

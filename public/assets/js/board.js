@@ -2,6 +2,8 @@
 var socket = io.connect();
 // id to get the correct lists for the board
 var BoardId = localStorage.getItem('BoardId');
+var BoardName = localStorage.getItem('BoardName');
+$("title").text(BoardName + " | Ground Contrello");
 // javier knows what this is
 var tasksUsersObj = {};
 
@@ -16,11 +18,11 @@ $(document).on("click", ".sign-out", function() {
     localStorage.clear();
     document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
     socket.emit('disconnect');
-    window.location.href = "/login";
+    window.location.href = "/";
 });
 
 // event listener to redirect to projects page
-$(document).on("click", "#projects-link", function() {
+$(document).on("click", "#logo-link", function() {
     socket.emit('disconnect');
 });
 
@@ -31,7 +33,7 @@ $(document).on("click", "#projects-link", function() {
 
 function populateBoard(tasksUsersObj) {
     $.get("/api/lists?BoardId=" + BoardId, function(data) {
-        console.log(data)
+        console.log(data);
         var numLists = data.length;
         var lists = [];
         lists.length = numLists;
@@ -97,13 +99,10 @@ function populateBoard(tasksUsersObj) {
     });
 }
 
-
-var tasksUsersObj = {};
-
 $(document).ready(function() {
     socket.emit('joinRoom', { BoardId: BoardId, username: localStorage.getItem('username') });
     $.get("/api/tasks", function(tasks) {
-        console.log(tasks)
+        console.log(tasks);
         for (var t = 0; t < tasks.length; t++) {
             tasksUsersObj[tasks[t].id] = tasks[t].Users;
         }

@@ -69,7 +69,7 @@ io.sockets.on("connection", function(socket) {
     io.sockets.in(socket.room).emit("chat", data);
   });
   socket.on("typing", function(data) {
-    io.sockets.in(socket.room).emit("typing", data);
+    socket.broadcast.to(socket.room).emit("typing", data);
   });
   // real time for tasks and lists
   socket.on("list", function(data){

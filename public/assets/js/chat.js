@@ -32,11 +32,11 @@ message.keypress(function(){
 
   socket.on("chat", function(data) {
     feedback.html("");
-    output.before("<p><strong>" + data.handle + ":</strong>" + data.message + "</p>");
+    output.before("<p style='margin-bottom:0;'><strong>" + data.handle + ":</strong>" + data.message + "</p>");
   });
 
   socket.on("typing", function(data) {
-    feedback.html("<p><em>" + data + " is typing...</em></p>");
+    feedback.html("<p>" + data + " is typing...</p>");
 
   });
 
@@ -54,5 +54,5 @@ $(document).mousedown('click', function(e) {
 function myFunc() {
      setInterval(function(){ $("#chat-window").scrollTop(500); }, 1000);
  }
- 
+
  myFunc();

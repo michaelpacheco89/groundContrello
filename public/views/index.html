@@ -23,26 +23,29 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body style='background-color:#ceecfd;'>
     <nav class="navbar navbar-toggleable-md fixed-top">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapseNav" aria-expanded="false" aria-label="Toggle navigation" style="background: white" id="collpaseBtn">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapseNav" aria-expanded="false" aria-label="Toggle navigation" id="collapseBtn">
             &#9776;
         </button>
-        <a href="/"><h1><i class="fa fa-trello" aria-hidden="true"></i>&nbsp;Ground Contrello</h1></a>
+
+        <h1><a id="logo-link" href="/"><i class="fa fa-trello" aria-hidden="true"></i>&nbsp;Ground Contrello</a></h1>
+
         <div class="collapse navbar-collapse" id="collapseNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="#aboutUs" class="nav-link btn btn-primary">
-                About Us <span class="sr-only">(current)</span>
+                    <a style='border:1px solid #cff;color:#cff' class="nav-link btn hover" href="#aboutUs">
+                About Us  <span class="sr-only">(current)</span>
                </a>
                 </li>
                 <li class="nav-item">
-                    <a data-toggle="collapse" data-target="#collapseNav" class="nav-link btn btn-success" href="/login" role="button" id="logIn" style="margin:0 25px">
+                    <a style='margin:0 10px'class="nav-link btn btn-success"
+                    href="/login" role="button" id="logIn">
                 Log In
                </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-info" href="/signup" role="button" id="signUp">
+                    <a class="nav-link btn hover" style='border:1px solid #cff;color:#cff' href="/signup" role="button" id="signUp">
                 Sign Up
                </a>
                 </li>
@@ -51,8 +54,7 @@
     </nav>
     <div class="jumbotron text-center">
         <div class="welcomeBar">
-            <h3  class="display-3">Welcome To Ground Contrello</h3>
-            <h3><i>A clone of Trello!!!</i></h3>
+            <h3 style="font-weight:100" class="display-3">Welcome To Ground Contrello</h3>
         </div>
         <a href="/login" class="btn btn-success" role="button" id="signUp">
                 Log in with Ground Contrello
@@ -62,23 +64,23 @@
         <div class="row">
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <img src="../assets/images/badcat-Javier.jpg" data-alt-src="../assets/images/Javier.JPG" alt="Responsive image" class="img-fluid rounded-circle">
-                <li>Javier Avitia-Velazquez</li>
-                <p>Great Guy!</p>
+                <h5 style="color:#026AA7">Javier Avitia-Velazquez</h5>
+                <p>Great Guy!Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <img src="../assets/images/minion.png" data-alt-src="../assets/images/Michael.jpg" class="img-fluid rounded-circle">
-                <li>Michael Pacheco</li>
-                <p>Great Guy 2!</p>
+                <h5 style="color:#026AA7">Michael Pacheco</h5>
+                <p>Great Guy 2!Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <img src="../assets/images/one-piece-Stephen.jpg" data-alt-src="../assets/images/Stephen.png" class="img-fluid rounded-circle">
-                <li>Stephen Woo</li>
-                <p>Great Guy 3!</p>
+                <h5 style="color:#026AA7">Stephen Woo</h5>
+                <p>Great Guy 3!Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <img src="../assets/images/dodge-Nan.JPG" data-alt-src="../assets/images/Nan.JPG" class="img-fluid rounded-circle">
-                <li>Nan Jia</li>
-                <p>Badass!</p>
+                <h5 style="color:#026AA7">Nan Jia</h5>
+                <p>Badass!Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
             </div>
         </div>
     </div>
@@ -88,9 +90,17 @@
 </body>
 <script>
 // disable css when screen size is small
+<<<<<<< HEAD
 $(document).on("click","#collpaseBtn",function(e){
+=======
+$(document).on("click","#collapseBtn",function(e){
+>>>>>>> stephenFIN
     e.preventDefault;
-    $("#logIn").css({'margin':''});
+    $("#logIn").css({'margin':'10px 0'});
+});
+
+$('.navbar-collapse a').click(function(){
+    $(".navbar-collapse").collapse('hide');
 });
 
 $(document).on("blur","#collpaseBtn",function(e){
