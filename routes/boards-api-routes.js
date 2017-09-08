@@ -12,7 +12,7 @@ module.exports = function(app) {
             query.BoardId = req.query.BoardId;
         }*/
 
-        console.log(query)
+        console.log(query);
 
         db.Board.findAll({
             include: [{
@@ -55,7 +55,7 @@ module.exports = function(app) {
                 id: req.params.id
             }
         }).then(function(dbBoards) {
-            console.log(dbBoards)
+            console.log(dbBoards);
             dbBoards.addUsers(req.params.userId, { through: { teamName: dbBoards.name } });
             res.json(dbBoards);
         }).catch(function(error) {
