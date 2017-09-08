@@ -133,7 +133,7 @@ p{
 
 .list-cards {
 	min-height: 10px;
-	max-height: 590px;
+	max-height: 500px;
 	overflow-y:scroll;
 	margin-bottom: 8px;
 }
