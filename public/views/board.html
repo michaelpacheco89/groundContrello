@@ -29,7 +29,7 @@
 
 <body>
     <nav class="navbar fixed-top">
-        <a class="navbar-brand" href="/project"><h1>Ground Contrello</h1></a>
+        <a class="navbar-brand" href="/project" id="projects-link"><h1>Ground Contrello</h1></a>
         <a class="navbar-brand" href="#ex1" rel="modal:open">
             <button class='addUser'>
                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -55,8 +55,10 @@
         </a>
     </nav>
     <!-- Adding modal -->
+    <!-- <a href="#" rel="modal:close">Close</a> -->
+
     <div id="ex1" style="display:none;">
-        <p>Thanks for clicking. That felt good. <a href="#" rel="modal:close">Close</a> or press ESC</p>
+        <div></div>
     </div>
     <!-- End modal -->
     <div class="main-container">
@@ -85,6 +87,10 @@
 </body>
 <!-- Jasny Bootstrap Js -->
 <script src="../assets/js/jasny-bootstrap.min.js"></script>
+    
+<!-- NEW LINK -->
+<script src="../assets/js/modals.js"></script>
+
 <script src="../assets/js/project.js"></script>
 <script src="../assets/js/board.js"></script>
 <script src="../assets/js/chat.js"></script>

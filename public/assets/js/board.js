@@ -15,7 +15,13 @@ $("form").submit(function(event) {
 $(document).on("click", ".sign-out", function() {
     localStorage.clear();
     document.cookie = "userId=''; expires=Thu, 18 Dec 2002 12:00:00 UTC; path=/";
+    socket.emit('disconnect');
     window.location.href = "/login";
+});
+
+// event listener to redirect to projects page
+$(document).on("click", "#projects-link", function() {
+    socket.emit('disconnect');
 });
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -24,8 +30,8 @@ $(document).on("click", ".sign-out", function() {
 // populate the page with the right lists in the right order on load
 
 function populateBoard(tasksUsersObj) {
-// <<<<<<< HEAD
   $.get("/api/lists?BoardId=" + BoardId, function(data) {
+    console.log(data)
     var numLists = data.length;
     var lists = [];
     lists.length = numLists;
@@ -73,7 +79,7 @@ function populateBoard(tasksUsersObj) {
                console.log(dataTask);
                console.log(ListId);
                $.post("/api/tasks/update?ListId=" + ListId, { data: dataTask }, function() {
-                 socket.emit("moveCards", { ListId: ListId});
+                 socket.broadcast.to(BoardId.toString()).emit("moveCards", { ListId: ListId});
                });
            },
            helper: 'clone'
@@ -90,9 +96,11 @@ function populateBoard(tasksUsersObj) {
 var tasksUsersObj = {};
 
 $(document).ready(function() {
+    socket.emit('joinRoom',{BoardId:BoardId,username:localStorage.getItem('username')});
     $.get("/api/tasks", function(tasks) {
+        console.log(tasks)
         for (var t = 0; t < tasks.length; t++) {
-            tasksUsersObj[t + 1] = tasks[t].Users;
+            tasksUsersObj[tasks[t].id] = tasks[t].Users;
         }
         console.log(tasksUsersObj);
         populateBoard(tasksUsersObj);
@@ -439,23 +447,23 @@ $(document).on("click", ".closeAddList", function(event) {
 
 
 
-// event listener to add user to board
-$(document).on("click", ".addUser", function() {
-    // CREATE FORM TO SUBMIT USER (AUTO COMPLETION)
-    var form = $("<form id='addUserForm'>");
-    var input = $("<input id='#newUser'>");
-    var submitBtn = $("<button type='submit' class='btn btn-sm btn-success'>");
-    form.append(input, submitBtn,"BLAM");
-    $("#ex1").children("p").append(form);
-    console.log("TEST!");
-    // (drop down from + sign)
-    //console.log($('#newUser').val().trim());
-    ///api/boards/:id/users/:userId
-});
+// // event listener to add user to board
+// $(document).on("click", ".addUser", function() {
+//     // CREATE FORM TO SUBMIT USER (AUTO COMPLETION)
+//     var form = $("<form id='addUserForm'>");
+//     var input = $("<input id='#newUser'>");
+//     var submitBtn = $("<button type='submit' class='btn btn-sm btn-success'>");
+//     form.append(input, submitBtn,"BLAM");
+//     $("#ex1").children("p").append(form);
+//     console.log("TEST!");
+//     // (drop down from + sign)
+//     //console.log($('#newUser').val().trim());
+//     ///api/boards/:id/users/:userId
+// });
 
-$(document).on("submit", "#addUserForm", function() {
+// $(document).on("submit", "#addUserForm", function() {
 
-});
+// });
 
 //////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// DELETING LISTS/TASK CARDS ////////////////////////////
