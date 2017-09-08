@@ -260,7 +260,20 @@ socket.on('moveList', function() {
                 var cardDetail = $("<p class='card-detail ui-state-default'>");
                 cardDetail.attr('id', lists[i].Tasks[j].id);
                 cardDetail.html(lists[i].Tasks[j].body +
-                    "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>");
+                    //new code
+                    "<i class='fa fa-plus assignTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i>" +
+                    //end new
+                    "<i class='fa fa-times deleteTask' aria-hidden='true' style='position: relative;float: right;top:2px;'></i><br>");
+                //new code
+                if (tasksUsersObj[lists[i].Tasks[j].id] != null) {
+                    for (var u = 0; u < tasksUsersObj[lists[i].Tasks[j].id].length; u++) {
+                        var container = $("<i class='btn-info'>");
+                        container.text(tasksUsersObj[lists[i].Tasks[j].id][u].name);
+                        cardDetail.append(container);
+                    }
+                }
+                //end new
+
                 tasks[lists[i].Tasks[j].index] = cardDetail;
             }
             for (k = 0; k < tasks.length; k++) {
