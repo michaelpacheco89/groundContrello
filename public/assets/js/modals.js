@@ -52,48 +52,74 @@ $(document).on("click", ".btn.btn-md.btn-danger", function() {
 });
 
 $(document).on("click", ".assignTask", function() {
+    $("#ex2").children("div").text("");
+    var taskUsersArr = [];
+    noUsers = true;
+    //alert($(this).parent().attr('id'))
+    var taskId = parseInt($(this).parent().attr('id'));
 
-    $.get("/api/boards/" + BoardId, function(boardUsers) {
-        for (var b = 0; b < boardUsers.Users.length; b++) {
+    $.get("/api/tasks/" + taskId, function(taskUsers) {
 
-            var userBtn = $("<button class='btn btn-md btn-success task' style='margin:1em'>");
-            userBtn.append(boardUsers.Users[b].name);
-            userBtn.attr('id', boardUsers.Users[b].id);
+        for (var i = 0; i < taskUsers.Users.length; i++) {
+            taskUsersArr.push(taskUsers.Users[i].id);
+        }
 
-            if (boardUsersArr.indexOf(boardUsers.Users[b].id) === -1) {
+        //console.log("TASK USERS", taskUsersArr);
 
-                boardUsersArr.push(boardUsers.Users[b].id);
+        $.get("/api/boards/" + BoardId, function(boardUsers) {
+            for (var b = 0; b < boardUsers.Users.length; b++) {
+
+                var userBtn = $("<button class='btn btn-md btn-success task' style='margin:1em'>");
+                userBtn.append(boardUsers.Users[b].name);
+                userBtn.attr('id', boardUsers.Users[b].id);
+                userBtn.attr('taskId',taskId);
+
+                if (boardUsersArr.indexOf(boardUsers.Users[b].id) === -1) {
+
+                    boardUsersArr.push(boardUsers.Users[b].id);
+
+                }
+
+                if(taskUsersArr.indexOf(boardUsers.Users[b].id) === -1){
+                    $("#ex2").children("div").append(userBtn);
+                    noUsers = false;
+                }               
 
             }
 
-            $("#ex2").children("div").append(userBtn);
+            if (noUsers) {
+                $("#ex2").children("div").html("<h1 style='color:black'> All board members have been added! </h1>");
+            } else {
+                $("#ex2").children("div").prepend("<span style='color:black'>Users available for task:</span>")
+            };
 
-        }
-        $('#ex2').modal('show');
+            $('#ex2').modal('show');
+        });
+    });
+
+
+});
+
+$(document).on("click", ".btn-success.task", function() {
+
+    console.log($(this).attr('id'));
+
+    var userId = parseInt($(this).attr('id'));
+    var taskId = parseInt($(this).attr('taskId'));
+
+    $(this).removeClass("btn-success").addClass("btn-warning");
+
+    setTimeout(function() { $(".btn-warning").remove() }, 750);
+
+    $.get("/api/tasks/" + taskId + "/users/" + userId, function(data) {
+        console.log(data);
     });
 
 });
 
-$(document).on("click", ".btn-success task", function() {
+$(document).on("click", "#ex2 a", function() {
 
-    $.get("/api/boards/" + BoardId, function(boardUsers) {
-        for (var b = 0; b < boardUsers.Users.length; b++) {
-
-            var userBtn = $("<button class='btn btn-md btn-success task' style='margin:1em'>");
-            userBtn.append(boardUsers.Users[b].name);
-            userBtn.attr('id', boardUsers.Users[b].id);
-
-            if (boardUsersArr.indexOf(boardUsers.Users[b].id) === -1) {
-
-                boardUsersArr.push(boardUsers.Users[b].id);
-
-            }
-
-            $("#ex2").children("div").append(userBtn);
-
-        }
-        $('#ex2').modal('show');
-    });
+    window.location.reload();
 
 });
 

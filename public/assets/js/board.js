@@ -57,7 +57,9 @@ function populateBoard(tasksUsersObj) {
 
                 if (tasksUsersObj[taskId] != null) {
                     for (var u = 0; u < tasksUsersObj[taskId].length; u++) {
-                        cardDetail.append(tasksUsersObj[taskId][u].name);
+                        var container = $("<i class='btn-info'>");
+                        container.text(tasksUsersObj[taskId][u].name);
+                        cardDetail.append(container);
                     }
                 }
 
@@ -192,7 +194,11 @@ $(document).on("submit", ".editListForm, .editTaskForm", function(event) {
 
         if (tasksUsersObj[newContent.attr('id')] != null) {
             for (var u = 0; u < tasksUsersObj[newContent.attr('id')].length; u++) {
-                newContent.append(tasksUsersObj[newContent.attr('id')][u].name);
+
+                var container = $("<i class='btn-info'>");
+                container.text(tasksUsersObj[newContent.attr('id')][u].name);
+                newContent.append(container);
+
             }
         }
         queryString = "/api/tasks";

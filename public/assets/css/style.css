@@ -115,6 +115,10 @@ p{
 
 /*NEW CSS*/
 
+.btn-info {
+    margin:1px;
+}
+
 .fa-plus{
     color: #6f6f6f;
 }
