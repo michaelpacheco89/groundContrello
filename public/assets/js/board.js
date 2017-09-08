@@ -24,8 +24,8 @@ $(document).on("click", ".sign-out", function() {
 // populate the page with the right lists in the right order on load
 
 function populateBoard(tasksUsersObj) {
-// <<<<<<< HEAD
   $.get("/api/lists?BoardId=" + BoardId, function(data) {
+    console.log(data)
     var numLists = data.length;
     var lists = [];
     lists.length = numLists;
@@ -439,23 +439,23 @@ $(document).on("click", ".closeAddList", function(event) {
 
 
 
-// event listener to add user to board
-$(document).on("click", ".addUser", function() {
-    // CREATE FORM TO SUBMIT USER (AUTO COMPLETION)
-    var form = $("<form id='addUserForm'>");
-    var input = $("<input id='#newUser'>");
-    var submitBtn = $("<button type='submit' class='btn btn-sm btn-success'>");
-    form.append(input, submitBtn,"BLAM");
-    $("#ex1").children("p").append(form);
-    console.log("TEST!");
-    // (drop down from + sign)
-    //console.log($('#newUser').val().trim());
-    ///api/boards/:id/users/:userId
-});
+// // event listener to add user to board
+// $(document).on("click", ".addUser", function() {
+//     // CREATE FORM TO SUBMIT USER (AUTO COMPLETION)
+//     var form = $("<form id='addUserForm'>");
+//     var input = $("<input id='#newUser'>");
+//     var submitBtn = $("<button type='submit' class='btn btn-sm btn-success'>");
+//     form.append(input, submitBtn,"BLAM");
+//     $("#ex1").children("p").append(form);
+//     console.log("TEST!");
+//     // (drop down from + sign)
+//     //console.log($('#newUser').val().trim());
+//     ///api/boards/:id/users/:userId
+// });
 
-$(document).on("submit", "#addUserForm", function() {
+// $(document).on("submit", "#addUserForm", function() {
 
-});
+// });
 
 //////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// DELETING LISTS/TASK CARDS ////////////////////////////

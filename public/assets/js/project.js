@@ -84,6 +84,7 @@ function createBoard(board, BD) {
         BD.attr('id', data.id);
         BD.append(remove);
         BD.addClass("board");
+        // BD.attr('name', data.title);
         $(".boards-wrapper").append(BD);
 
     });
