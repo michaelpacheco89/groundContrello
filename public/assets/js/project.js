@@ -73,6 +73,7 @@ $(document).on("click", "#popover2", function(event) {
 $(document).on("click", ".boards-wrapper li", function(event) {
     //console.log("CLICKED! ID is: " + $(this).attr('id'));
     localStorage.setItem('BoardId', $(this).attr('id'));
+    localStorage.setItem('BoardName', $(this).attr('name'));
     window.location.href = "/board";
 });
 
@@ -84,7 +85,7 @@ function createBoard(board, BD) {
         BD.attr('id', data.id);
         BD.append(remove);
         BD.addClass("board");
-        // BD.attr('name', data.title);
+        BD.attr('name', data.title);
         $(".boards-wrapper").append(BD);
 
     });
